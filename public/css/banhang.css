@@ -1,0 +1,116 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#wrapper{
+    width: 1366px;
+    height: 625px;
+}
+
+.ban{
+    width: 550px;
+    height: 625px;
+    float: left;
+}
+
+#header{
+    width: 550px;
+    height: 43px;
+    background-color: #5c90c4;
+}
+
+#logout{
+    position: absolute;
+    left: 421px;
+    font-size: 19px;
+}
+
+#home{
+    position: absolute;
+    top: 5px;
+    font-size:20px;
+    color: white;
+}
+
+#cacban{
+    width: 550px;
+    height: 582px;
+    padding-left: 15px;
+}
+
+#display-ban{
+    display:inline;
+    text-align: center;
+    padding: 10px 25px 10px 25px;
+    margin: 5px;
+    font-size: 20px;
+}
+
+#khachhang {
+    font-size: 50px;
+}
+
+#danhsachmonan{
+    width: 816px;
+    height: 625px;
+    float: right;
+    background-color: #5c90c4;
+}
+
+#display-danhsachmonan{
+    width: 799px;
+    height: 575px;
+    margin: 10px 10px 10px 10px;
+    background-color: white;
+}
+
+#text-danhsachmonan{
+    font-family: Cambria;
+    font-style: italic;
+    border-style: dashed;
+    border-color: rgb(185, 72, 72);
+    color: crimson;
+    display: inline;
+    position: relative;
+    left: 260px;
+    top: 5px;
+    padding: 0px 25px 0px 25px;
+}
+
+#thucuong{
+    position: relative;
+    top: 15px;
+    margin-left: 10px;
+    float: left;
+}
+#vebuffet{
+    position: relative;
+    top: 15px;
+    float: right;
+}
+#monan{
+    position: relative;
+    top: 80px;
+    right: 470px;
+}
+
+#text-thucuong{
+    font-family: Cambria;
+    font-style: italic;
+    border-style: dashed;
+    border-color: #5c90c4;
+    display: inline;
+    color: chocolate;
+    padding: 0px 15px 0px 15px;
+}
+
+#content-thucuong{
+    color: #5c90c4;
+    font-style: italic;
+}
+
+#img-thucuong{
+    width: 100px;
+    height: 100px;
+}

@@ -1,0 +1,207 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+//Đăng nhập:
+Route::get('/','App\Http\Controllers\DangNhapController@Admin')->name('dangnhap');
+Route::post('dangnhap',[
+    'as'=>'postDangNhap',
+    'uses'=>'App\Http\Controllers\DangNhapController@DangNhap',
+]);
+
+//Đổi mật khẩu:
+Route::get('doimatkhau','App\Http\Controllers\DangNhapController@DoiMatKhau')->name('doimatkhau');
+Route::post('doimatkhau',[
+    'as'=>'postDoiMatKhau',
+    'uses'=>'App\Http\Controllers\DangNhapController@postDoiMatKhau',
+]);
+
+//Đăng xuất:
+Route::get('dangxuat','App\Http\Controllers\DangNhapController@DangXuatAdmin')->name('dangxuat');
+
+//Trở về:
+Route::get('trove','App\Http\Controllers\DangNhapController@TroVe')->name('trove');
+
+//Gọi Admin:
+Route::get('admin','App\Http\Controllers\AdminController@Admin')->name('admin');
+
+//Quản lý nhân viên:
+Route::get('admin/nhanvien','App\Http\Controllers\NhanVienController@Admin')->name('admin.nhanvien');
+
+//Search:
+Route::get('admin/nhanvien/search','App\Http\Controllers\NhanVienController@Search')->name('admin.nhanvien.search');
+
+Route::get('admin/nhanvien/themnhanvien','App\Http\Controllers\NhanVienController@getThemNhanVien')->name('admin.nhanvien.themnhanvien');
+//Kiểm tra số điện thoại:
+Route::get('admin/nhanvien/kiemtrasdtduynhat/{soDT}','App\Http\Controllers\NhanVienController@kiemtrasdt')->name('kiemtrasdtduynhat');
+//Kiểm tra tuổi:
+Route::get('admin/nhanvien/kiemtratuoi/{namsinh}','App\Http\Controllers\NhanVienController@kiemtratuoi')->name('kiemtratuoi');
+Route::post('admin/nhanvien/themnhanvien',[
+    'as'=>'postThemNhanVien',
+    'uses'=>'App\Http\Controllers\NhanVienController@postThemNhanVien',
+]);
+
+//Kiểm tra số điện thoại:
+Route::get('admin/nhanvien/suanhanvien/kiemtrasdtduynhat/{soDT}','App\Http\Controllers\NhanVienController@kiemtrasdt')->name('kiemtrasdtduynhat');
+//Kiểm tra tuổi:
+Route::get('admin/nhanvien/suanhanvien/kiemtratuoi/{namsinh}','App\Http\Controllers\NhanVienController@kiemtratuoi')->name('kiemtratuoi');
+Route::get('admin/nhanvien/suanhanvien/{tendangnhap}','App\Http\Controllers\NhanVienController@getSuaNhanVien')->name('admin.nhanvien.suanhanvien');
+Route::post('admin/nhanvien/suanhanvien/{tendangnhap}',[
+    'as'=>'postSuaNhanVien',
+    'uses'=>'App\Http\Controllers\NhanVienController@postSuaNhanVien',
+]);
+
+Route::get('admin/nhanvien/xoanhanvien/{tendangnhap}','App\Http\Controllers\NhanVienController@XoaNhanVien')->name('admin.nhanvien.xoanhanvien');
+
+//Quản lý chức vụ:
+Route::get('admin/chucvu','App\Http\Controllers\ChucVuController@Admin')->name('admin.chucvu');
+//Search:
+Route::get('admin/chucvu/search','App\Http\Controllers\ChucVuController@Search')->name('admin.chucvu.search');
+Route::get('admin/chucvu/themchucvu','App\Http\Controllers\ChucVuController@getThemChucVu')->name('admin.chucvu.themchucvu');
+//Kiểm tra tên chức vụ:
+Route::get('admin/chucvu/kiemtratenchucvu/{tenchucvu}','App\Http\Controllers\ChucVuController@kiemtratenchucvu')->name('kiemtratenchucvu');
+Route::post('admin/chucvu/themchucvu',[
+    'as'=>'postThemChucVu',
+    'uses'=>'App\Http\Controllers\ChucVuController@postThemChucVu',
+]);
+//Kiểm tra chức vụ:
+Route::get('admin/chucvu/suachucvu/kiemtratenchucvu/{tenchucvu}','App\Http\Controllers\ChucVuController@kiemtratenchucvu')->name('kiemtratenchucvu');
+Route::get('admin/chucvu/suachucvu/{maCV}','App\Http\Controllers\ChucVuController@getSuaChucVu')->name('admin.chucvu.suachucvu');
+Route::post('admin/chucvu/suachucvu/{maCV}',[
+    'as'=>'postSuaChucVu',
+    'uses'=>'App\Http\Controllers\ChucVuController@postSuaChucVu',
+]);
+Route::get('admin/chucvu/xoachucvu/{maCV}','App\Http\Controllers\ChucVuController@XoaChucVu')->name('admin.chucvu.xoachucvu');
+
+//Quản lý đơn vị tính:
+Route::get('admin/donvitinh','App\Http\Controllers\DonViTinhController@Admin')->name('admin.donvitinh');
+//Search:
+Route::get('admin/donvitinh/search','App\Http\Controllers\DonViTinhController@Search')->name('admin.donvitinh.search');
+Route::get('admin/donvitinh/themdonvitinh','App\Http\Controllers\DonViTinhController@getThemDonViTinh')->name('admin.donvitinh.themdonvitinh');
+//Kiểm tra tên đơn vị tính:
+Route::get('admin/donvitinh/kiemtratendvt/{tendonvitinh}','App\Http\Controllers\DonViTinhController@kiemtratendvt')->name('kiemtratendvt');
+Route::post('admin/donvitinh/themdonvitinh',[
+    'as'=>'postThemDonViTinh',
+    'uses'=>'App\Http\Controllers\DonViTinhController@postThemDonViTinh',
+]);
+Route::get('admin/donvitinh/suadonvitinh/{maDVT}','App\Http\Controllers\DonViTinhController@getSuaDonViTinh')->name('admin.donvitinh.suadonvitinh');
+//Kiểm tra tên đơn vị tính:
+Route::get('admin/donvitinh/suadonvitinh/kiemtratendvt/{tendonvitinh}','App\Http\Controllers\DonViTinhController@kiemtratendvt')->name('kiemtratendvt');
+Route::post('admin/donvitinh/suadonvitinh/{maDVT}',[
+    'as'=>'postSuaDonViTinh',
+    'uses'=>'App\Http\Controllers\DonViTinhController@postSuaDonViTinh',
+]);
+Route::get('admin/donvitinh/xoadonvitinh/{maDVT}','App\Http\Controllers\DonViTinhController@XoaDonViTinh')->name('admin.donvitinh.xoadonvitinh');
+
+//Quản lý loại sản phẩm:
+Route::get('admin/loaisanpham','App\Http\Controllers\LoaiSanPhamController@Admin')->name('admin.loaisanpham');
+//Search:
+Route::get('admin/loaisanpham/search','App\Http\Controllers\LoaiSanPhamController@Search')->name('admin.loaisanpham.search');
+Route::get('admin/loaisanpham/themloaisanpham','App\Http\Controllers\LoaiSanPhamController@getThemLoaiSanPham')->name('admin.loaisanpham.themloaisanpham');
+//Kiểm tra tên loại sản phẩm:
+Route::get('admin/loaisanpham/kiemtratenlsp/{tenloaisanpham}','App\Http\Controllers\LoaiSanPhamController@kiemtratenlsp')->name('kiemtratenlsp');
+Route::post('admin/loaisanpham/themloaisanpham',[
+    'as'=>'postThemLoaiSanPham',
+    'uses'=>'App\Http\Controllers\LoaiSanPhamController@postThemLoaiSanPham',
+]);
+Route::get('admin/loaisanpham/sualoaisanpham/{maLSP}','App\Http\Controllers\LoaiSanPhamController@getSuaLoaiSanPham')->name('admin.loaisanpham.sualoaisanpham');
+//Kiểm tra tên loại sản phẩm:
+Route::get('admin/loaisanpham/sualoaisanpham/kiemtratenlsp/{tenloaisanpham}','App\Http\Controllers\LoaiSanPhamController@kiemtratenlsp')->name('kiemtratenlsp');
+Route::post('admin/loaisanpham/sualoaisanpham/{maLSP}',[
+    'as'=>'postSuaLoaiSanPham',
+    'uses'=>'App\Http\Controllers\LoaiSanPhamController@postSuaLoaiSanPham',
+]);
+Route::get('admin/loaisanpham/xoaloaisanpham/{maLSP}','App\Http\Controllers\LoaiSanPhamController@XoaLoaiSanPham')->name('admin.loaisanpham.xoaloaisanpham');
+
+//Quản lý sản phẩm:
+Route::get('admin/sanpham','App\Http\Controllers\SanPhamController@Admin')->name('admin.sanpham');
+//Search:
+Route::get('admin/sanpham/search','App\Http\Controllers\SanPhamController@Search')->name('admin.sanpham.search');
+Route::get('admin/sanpham/themsanpham','App\Http\Controllers\SanPhamController@getThemSanPham')->name('admin.sanpham.themsanpham');
+Route::post('admin/sanpham/themsanpham',[
+    'as'=>'postThemSanPham',
+    'uses'=>'App\Http\Controllers\SanPhamController@postThemSanPham',
+]);
+Route::get('admin/sanpham/suasanpham/{maSP}','App\Http\Controllers\SanPhamController@getSuaSanPham')->name('admin.sanpham.suasanpham');
+Route::post('admin/sanpham/suasanpham/{maSP}',[
+    'as'=>'postSuaSanPham',
+    'uses'=>'App\Http\Controllers\SanPhamController@postSuaSanPham',
+]);
+Route::get('admin/sanpham/xoasanpham/{maSP}','App\Http\Controllers\SanPhamController@XoaSanPham')->name('admin.sanpham.xoasanpham');
+
+//Quản lý nhóm món ăn:
+Route::get('admin/nhommon','App\Http\Controllers\NhomMonController@Admin')->name('admin.nhommon');
+//Search:
+Route::get('admin/nhommon/search','App\Http\Controllers\NhomMonController@Search')->name('admin.nhommon.search');
+Route::get('admin/nhommon/themnhommon','App\Http\Controllers\NhomMonController@getThemNhomMon')->name('admin.nhommon.themnhommon');
+//Kiểm tra tên nhóm món ăn:
+Route::get('admin/nhommon/kiemtratennm/{tennhommon}','App\Http\Controllers\NhomMonController@kiemtratennm')->name('kiemtratennm');
+Route::post('admin/nhommon/themnhommon',[
+    'as'=>'postThemNhomMon',
+    'uses'=>'App\Http\Controllers\NhomMonController@postThemNhomMon',
+]);
+Route::get('admin/nhommon/suanhommon/{maNM}','App\Http\Controllers\NhomMonController@getSuaNhomMon')->name('admin.nhommon.suanhommon');
+//Kiểm tra tên nhóm món ăn:
+Route::get('admin/nhommon/suanhommon/kiemtratennm/{tennhommon}','App\Http\Controllers\NhomMonController@kiemtratennm')->name('kiemtratennm');
+Route::post('admin/nhommon/suanhommon/{maNM}',[
+    'as'=>'postSuaNhomMon',
+    'uses'=>'App\Http\Controllers\NhomMonController@postSuaNhomMon',
+]);
+Route::get('admin/nhommon/xoanhommon/{maNM}','App\Http\Controllers\NhomMonController@XoaNhomMon')->name('admin.nhommon.xoanhommon');
+
+//Quản lý món ăn:
+Route::get('admin/mon','App\Http\Controllers\MonController@Admin')->name('admin.mon');
+//Search:
+Route::get('admin/mon/search','App\Http\Controllers\MonController@Search')->name('admin.mon.search');
+Route::get('admin/mon/themmon','App\Http\Controllers\MonController@getThemMon')->name('admin.mon.themmon');
+Route::post('admin/mon/themmon',[
+    'as'=>'postThemMon',
+    'uses'=>'App\Http\Controllers\MonController@postThemMon',
+]);
+Route::get('admin/mon/suamon/{mamon}','App\Http\Controllers\MonController@getSuaMon')->name('admin.mon.suamon');
+Route::post('admin/mon/suamon/{mamon}',[
+    'as'=>'postSuaMon',
+    'uses'=>'App\Http\Controllers\MonController@postSuaMon',
+]);
+Route::get('admin/mon/xoamon/{mamon}','App\Http\Controllers\MonController@XoaMon')->name('admin.mon.xoamon');
+
+//Quản lý vé Buffet:
+Route::get('admin/vebuffet','App\Http\Controllers\VeController@Admin')->name('admin.ve');
+Route::get('admin/vebuffet/themvebuffet','App\Http\Controllers\VeController@getThemVeBuffet')->name('admin.ve.themve');
+//Kiểm tra tên vé:
+Route::get('admin/vebuffet/kiemtratenve/{tenve}','App\Http\Controllers\VeController@kiemtratenve')->name('kiemtratenve');
+Route::post('admin/vebuffet/themvebuffet',[
+    'as'=>'postThemVeBuffet',
+    'uses'=>'App\Http\Controllers\VeController@postThemVeBuffet',
+]);
+Route::get('admin/vebuffet/suavebuffet/{mave}','App\Http\Controllers\VeController@getSuaVeBuffet')->name('admin.ve.suave');
+//Kiểm tra tên vé:
+Route::get('admin/vebuffet/suavebuffet/kiemtratenve/{tenve}','App\Http\Controllers\VeController@kiemtratenve')->name('kiemtratenve');
+Route::post('admin/vebuffet/suavebuffet/{mave}',[
+    'as'=>'postSuaVeBuffet',
+    'uses'=>'App\Http\Controllers\VeController@postSuaVeBuffet',
+]);
+Route::get('admin/vebuffet/xoavebuffet/{mave}','App\Http\Controllers\VeController@XoaVe')->name('admin.ve.xoave');
+
+//Quản lý bàn ăn:
+Route::get('admin/ban','App\Http\Controllers\BanController@Admin')->name('admin.ban');
+//Search:
+Route::get('admin/ban/search','App\Http\Controllers\BanController@Search')->name('admin.ban.search');
+Route::get('admin/ban/themban','App\Http\Controllers\BanController@getThemBan')->name('admin.ban.themban');
+//Kiểm tra số bàn ăn:
+Route::get('admin/ban/kiemtrasoban/{banso}','App\Http\Controllers\BanController@kiemtrasoban')->name('kiemtrasoban');
+Route::post('admin/ban/themban',[
+    'as'=>'postThemBan',
+    'uses'=>'App\Http\Controllers\BanController@postThemBan',
+]);
+Route::get('admin/ban/suaban/{maban}','App\Http\Controllers\BanController@getSuaBan')->name('admin.ban.suaban');
+//Kiểm tra số bàn ăn:
+Route::get('admin/ban/suaban/kiemtrasoban/{banso}','App\Http\Controllers\BanController@kiemtrasoban')->name('kiemtrasoban');
+Route::post('admin/ban/suaban/{maban}',[
+    'as'=>'postSuaBan',
+    'uses'=>'App\Http\Controllers\BanController@postSuaBan',
+]);
+Route::get('admin/ban/xoaban/{maban}','App\Http\Controllers\BanController@XoaBan')->name('admin.ban.xoaban');
+
+//Bán hàng:
+Route::get('banhang','App\Http\Controllers\BanHangController@BanHang')->name('banhang');

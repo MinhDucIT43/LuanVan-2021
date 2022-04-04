@@ -1,0 +1,208 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#wrapper{
+    width: 1366px;
+    height: 625px;
+    margin: auto;
+}
+
+#header{
+    width: 1166px;
+    height: 40px;
+    background-color: #224A86;
+    float: right;
+    color: white;
+}
+
+#thoigian{
+    display: inline;
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+
+#back{
+    position: absolute;
+    right: 135px;
+    top: 0px;
+    font-size: 17px;
+    color: white;
+}
+
+#logout{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    font-size: 17px;
+}
+
+#menu{
+    width: 200px;
+    height: 625px;
+    background-color: #224A86;
+    float: left;
+    color: white;
+}
+
+#menu-showadmin{
+    width: 200px;
+    height: 92px;
+}
+
+#link-admin{
+    text-decoration: none;
+    color: white;
+}
+
+#iconadmin-menu{
+    width: 70px;
+    height: 60px;
+    margin: 5px 0px 0px 20px;
+    float: left;
+}
+
+#h4-admin{
+    display: inline;
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+
+#h4-QLNH{
+    display: inline;
+    position: relative;
+    left: 3px;
+    top: 5px;
+}
+
+#online-menu{
+    position: relative;
+    left: 15px;
+    color: #00ff00;
+}
+
+#caption{
+    background-color: #000000;
+}
+
+#menu-option{
+    width: 200px;
+    height: 406px;
+    background-color: #224A86;
+}
+
+.list-group-item{
+    font-size: 15px;
+}
+/* #icon-QLVB{
+    margin-right: 6px;
+}
+#icon-QLHD{
+    margin-right: 9px;
+}
+#icon-QLB{
+    margin-right: 7px;
+}
+#icon-QLKM{
+    margin-right: 7px;
+}
+#icon-QLXK{
+    margin-right: 5px;
+}
+#btn-QLDT{
+    background-color: white;
+    color: black;
+    border: #00ff00;
+}
+#icon-QLDT{
+    margin-left: -60px;
+} */
+
+#content{
+    width: 1166px;
+    height: 585px;
+    float: right;
+}
+
+.title-nhanvien{
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#button-search{
+    position: relative;
+    right: 30px;
+}
+
+#danhsachnhanvien{
+    font-size: 15px;
+}
+
+#anhnhanvien{
+    margin: -8px -18px -8px -8px;
+}
+
+.tendangnhap{
+    width: 82px;
+}
+
+.icon-sua-xoa{
+    font-size: 25px;
+    display: block;
+}
+
+#button-themnhanvien{
+    float: right;
+}
+
+#title-themnhanvien{
+    background-color: #224A86;
+    color: white;
+    border-radius: 10px;
+    position: relative;
+    top: -30px;
+}
+
+#form-themnhanvien{
+    position: absolute;
+    left: 400px;
+    top: 70px;
+    border: 2.5px solid #ccc;
+    padding: 10px 30px 10px 30px;
+}
+#anh{
+    border-style: solid;
+    border-color: darkblue;
+}
+
+#form-themchucvu{
+    position: absolute;
+    left: 650px;
+    top: 100px;
+    border: 2.5px solid #ccc;
+    padding: 10px 30px 10px 30px;
+}
+
+#table-dsnv{
+    position: relative;
+    left: 400px;
+    top: 70px;
+    width: 400px;
+}
+#table-dsb{
+    position: relative;
+    left: 400px;
+    top: 70px;
+    width: 400px;
+}
+
+label{
+    font-weight: bold;
+}
+
+tbody, td, tfoot, th, thead, tr{
+    padding: 3px;
+}
