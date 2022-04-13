@@ -22,7 +22,8 @@ class VeController extends Controller
 
     public function getThemVeBuffet(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            return view('ve.themvebuffet.themvebuffet');
+            $donvitinh = donvitinh::all();
+            return view('ve.themvebuffet.themvebuffet',['donvitinh'=>$donvitinh]);
         }else{
             return redirect()->route('dangnhap');
         }
@@ -33,6 +34,7 @@ class VeController extends Controller
             $vebuffet = new ve();
             $vebuffet->tenve = $request->tenve;
             $vebuffet->gia = $request->gia;
+            $vebuffet->maDVT = $request->donvitinh;
             $vebuffet->save();
             $vebuffet = ve::orderBy('mave','DESC')->get();
             return redirect()->route('admin.ve',compact('vebuffet'))->with('success-themvebuffet','Thêm vé Buffet thành công!');
@@ -44,7 +46,8 @@ class VeController extends Controller
     public function getSuaVeBuffet($mave){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $vebuffet = ve::where('mave',$mave)->get();
-            return view('ve.suavebuffet.suavebuffet',['vebuffet' => $vebuffet]);
+            $donvitinh = donvitinh::all();
+            return view('ve.suavebuffet.suavebuffet',['vebuffet' => $vebuffet,'donvitinh'=>$donvitinh]);
         }else{
             return redirect()->route('dangnhap');
         }
@@ -66,6 +69,7 @@ class VeController extends Controller
             $vebuffet = ve::where('mave',$mave)->update([
                 'tenve' => $request->tenve,
                 'gia' => $request->gia,
+                'maDVT' => $request->donvitinh,
             ]);
             $vebuffet = ve::orderBy('mave','DESC')->get();
             return redirect()->route('admin.ve',compact('vebuffet'))->with('success-themvebuffet','Sửa vé Buffet thành công!');

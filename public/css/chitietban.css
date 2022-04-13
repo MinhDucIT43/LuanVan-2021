@@ -1,0 +1,64 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#wrapper{
+    width: 1366px;
+    height: 625px;
+}
+
+#header{
+    background-color: #5c90c4;
+    width: 800px;
+    height: 50px;
+    float: left;
+}
+
+#nhanvien{
+    color: white;
+    font-size: 20px;
+    float: right;
+    position: relative;
+    top: 7px;
+    right: 400px;
+}
+
+#trove{
+    font-size: 24px;
+}
+
+#order{
+    width: 800px;
+    height: 575px;
+    float: left;
+}
+
+#chonmon{
+    float: right;
+    width: 566px;
+    height: 625px;
+}
+
+#header-chonmon{
+    background-color: #5c90c4;
+    height: 50px;
+}
+#banso{
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    position: relative;
+    bottom: 5px;
+}
+
+#content-chonmon{
+    background-color: #5c90c4;
+    height: 575px;
+}
+#maincontent-chonmon{
+    background-color: white;
+    height: 575px;
+    width: 560px;
+    float: right;
+}

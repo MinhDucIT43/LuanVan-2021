@@ -22,11 +22,12 @@
     <div>
         @foreach($vebuffet as $ve)
         @endforeach
-            <table class="table table-bordered table-hover" id="table-dsnv">
+            <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
                         <th id="thongtin-ten">Loại vé</th>
                         <th class="thongtin-ngay">Giá vé</th>
+                        <th>Đơn vị tính</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -35,6 +36,7 @@
                     <tr>
                         <td>{{ $ve['tenve'] }}</td>
                         <td>{{number_format($ve['gia'])}} VNĐ</td>
+                        <td>{{ App\Models\donvitinh::where('maDVT',$ve['maDVT'])->value('tenDVT') }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.ve.suave',['mave' => $ve['mave']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
                             <a href="{{ route('admin.ve.xoave',['mave' => $ve['mave']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>

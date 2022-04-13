@@ -22,6 +22,19 @@
                 <td><input type="text" id="gia" name="gia" value="{{$ve->gia}}" placeholder="Nhập giá vé" required=""/></td>
             </tr>
             <tr>
+                <td><label for="donvitinh">Đơn vị tính</label></td>
+                <td>
+                    <select name="donvitinh">
+                    @foreach($donvitinh as $dvt)
+                        @if($ve->maDVT == $dvt->maDVT)
+                            <option value="{{$dvt->maDVT}}" selected="selected" style="display:none">{{$dvt->tenDVT}}</option>
+                        @endif
+                            <option value="{{$dvt->maDVT}}">{{$dvt->tenDVT}}</option>
+                    @endforeach
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td><input class="btn btn-primary m-1" type="submit" value="Sửa" onclick="return kiemtrave(gia)"></td>
             </tr>

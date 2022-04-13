@@ -58,19 +58,12 @@
     background-color: #5c90c4;
 }
 
-#display-danhsachmonan{
-    width: 799px;
-    height: 575px;
-    margin: 10px 10px 10px 10px;
-    background-color: white;
-}
-
 #text-danhsachmonan{
     font-family: Cambria;
     font-style: italic;
     border-style: dashed;
-    border-color: rgb(185, 72, 72);
-    color: crimson;
+    border-color: chocolate;
+    color: white;
     display: inline;
     position: relative;
     left: 260px;
@@ -78,21 +71,25 @@
     padding: 0px 25px 0px 25px;
 }
 
+#display-danhsachmonan{
+    width: 799px;
+    height: 575px;
+    margin: 10px 10px 10px 10px;
+    background-color: white;
+}
+
 #thucuong{
-    position: relative;
-    top: 15px;
-    margin-left: 10px;
     float: left;
 }
 #vebuffet{
-    position: relative;
-    top: 15px;
-    float: right;
+    float: left;
+    width: 476px;
+    height: 280px;
 }
 #monan{
-    position: relative;
-    top: 80px;
-    right: 470px;
+    float: right;
+    width: 323px;
+    height: 575px;
 }
 
 #text-thucuong{
@@ -110,7 +107,7 @@
     font-style: italic;
 }
 
-#img-thucuong{
+.img-thucuong{
     width: 100px;
     height: 100px;
 }

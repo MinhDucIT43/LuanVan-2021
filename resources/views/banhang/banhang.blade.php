@@ -21,7 +21,7 @@
             </div>
             <div id="cacban">
                 @foreach($ban as $b)
-                    <a href="" style="text-decoration: none">
+                    <a href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}" style="text-decoration: none">
                         <button id="display-ban" type="submit">
                             <i id="khachhang" class="fas fa-users"></i>
                             <p>{{$b['banso']}}</p>
@@ -34,88 +34,79 @@
         <div id="danhsachmonan">
             <h3 id="text-danhsachmonan">DANH SÁCH MÓN ĂN</h3>
             <div id="display-danhsachmonan">
-                <div>
-                    <div id="thucuong">
-                        <table>
-                            <tr>
-                                <td><h3 id="text-thucuong">Thức uống:</h3></td>
-                            </tr>
-                            <tr id="content-thucuong">
-                                <td>
-                                    <br/>
-                                    @foreach($nuoc as $n)
-                                        @foreach($mon as $m)
-                                            @if($n['maNM'] == $m['maNM'])
-                                                    {{$m['tenmon']}}
-                                                    ................
-                                                    {{number_format($m['gia'])}} VNĐ
-                                                    .......
-                                                    @if($m['soluong'] == 0)
-                                                        SL: <p style="display: inline; color: red;">Hết hàng</p>
-                                                    @else
-                                                        SL: {{$m['soluong']}}
-                                                    @endif
-                                                </p>
-                                            @endif
-                                        @endforeach
-                                    @endforeach
-                                    {{ $nuoc->withQueryString()->links() }}
-                                </td>
-                                <td>
-                                    <img src="{{asset('hinhanh/thucuong.jpg')}}" alt="Thức uống" id="img-thucuong">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="vebuffet">
-                        <table>
-                            <tr>
-                                <td><h3 id="text-thucuong">Vé Buffet:</h3></td>
-                            </tr>
-                            <tr id="content-thucuong">
-                                <td>
-                                    <br/>
-                                    @foreach($vebuffet as $ve)
-                                        <p>
-                                            {{$ve['tenve']}}
-                                            ................
-                                            {{number_format($ve['gia'])}} VNĐ
-                                        </p>
-                                    @endforeach
-                                    {{ $vebuffet->withQueryString()->links() }}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="monan">
-                        <table>
-                            <tr>
-                                <td><h3 id="text-thucuong">Món ăn:</h3></td>
-                            </tr>
-                            <tr id="content-thucuong">
-                                <td>
-                                    <br/>
-                                    @foreach($thit as $t)
-                                        @foreach($mon as $m)
-                                            @if($t['maNM'] == $m['maNM'])
-                                                    {{$m['tenmon']}}
-                                                    ................
-                                                    {{number_format($m['gia'])}} VNĐ
-                                                    .......
-                                                    @if($m['soluong'] == 0)
-                                                        SL: <p style="display: inline; color: red;">Hết hàng</p>
-                                                    @else
-                                                        SL: {{$m['soluong']}}
-                                                    @endif
-                                                </p>
-                                            @endif
-                                        @endforeach
-                                    @endforeach
-                                    {{ $thit->links() }}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                <div id="thucuong">
+                    <table>
+                        <tr>
+                            <td><h3 id="text-thucuong">Thức uống:</h3></td>
+                        </tr>
+                        <tr id="content-thucuong">
+                            <td>
+                                @foreach($nuoc as $n)
+                                    {{$n['tenmon']}}
+                                    ................
+                                    {{number_format($n['gia'])}} VNĐ
+                                    .......
+                                    @if($n['soluong'] == 0)
+                                        SL: <p style="display: inline; color: red;">Hết hàng</p>
+                                    @else
+                                        SL: {{$n['soluong']}}
+                                    @endif
+                                            </p>
+                                @endforeach
+                            </td>
+                            <td>
+                                <img src="{{asset('hinhanh/thucuong1.jpg')}}" alt="Thức uống 1" class="img-thucuong"><br/>
+                                <img src="{{asset('hinhanh/thucuong2.jpg')}}" alt="Thức uống 2" class="img-thucuong">
+                            </td>
+                        </tr>
+                    </table>
+                    {{ $nuoc->withQueryString()->links() }}
+                </div>
+                <div id="monan">
+                    <table>
+                        <tr>
+                            <td><h3 id="text-thucuong">Món ăn:</h3></td>
+                        </tr>
+                        <tr id="content-thucuong">
+                            <td>
+                                <br/>
+                                @foreach($thit as $t)
+                                    {{$t['tenmon']}}
+                                    ................
+                                    @if($t['soluong'] == 0)
+                                        SL: <p style="display: inline; color: red;">Hết hàng</p>
+                                    @else
+                                        SL: {{$t['soluong']}}
+                                    @endif
+                                            </p>
+                                @endforeach
+                            </td>
+                        </tr>
+                    </table>
+                    {{ $thit->withQueryString()->links() }}
+                </div>
+                <div id="vebuffet">
+                    <table>
+                        <tr>
+                            <td><h3 id="text-thucuong">Vé Buffet:</h3></td>
+                        </tr>
+                        <tr id="content-thucuong">
+                            <td>
+                                @foreach($vebuffet as $ve)
+                                    <p>
+                                        {{$ve['tenve']}}
+                                        ................
+                                        {{number_format($ve['gia'])}} VNĐ
+                                    </p>
+                                @endforeach
+                                {{ $vebuffet->withQueryString()->links() }}
+                            </td>
+                            <td>
+                                <img src="{{asset('hinhanh/thit1.jpg')}}" alt="Thịt 1" class="img-thucuong"><br/><br/>
+                                <img src="{{asset('hinhanh/thit2.jpg')}}" alt="Thịt 2" class="img-thucuong">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

@@ -21,6 +21,16 @@
                 <td><input type="text" id="gia" name="gia" placeholder="Nhập giá vé" required=""/></td>
             </tr>
             <tr>
+                <td><label for="donvitinh">Đơn vị tính</label></td>
+                <td>
+                    <select name="donvitinh">
+                    @foreach($donvitinh as $dvt)
+                        <option value="{{$dvt->maDVT}}">{{$dvt->tenDVT}}</option>
+                    @endforeach
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td><input class="btn btn-primary m-1" type="submit" value="Thêm" onclick="return kiemtrave(gia)"></td>
             </tr>

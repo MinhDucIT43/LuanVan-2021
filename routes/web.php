@@ -205,3 +205,10 @@ Route::get('admin/ban/xoaban/{maban}','App\Http\Controllers\BanController@XoaBan
 
 //Bán hàng:
 Route::get('banhang','App\Http\Controllers\BanHangController@BanHang')->name('banhang');
+Route::get('banhang/chitietban/{maban}','App\Http\Controllers\BanHangController@BanSo')->name('banhang.chitietban');
+Route::get('banhang/chitietbanve/{maban}','App\Http\Controllers\BanHangController@BanSoVe')->name('banhang.chitietbanve');
+Route::post('banhang/chitietbanve/order',[
+    'as'=>'postThemVe',
+    'uses'=>'App\Http\Controllers\BanHangController@postThemVe',
+]);
+Route::get('banhang/chitietban/xoaorder/{maban}/{mamon}','App\Http\Controllers\BanHangController@XoaOrder')->name('banhang.xoaorder');
