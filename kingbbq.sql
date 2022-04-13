@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 04, 2022 lúc 06:09 AM
+-- Thời gian đã tạo: Th4 13, 2022 lúc 10:03 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -59,6 +59,19 @@ INSERT INTO `ban` (`maban`, `banso`, `trangthai`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `chitietorder`
+--
+
+CREATE TABLE `chitietorder` (
+  `mactorder` int(11) NOT NULL,
+  `soluong` int(11) NOT NULL,
+  `mamon` int(11) NOT NULL,
+  `maorder` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `chucvu`
 --
 
@@ -96,7 +109,10 @@ INSERT INTO `donvitinh` (`maDVT`, `tenDVT`) VALUES
 (18, 'Kg'),
 (23, 'Chai'),
 (28, 'Ly'),
-(29, 'Thố');
+(29, 'Thố'),
+(30, 'Nồi'),
+(31, 'Cái'),
+(32, 'Vé');
 
 -- --------------------------------------------------------
 
@@ -143,12 +159,47 @@ INSERT INTO `mon` (`mamon`, `tenmon`, `gia`, `soluong`, `maNM`, `maDVT`) VALUES
 (8, 'Cam ép', 59000, 15, 45, 28),
 (9, 'Peppsi', 15000, 0, 41, 23),
 (10, 'Trà đào cam sả', 45000, 0, 45, 28),
-(11, 'Ba chỉ bò', 0, 100, 46, 18),
-(12, 'Bắp bò', 0, 50, 46, 18),
-(13, 'Ba chỉ heo', 0, 70, 47, 18),
-(14, 'Nạc dăm', 0, 80, 47, 18),
-(15, 'Dẻ sườn bò', 0, 30, 46, 18),
-(16, 'Ép cà rốt', 45000, 80, 45, 28);
+(16, 'Ép cà rốt', 45000, 80, 45, 28),
+(25, 'Đùi gà sốt King BBQ', 0, 50, 48, 18),
+(26, 'Nạc dăm sốt tỏi', 0, 50, 47, 18),
+(27, 'Nạc dăm sốt đặc biệt', 0, 50, 47, 18),
+(28, 'Sườn heo', 0, 50, 47, 18),
+(29, 'Ba chỉ heo sốt cay', 0, 50, 47, 18),
+(30, 'Ba chỉ heo tươi sốt thịt HQ', 0, 50, 47, 18),
+(31, 'Ba chỉ heo ướp sốt đặc biệt', 0, 50, 47, 18),
+(32, 'Ba chỉ heo sốt ớt chuông đỏ', 0, 50, 47, 18),
+(33, 'Ba chỉ bò Mỹ sốt King BBQ', 0, 50, 46, 18),
+(34, 'Ba chỉ bò sốt tenjo', 0, 50, 46, 18),
+(35, 'Ba chỉ bò Mỹ sốt thịt HQ', 0, 50, 46, 18),
+(36, 'Bắp bò sốt thịt HQ', 0, 50, 46, 18),
+(37, 'Bắp bò sốt ớt chuông đỏ', 0, 50, 46, 18),
+(38, 'Bắp bò sốt King BBQ', 0, 50, 46, 18),
+(39, 'Bạch tuột tươi', 0, 50, 49, 18),
+(40, 'Bạch tuột sốt cay', 0, 50, 49, 18),
+(41, 'Cá saba Nhật sốt muối ớt', 0, 50, 49, 18),
+(42, 'Cá basa nướng giấy bạc', 0, 50, 49, 18),
+(43, 'Gầu bò sốt ớt chuông đỏ', 0, 50, 46, 18),
+(44, 'Gầu bò sốt Guang Yang', 0, 50, 46, 18),
+(45, 'Nạm cổ bò Mỹ sốt King BBQ', 0, 50, 46, 18),
+(46, 'Nạm cổ bò Mỹ sốt tenjo', 0, 50, 46, 18),
+(47, 'Lỗi cổ bò sốt tenjo', 0, 50, 46, 18),
+(48, 'Lỗi cổ bò sốt King BBQ', 0, 50, 46, 18),
+(49, 'Mực nang sốt muối ớt', 0, 50, 49, 18),
+(50, 'Cá tấm nướng sốt Guang Yang', 0, 50, 49, 18),
+(51, 'Vẹm xanh nhập khẩu', 0, 50, 49, 18),
+(52, 'Lưỡi bò Mỹ sốt Guang Yang', 0, 50, 46, 18),
+(53, 'Lưỡi bò Mỹ sốt thịt HQ', 0, 50, 46, 18),
+(54, 'Dẻ sườn bò Mỹ sốt King BBQ', 0, 50, 46, 18),
+(55, 'Dẻ sườn bò Mỹ sốt ớt chuông đỏ', 0, 50, 46, 18),
+(56, 'Tôm nướng', 0, 50, 49, 18),
+(57, 'Lẩu Bulgogi', 0, 100, 50, 30),
+(58, 'Lẩu Thái', 0, 100, 50, 30),
+(59, 'Canh sườn bò', 0, 50, 51, 29),
+(60, 'Canh tương', 0, 50, 51, 29),
+(61, 'Canh rong biển', 0, 50, 51, 29),
+(62, 'Canh kim chi', 0, 50, 51, 29),
+(63, 'Cơm trộn Hàn Quốc', 0, 50, 52, 29),
+(64, 'Bánh hành hải sản HQ', 0, 50, 52, 31);
 
 -- --------------------------------------------------------
 
@@ -198,7 +249,26 @@ INSERT INTO `nhommon` (`maNM`, `tenNM`) VALUES
 (41, 'Nước ngọt'),
 (45, 'Nước ép'),
 (46, 'Thịt bò'),
-(47, 'Thịt heo');
+(47, 'Thịt heo'),
+(48, 'Thịt gà'),
+(49, 'Hải sản'),
+(50, 'Lẩu'),
+(51, 'Canh'),
+(52, 'Truyền thống');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `order`
+--
+
+CREATE TABLE `order` (
+  `maorder` int(11) NOT NULL,
+  `soluong` int(11) NOT NULL,
+  `thanhtien` int(11) NOT NULL,
+  `mave` int(11) NOT NULL,
+  `maban` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -233,18 +303,19 @@ INSERT INTO `sanpham` (`maSP`, `tenSP`, `gianhap`, `HSD`, `SLton`, `maLSP`, `maD
 CREATE TABLE `ve` (
   `mave` int(11) NOT NULL,
   `tenve` varchar(30) NOT NULL,
-  `gia` int(11) NOT NULL
+  `gia` int(11) NOT NULL,
+  `maDVT` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `ve`
 --
 
-INSERT INTO `ve` (`mave`, `tenve`, `gia`) VALUES
-(3, 'Người lớn 1', 199000),
-(6, 'Người lớn 2', 269000),
-(7, 'Người lớn 3', 319000),
-(8, 'Trẻ em (1,0m - 1,3m)', 75000);
+INSERT INTO `ve` (`mave`, `tenve`, `gia`, `maDVT`) VALUES
+(12, 'Trẻ em (1,0m - 1,3m)', 75000, 32),
+(13, 'Người lớn 1', 199000, 32),
+(14, 'Người lớn 2', 269000, 32),
+(15, 'Người lớn 3', 319000, 32);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -255,6 +326,14 @@ INSERT INTO `ve` (`mave`, `tenve`, `gia`) VALUES
 --
 ALTER TABLE `ban`
   ADD PRIMARY KEY (`maban`);
+
+--
+-- Chỉ mục cho bảng `chitietorder`
+--
+ALTER TABLE `chitietorder`
+  ADD PRIMARY KEY (`mactorder`),
+  ADD KEY `mamon` (`mamon`),
+  ADD KEY `maorder` (`maorder`);
 
 --
 -- Chỉ mục cho bảng `chucvu`
@@ -296,6 +375,14 @@ ALTER TABLE `nhommon`
   ADD PRIMARY KEY (`maNM`);
 
 --
+-- Chỉ mục cho bảng `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`maorder`),
+  ADD KEY `maban` (`maban`),
+  ADD KEY `mave` (`mave`);
+
+--
 -- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
@@ -307,7 +394,8 @@ ALTER TABLE `sanpham`
 -- Chỉ mục cho bảng `ve`
 --
 ALTER TABLE `ve`
-  ADD PRIMARY KEY (`mave`);
+  ADD PRIMARY KEY (`mave`),
+  ADD KEY `maDVT` (`maDVT`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -320,6 +408,12 @@ ALTER TABLE `ban`
   MODIFY `maban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
+-- AUTO_INCREMENT cho bảng `chitietorder`
+--
+ALTER TABLE `chitietorder`
+  MODIFY `mactorder` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `chucvu`
 --
 ALTER TABLE `chucvu`
@@ -329,7 +423,7 @@ ALTER TABLE `chucvu`
 -- AUTO_INCREMENT cho bảng `donvitinh`
 --
 ALTER TABLE `donvitinh`
-  MODIFY `maDVT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `maDVT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `loaisanpham`
@@ -341,7 +435,7 @@ ALTER TABLE `loaisanpham`
 -- AUTO_INCREMENT cho bảng `mon`
 --
 ALTER TABLE `mon`
-  MODIFY `mamon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `mamon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT cho bảng `nhanvien`
@@ -353,7 +447,13 @@ ALTER TABLE `nhanvien`
 -- AUTO_INCREMENT cho bảng `nhommon`
 --
 ALTER TABLE `nhommon`
-  MODIFY `maNM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `maNM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT cho bảng `order`
+--
+ALTER TABLE `order`
+  MODIFY `maorder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
@@ -365,11 +465,18 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT cho bảng `ve`
 --
 ALTER TABLE `ve`
-  MODIFY `mave` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `mave` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `chitietorder`
+--
+ALTER TABLE `chitietorder`
+  ADD CONSTRAINT `chitietorder_ibfk_1` FOREIGN KEY (`mamon`) REFERENCES `mon` (`mamon`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `chitietorder_ibfk_2` FOREIGN KEY (`maorder`) REFERENCES `order` (`maorder`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `mon`
@@ -385,11 +492,24 @@ ALTER TABLE `nhanvien`
   ADD CONSTRAINT `nhanvien_ibfk_1` FOREIGN KEY (`maCV`) REFERENCES `chucvu` (`maCV`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
+-- Các ràng buộc cho bảng `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`maban`) REFERENCES `ban` (`maban`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_ibfk_3` FOREIGN KEY (`mave`) REFERENCES `ve` (`mave`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`maLSP`) REFERENCES `loaisanpham` (`maLSP`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `sanpham_ibfk_2` FOREIGN KEY (`maDVT`) REFERENCES `donvitinh` (`maDVT`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ve`
+--
+ALTER TABLE `ve`
+  ADD CONSTRAINT `ve_ibfk_1` FOREIGN KEY (`maDVT`) REFERENCES `donvitinh` (`maDVT`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
