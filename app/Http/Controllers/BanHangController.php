@@ -70,7 +70,6 @@ class BanHangController extends Controller
         if(Session::get('tendangnhap') && Session::get('vaitro')){
             $vebuffet = ve::orderBy('mave','DESC')->paginate(5);
             $gia = ve::where('mave',$request->mave)->get('gia');
-            $thanhtien = order::sum('thanhtien');
             $banso = ban::where('maban',$request->maban)->get();
             $order = order::where('maban',$request->maban)->where('mave',$request->mave)->first();
             if($order){
@@ -92,6 +91,7 @@ class BanHangController extends Controller
                 $order->mave = $request->mave;
                 $order->save();
             }
+            $thanhtien = order::sum('thanhtien');
             return view('banhang.chitietbanve',compact('vebuffet','banso','thanhtien'));
         }else{
             return redirect()->route('dangnhap');

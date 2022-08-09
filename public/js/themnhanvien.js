@@ -7,20 +7,20 @@ function Kiemtranhapso(so){
         errorsoDT.innerHTML="Số điện thoại: Chỉ nhập số";
         errorsoDT.style.color = "red";
         return false; 
-    }else if(errorsoDT.innerHTML==="Số điện thoại: Số điện thoại đã tồn tại"){
-        errorsoDT.style.color = "red";
-        return false; 
-    }else{
-        errorsoDT.innerHTML = "";
-        errorsoDT.style.color = "";
-    }
-    if(errornamsinh.innerHTML==="Năm sinh: Chưa đủ 18 tuổi"){
-        errornamsinh.style.color = "red";
-        return false; 
-    }else{
-        errornamsinh.innerHTML = "";
-        errornamsinh.style.color = "";
-    }
+    }//else if(errorsoDT.innerHTML==="Số điện thoại: Số điện thoại đã tồn tại"){
+    //     errorsoDT.style.color = "red";
+    //     return false; 
+    // }else{
+    //     errorsoDT.innerHTML = "";
+    //     errorsoDT.style.color = "";
+    // }
+    // if(errornamsinh.innerHTML==="Năm sinh: Chưa đủ 18 tuổi"){
+    //     errornamsinh.style.color = "red";
+    //     return false; 
+    // }else{
+    //     errornamsinh.innerHTML = "";
+    //     errornamsinh.style.color = "";
+    // }
 }
 
 $(document).ready(function(){

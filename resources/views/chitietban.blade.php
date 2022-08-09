@@ -65,7 +65,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Tổng tiền:</td>
-                                <td></td>
+                                <td>{{number_format($thanhtien)}}</td>
                             </tr>
                             <tr>
                                 <td><button type="submit">Thanh toán</button></td>

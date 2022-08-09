@@ -8,6 +8,7 @@ Route::post('dangnhap',[
     'as'=>'postDangNhap',
     'uses'=>'App\Http\Controllers\DangNhapController@DangNhap',
 ]);
+//---------------------------------------------------------------------------------//
 
 //Đổi mật khẩu:
 Route::get('doimatkhau','App\Http\Controllers\DangNhapController@DoiMatKhau')->name('doimatkhau');
@@ -15,63 +16,69 @@ Route::post('doimatkhau',[
     'as'=>'postDoiMatKhau',
     'uses'=>'App\Http\Controllers\DangNhapController@postDoiMatKhau',
 ]);
+//---------------------------------------------------------------------------------//
 
 //Đăng xuất:
 Route::get('dangxuat','App\Http\Controllers\DangNhapController@DangXuatAdmin')->name('dangxuat');
+//---------------------------------------------------------------------------------//
 
 //Trở về:
 Route::get('trove','App\Http\Controllers\DangNhapController@TroVe')->name('trove');
+//---------------------------------------------------------------------------------//
 
 //Gọi Admin:
 Route::get('admin','App\Http\Controllers\AdminController@Admin')->name('admin');
+//---------------------------------------------------------------------------------//
 
 //Quản lý nhân viên:
-Route::get('admin/nhanvien','App\Http\Controllers\NhanVienController@Admin')->name('admin.nhanvien');
-
-//Search:
-Route::get('admin/nhanvien/search','App\Http\Controllers\NhanVienController@Search')->name('admin.nhanvien.search');
-
-Route::get('admin/nhanvien/themnhanvien','App\Http\Controllers\NhanVienController@getThemNhanVien')->name('admin.nhanvien.themnhanvien');
-//Kiểm tra số điện thoại:
-Route::get('admin/nhanvien/kiemtrasdtduynhat/{soDT}','App\Http\Controllers\NhanVienController@kiemtrasdt')->name('kiemtrasdtduynhat');
-//Kiểm tra tuổi:
-Route::get('admin/nhanvien/kiemtratuoi/{namsinh}','App\Http\Controllers\NhanVienController@kiemtratuoi')->name('kiemtratuoi');
-Route::post('admin/nhanvien/themnhanvien',[
-    'as'=>'postThemNhanVien',
-    'uses'=>'App\Http\Controllers\NhanVienController@postThemNhanVien',
-]);
-
-//Kiểm tra số điện thoại:
-Route::get('admin/nhanvien/suanhanvien/kiemtrasdtduynhat/{soDT}','App\Http\Controllers\NhanVienController@kiemtrasdt')->name('kiemtrasdtduynhat');
-//Kiểm tra tuổi:
-Route::get('admin/nhanvien/suanhanvien/kiemtratuoi/{namsinh}','App\Http\Controllers\NhanVienController@kiemtratuoi')->name('kiemtratuoi');
-Route::get('admin/nhanvien/suanhanvien/{tendangnhap}','App\Http\Controllers\NhanVienController@getSuaNhanVien')->name('admin.nhanvien.suanhanvien');
-Route::post('admin/nhanvien/suanhanvien/{tendangnhap}',[
-    'as'=>'postSuaNhanVien',
-    'uses'=>'App\Http\Controllers\NhanVienController@postSuaNhanVien',
-]);
-
-Route::get('admin/nhanvien/xoanhanvien/{tendangnhap}','App\Http\Controllers\NhanVienController@XoaNhanVien')->name('admin.nhanvien.xoanhanvien');
+Route::prefix('admin/nhanvien')->group(function(){
+    Route::get('/','App\Http\Controllers\NhanVienController@Admin')->name('admin.nhanvien');
+    //Search:
+    Route::get('search','App\Http\Controllers\NhanVienController@Search')->name('admin.nhanvien.search');
+    //Gọi form thêm nhân viên:
+    Route::get('themnhanvien','App\Http\Controllers\NhanVienController@getThemNhanVien')->name('admin.nhanvien.themnhanvien');
+    //Kiểm tra số điện thoại:
+    Route::get('kiemtrasdtduynhat/{soDT}','App\Http\Controllers\NhanVienController@kiemtrasdt')->name('kiemtrasdtduynhat');
+    //Kiểm tra tuổi:
+    Route::get('kiemtratuoi/{namsinh}','App\Http\Controllers\NhanVienController@kiemtratuoi')->name('kiemtratuoi');
+    Route::post('themnhanvien',[
+        'as'=>'postThemNhanVien',
+        'uses'=>'App\Http\Controllers\NhanVienController@postThemNhanVien',
+    ]);
+    //Kiểm tra số điện thoại:
+    Route::get('suanhanvien/kiemtrasdtduynhat/{soDT}','App\Http\Controllers\NhanVienController@kiemtrasdt')->name('kiemtrasdtduynhat');
+    //Kiểm tra tuổi:
+    Route::get('suanhanvien/kiemtratuoi/{namsinh}','App\Http\Controllers\NhanVienController@kiemtratuoi')->name('kiemtratuoi');
+    Route::get('suanhanvien/{tendangnhap}','App\Http\Controllers\NhanVienController@getSuaNhanVien')->name('admin.nhanvien.suanhanvien');
+    Route::post('suanhanvien/{tendangnhap}',[
+        'as'=>'postSuaNhanVien',
+        'uses'=>'App\Http\Controllers\NhanVienController@postSuaNhanVien',
+    ]);
+    //Xoá nhân vien
+    Route::get('xoanhanvien/{tendangnhap}','App\Http\Controllers\NhanVienController@XoaNhanVien')->name('admin.nhanvien.xoanhanvien');
+});
 
 //Quản lý chức vụ:
-Route::get('admin/chucvu','App\Http\Controllers\ChucVuController@Admin')->name('admin.chucvu');
-//Search:
-Route::get('admin/chucvu/search','App\Http\Controllers\ChucVuController@Search')->name('admin.chucvu.search');
-Route::get('admin/chucvu/themchucvu','App\Http\Controllers\ChucVuController@getThemChucVu')->name('admin.chucvu.themchucvu');
-//Kiểm tra tên chức vụ:
-Route::get('admin/chucvu/kiemtratenchucvu/{tenchucvu}','App\Http\Controllers\ChucVuController@kiemtratenchucvu')->name('kiemtratenchucvu');
-Route::post('admin/chucvu/themchucvu',[
-    'as'=>'postThemChucVu',
-    'uses'=>'App\Http\Controllers\ChucVuController@postThemChucVu',
-]);
-//Kiểm tra chức vụ:
-Route::get('admin/chucvu/suachucvu/kiemtratenchucvu/{tenchucvu}','App\Http\Controllers\ChucVuController@kiemtratenchucvu')->name('kiemtratenchucvu');
-Route::get('admin/chucvu/suachucvu/{maCV}','App\Http\Controllers\ChucVuController@getSuaChucVu')->name('admin.chucvu.suachucvu');
-Route::post('admin/chucvu/suachucvu/{maCV}',[
-    'as'=>'postSuaChucVu',
-    'uses'=>'App\Http\Controllers\ChucVuController@postSuaChucVu',
-]);
-Route::get('admin/chucvu/xoachucvu/{maCV}','App\Http\Controllers\ChucVuController@XoaChucVu')->name('admin.chucvu.xoachucvu');
+Route::prefix('admin/chucvu')->group(function(){
+    Route::get('/','App\Http\Controllers\ChucVuController@Admin')->name('admin.chucvu');
+    //Search:
+    Route::get('search','App\Http\Controllers\ChucVuController@Search')->name('admin.chucvu.search');
+    Route::get('themchucvu','App\Http\Controllers\ChucVuController@getThemChucVu')->name('admin.chucvu.themchucvu');
+    //Kiểm tra tên chức vụ:
+    Route::get('kiemtratenchucvu/{tenchucvu}','App\Http\Controllers\ChucVuController@kiemtratenchucvu')->name('kiemtratenchucvu');
+    Route::post('themchucvu',[
+        'as'=>'postThemChucVu',
+        'uses'=>'App\Http\Controllers\ChucVuController@postThemChucVu',
+    ]);
+    //Kiểm tra chức vụ:
+    Route::get('suachucvu/kiemtratenchucvu/{tenchucvu}','App\Http\Controllers\ChucVuController@kiemtratenchucvu')->name('kiemtratenchucvu');
+    Route::get('suachucvu/{maCV}','App\Http\Controllers\ChucVuController@getSuaChucVu')->name('admin.chucvu.suachucvu');
+    Route::post('suachucvu/{maCV}',[
+        'as'=>'postSuaChucVu',
+        'uses'=>'App\Http\Controllers\ChucVuController@postSuaChucVu',
+    ]);
+    Route::get('xoachucvu/{maCV}','App\Http\Controllers\ChucVuController@XoaChucVu')->name('admin.chucvu.xoachucvu');
+});
 
 //Quản lý đơn vị tính:
 Route::get('admin/donvitinh','App\Http\Controllers\DonViTinhController@Admin')->name('admin.donvitinh');

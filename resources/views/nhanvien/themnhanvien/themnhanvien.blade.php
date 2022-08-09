@@ -9,7 +9,7 @@
 @endsection
 
 @section('main')
-    <form action="{{route('postThemNhanVien')}}" method="post" enctype="multipart/form-data" id="form-themnhanvien" onsubmit="return Kiemtranhapso(soDT)"> @csrf
+    <form action="{{route('postThemNhanVien')}}" method="post" enctype="multipart/form-data" id="form-themnhanvien"> @csrf
         <h2 id="title-themnhanvien" class="title-nhanvien">THÊM NHÂN VIÊN</h2>
         <table>
             <tr>

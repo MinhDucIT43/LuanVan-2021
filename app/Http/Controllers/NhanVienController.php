@@ -30,13 +30,16 @@ class NhanVienController extends Controller
             $tenCV = chucvu::where('tenCV',$request->keyword)->first();
             if($tenCV){
                 $tenCV = chucvu::where('tenCV',$request->keyword)->get();
-                foreach($tenCV as $t){}
+                foreach($tenCV as $t){
+                    
+                }
                 $nhanvien = nhanvien::where('maCV','LIKE','%'.$t->maCV.'%')->orderBy('tendangnhap','DESC')->Paginate(3);
             }else{
                 $nhanvien = nhanvien::where('soDT','LIKE','%'.$request->keyword.'%')
                                     ->orwhere('tenNV','LIKE','%'.$request->keyword.'%')
                                     ->orwhere('gioitinh','LIKE','%'.$request->keyword.'%')
                                     ->orwhere('namsinh','LIKE','%'.$request->keyword.'%')
+                                    ->orwhere('diachi','LIKE','%'.$request->keyword.'%')
                                     ->orderBy('tendangnhap','DESC')->Paginate(3);
             }
         }
@@ -81,13 +84,18 @@ class NhanVienController extends Controller
             $file->move(public_path('anhnhanvien'),$tenfile_old);
             $tenfile = $tenfile_resize->save(public_path('anhnhanvien/'.$tenfile_old))->filename.".".$tenfile_resize->save(public_path('anhnhanvien/'.$tenfile_old))->extension;
         }else{
-            $tenfile = "Chưa có ảnh.";
+            $tenfile = "No";
         }
 
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $nhanvien = new nhanvien();
             $nhanvien->tenNV = $request->tennhanvien;
-            $nhanvien->anhnhanvien = $tenfile_resize->save(public_path('anhnhanvien/'.$tenfile))->filename.".".$tenfile_resize->save(public_path('anhnhanvien/'.$tenfile))->extension;
+            if($tenfile == "No"){
+                $nhanvien->anhnhanvien = "Chưa có ảnh.";
+            }
+            else{
+                $nhanvien->anhnhanvien = $tenfile_resize->save(public_path('anhnhanvien/'.$tenfile))->filename.".".$tenfile_resize->save(public_path('anhnhanvien/'.$tenfile))->extension;
+            }
             $nhanvien->namsinh = $request->namsinh;
             $nhanvien->gioitinh = $request->gioitinh;
             $nhanvien->matkhau = $request->matkhau;

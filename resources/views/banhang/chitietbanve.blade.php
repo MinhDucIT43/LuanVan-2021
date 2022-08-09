@@ -1,7 +1,7 @@
 @extends("chitietban")
 
 @section('main')
-            <h3 style="text-align: center;">Chọn loại vé:</h3>
+            <h3>Chọn loại vé:</h3>
             <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
@@ -19,7 +19,9 @@
                         @foreach($banso as $b)
                             <input type="hidden" name="maban" value="{{$b['maban']}}">
                         @endforeach
-                        <td>{{ $v['tenve'] }}</td>
+                        <td>
+                            <input type="radio" name="mucve" value="{{ $v['mave'] }}"/>{{ $v['tenve'] }}
+                        </td>
                         <td>{{ number_format($v['gia'])}}</td>
                         <td>
                             <div class="buttons_added">
