@@ -16,8 +16,8 @@
 <body>
     <div id="wrapper">
         <div id="header">
-            <a href="javascript:goBack()" class="btn btn-success" id="trove">Trở về</a>
-            <p id="nhanvien">Nhân viên: {{ App\Models\nhanvien::where('tendangnhap',Session::get('tendangnhap'))->value('tenNV') }}</p>
+            <a href="{{route('banhangall')}}" class="btn btn-success" id="trove">Trở về</a>
+            <p id="nhanvien">Nhân viên: <i style="color: #00ff00;"  > {{ App\Models\nhanvien::where('tendangnhap',Session::get('tendangnhap'))->value('tenNV') }} </i></p>
         </div>
         <div id="chonmon">
             <div id="header-chonmon">
@@ -87,5 +87,7 @@
     <!-- Script Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+    <script src="{{asset('js/themvebuffet.js')}}"></script>
 </body>
 </html>

@@ -30,6 +30,7 @@
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Thuộc nhóm món</th>
+                        <th>Thuộc loại vé</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -40,6 +41,7 @@
                         <td>{{ number_format($ma['gia']) }} VNĐ</td>
                         <td>{{ $ma['soluong'] }}  {{ App\Models\donvitinh::where('maDVT',$ma['maDVT'])->value('tenDVT') }}</td>
                         <td>{{ App\Models\nhommon::where('maNM',$ma['maNM'])->value('tenNM') }}</td>
+                        <td>{{ App\Models\ve::where('mave',$ma['mave'])->value('tenve') }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.mon.suamon',['mamon' => $ma['mamon']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
                             <a href="{{ route('admin.mon.xoamon',['mamon' => $ma['mamon']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>

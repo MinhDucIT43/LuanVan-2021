@@ -14,14 +14,19 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <!-- Link jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- SweetAlert2 -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="sweetalert2.all.min.js"></script>
+
         <script src="{{asset('js/trove.js')}}"></script>
     </head>
     <body>
         <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
         <div id="wrapper">
             <div id="header">
-                <b id="thoigian">{{date('d/m/Y h:i:s a')}}</b>
-                <a href="javascript:goBack()" class="btn btn-success" id="back">Trở về</a>
+                <p class="thongtin">Admin: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('tendangnhap'))->value('tenNV') }} </i> || </p>
+                <b class="thongtin">{{date('d/m/Y h:i:s a')}}</b>
+                <a href="javascript:goBack()" class="btn btn-secondary" id="back">Trở về</a>
                 <a href="{{route('dangxuat')}}" class="btn btn-danger" id="logout"><i class="fas fa-sign-out-alt"> Đăng xuất</i></a>
             </div>
             <div id="menu">
@@ -64,5 +69,7 @@
         <script src="{{asset('js/themmon.js')}}"></script>
         <script src="{{asset('js/themban.js')}}"></script>
         <script src="{{asset('js/themve.js')}}"></script>
+        <script src="{{asset('js/xoanhanvien.js')}}"></script>
+        <script src="{{asset('js/xoachucvu.js')}}"></script>
     </body>
 </html>

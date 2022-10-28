@@ -1,8 +1,8 @@
 @extends("chitietban")
 
 @section('main')
-            <h3>Chọn loại vé:</h3>
-            <table class="table table-bordered table-hover">
+    <h4>Thêm vé:</h4>
+    <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
                         <th>Tên vé</th>
@@ -37,5 +37,23 @@
                 </tbody>
                 <b style="font-size: 20px;"><label id='errorsoluong'></label></b>
             </table>
-            {{ $vebuffet->links() }}
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Tên món ăn</th>
+                <th>Giá</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($mon199 as $m)
+            <tr>
+                <td>{{ $m['tenmon'] }}</td>
+                <td>{{ number_format($m['gia']) }} VNĐ</td>
+                <td><button type="submit" class="btn btn-success" style="font-size: 11px;">Chọn</button></td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 @endsection

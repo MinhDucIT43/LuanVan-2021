@@ -17,7 +17,8 @@ class NhanVienController extends Controller
     public function Admin(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $nhanvien = nhanvien::orderBy('tendangnhap','DESC')->Paginate(3);
-            return view('nhanvien.admin',compact('nhanvien'));
+            $chucvu = chucvu::orderBy('maCV','DESC')->get();
+            return view('nhanvien.admin',compact('nhanvien','chucvu'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -25,14 +26,15 @@ class NhanVienController extends Controller
 
     public function Search(Request $request){
         if($request->keyword==''){
-            $nhanvien = nhanvien::orderBy('tendangnhap','DESC')->Paginate(3);
+            $nhanvien = nhanvien::where('maCV',$request->timkiemdanhmuc)
+                                ->orwhere('gioitinh','LIKE','%'.$request->timkiemdanhmuc.'%')
+                                ->orderBy('tendangnhap','DESC')->Paginate(3);
+            
         }else{
             $tenCV = chucvu::where('tenCV',$request->keyword)->first();
             if($tenCV){
                 $tenCV = chucvu::where('tenCV',$request->keyword)->get();
-                foreach($tenCV as $t){
-                    
-                }
+                foreach($tenCV as $t){}
                 $nhanvien = nhanvien::where('maCV','LIKE','%'.$t->maCV.'%')->orderBy('tendangnhap','DESC')->Paginate(3);
             }else{
                 $nhanvien = nhanvien::where('soDT','LIKE','%'.$request->keyword.'%')
@@ -44,7 +46,8 @@ class NhanVienController extends Controller
             }
         }
         $nhap = $request->keyword;
-        return view('nhanvien.admin',compact('nhanvien','nhap'));
+        $chucvu = chucvu::orderBy('maCV','DESC')->get();
+        return view('nhanvien.admin',compact('nhanvien','nhap','chucvu'));
     }
 
     public function getThemNhanVien(){

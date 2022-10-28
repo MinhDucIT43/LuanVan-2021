@@ -43,7 +43,7 @@ class DangNhapController extends Controller
             Session::put('tendangnhap',$thungan->tendangnhap);
             Session::put('vaitro',$thungan->maCV);
             //$data = ban::orderBy('MaBan','ASC')->get();
-            return redirect()->route('banhang');
+            return redirect()->route('banhangall');
         }else{
             return redirect::back()->withInput()->with('alert-sai','Sai tên đăng nhập hoặc mật khẩu.');
         }
