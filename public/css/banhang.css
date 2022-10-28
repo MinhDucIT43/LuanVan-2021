@@ -60,13 +60,10 @@
 
 #text-danhsachmonan{
     font-family: Cambria;
-    font-style: italic;
-    border-style: dashed;
-    border-color: chocolate;
     color: white;
     display: inline;
     position: relative;
-    left: 260px;
+    left: 100px;
     top: 5px;
     padding: 0px 25px 0px 25px;
 }
@@ -78,36 +75,85 @@
     background-color: white;
 }
 
+#menu-mathang{
+    width: 799px;
+    height: 43px;
+}
+
+#noidung-mathang{
+    width: 799px;
+    height: 532px;
+}
+
 #thucuong{
     float: left;
-}
-#vebuffet{
-    float: left;
-    width: 476px;
     height: 280px;
-}
-#monan{
-    float: right;
-    width: 323px;
-    height: 575px;
-}
-
-#text-thucuong{
-    font-family: Cambria;
-    font-style: italic;
-    border-style: dashed;
-    border-color: #5c90c4;
-    display: inline;
-    color: chocolate;
-    padding: 0px 15px 0px 15px;
-}
-
-#content-thucuong{
-    color: #5c90c4;
-    font-style: italic;
+    width: 376px;
 }
 
 .img-thucuong{
     width: 100px;
     height: 100px;
+}
+
+.img-monan{
+    width: 100px;
+    height: 100px;
+}
+
+#vebuffet{
+    float: left;
+    width: 376px;
+    height: 252px;
+}
+
+#vebuffet-private{
+    width: 799px;
+    height: 532px;
+}
+#vebuffet-private-table{
+    position: relative;
+    left: 80px;
+    top: 50px;
+}
+#backgroundvebuffet{
+    float: right;
+    position: relative;
+    right: 80px;
+    bottom: 200px;
+}
+
+#monan{
+    float: right;
+    width: 323px;
+    height: 532px;
+}
+
+#monan-private{
+    width: 799px;
+    height: 532px;
+}
+#monan-private-content{
+    width: 399px;
+    height: 532px;
+    float: left;
+}
+#monan-private-table{
+    position: relative;
+    left: 30px;
+}
+#monan-private-pic{
+    width: 400px;
+    height: 532px;
+    float: right;
+}
+.backgroundmonan{
+   position: relative;
+   left: 50px;
+}
+
+#show-pic{
+    float: right;
+    width: 100px;
+    height: 532px;
 }

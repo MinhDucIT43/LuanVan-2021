@@ -26,6 +26,20 @@ class BanHangController extends Controller
     public function BanHang(){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
             $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
+            return view('banhang',['ban'=>$ban]);
+        }else {
+            return redirect()->route('dangnhap');
+        }
+        if(Session::get('tendangnhap') && Session::get('vaitro')){
+            return view('banhang',compact('ban'));
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function BanHangAll(){
+        if(Session::get('tendangnhap') && Session::get('vaitro')){
+            $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
             $manuoc = nhommon::where('tenNM','LIKE','%'.'nước'.'%')->pluck('maNM');
             $nuoc = mon::whereIn('maNM',$manuoc)->paginate(5,'*','np');
             $mathit = nhommon::where('tenNM','LIKE','%'.'thịt'.'%')
@@ -36,12 +50,44 @@ class BanHangController extends Controller
                                 ->pluck('maNM');
             $thit = mon::whereIn('maNM',$mathit)->paginate(11,'*','tp');
             $vebuffet = ve::orderBy('mave','ASC')->paginate(4,'*','vp');
-            return view('banhang.banhang',['ban'=>$ban,'nuoc'=>$nuoc,'thit'=>$thit,'vebuffet'=>$vebuffet]);
+            return view('banhang.banhangall',['ban'=>$ban,'nuoc'=>$nuoc,'thit'=>$thit,'vebuffet'=>$vebuffet]);
         }else {
             return redirect()->route('dangnhap');
         }
+    }
+
+    public function BanHangVeBuffet(){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
-            return view('banhang.banhang',compact('ban'));
+            $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
+            $vebuffet = ve::orderBy('mave','ASC')->paginate(4,'*','vp');
+            return view('banhang.banhangvebuffet',['ban'=>$ban,'vebuffet'=>$vebuffet]);
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function BanHangMonAn(){
+        if(Session::get('tendangnhap') && Session::get('vaitro')){
+            $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
+            $mathit = nhommon::where('tenNM','LIKE','%'.'thịt'.'%')
+                                ->orwhere('tenNM','LIKE','%'.'hải sản'.'%')
+                                ->orwhere('tenNM','LIKE','%'.'lẩu'.'%')
+                                ->orwhere('tenNM','LIKE','%'.'canh'.'%')
+                                ->orwhere('tenNM','LIKE','%'.'truyền thống'.'%')
+                                ->pluck('maNM');
+            $thit = mon::whereIn('maNM',$mathit)->paginate(11,'*','tp');
+            return view('banhang.banhangmonan',['ban'=>$ban,'thit'=>$thit]);
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function BanHangThucUong(){
+        if(Session::get('tendangnhap') && Session::get('vaitro')){
+            $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
+            $manuoc = nhommon::where('tenNM','LIKE','%'.'nước'.'%')->pluck('maNM');
+            $nuoc = mon::whereIn('maNM',$manuoc)->paginate(11,'*','np');
+            return view('banhang.banhangnuocuong',['ban'=>$ban,'nuoc'=>$nuoc]);
         }else {
             return redirect()->route('dangnhap');
         }
@@ -59,8 +105,23 @@ class BanHangController extends Controller
     public function BanSoVe($maban){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
             $banso = ban::where('maban',$maban)->get();
-            $vebuffet = ve::orderBy('mave','DESC')->paginate(5);
-            return view('banhang.chitietbanve',['banso'=>$banso,'vebuffet'=>$vebuffet]);
+            $thanhtien = order::where('maban',$maban)->sum('thanhtien');
+            $trangthai = ban::where('maban',$maban)->where('trangthai',"Có khách")->first();
+            if($trangthai){
+                $vechon = order::where('maban',$maban)->get('mave');
+                foreach($vechon as $v){}
+                $mon199 = mon::where('mave',$v->mave)->get();
+                $mon269 = mon::where('mave',13)->orwhere('mave',14)->get();
+                $mon319 = mon::where('mave',13)->orwhere('mave',14)->orwhere('mave',15)->get();
+                $vebuffet = ve::where('mave',$v->mave)->get();
+                switch($v->mave){
+                    case 13: return view('banhang.chitietban199',compact('banso','thanhtien','mon199','vebuffet')); break;
+                    case 14: return view('banhang.chitietban269',compact('banso','thanhtien','mon269')); break;
+                    case 15: return view('banhang.chitietban319',compact('banso','thanhtien','mon319')); break;
+                }
+            }else{
+                return view('banhang.chitietbanve',['banso'=>$banso,'vebuffet'=>$vebuffet,'thanhtien'=>$thanhtien]);
+            }
         }else{
             return redirect()->route('dangnhap');
         }
@@ -68,6 +129,7 @@ class BanHangController extends Controller
 
     public function postThemVe(Request $request){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
+            //dd($request->mave);
             $vebuffet = ve::orderBy('mave','DESC')->paginate(5);
             $gia = ve::where('mave',$request->mave)->get('gia');
             $banso = ban::where('maban',$request->maban)->get();
@@ -89,14 +151,25 @@ class BanHangController extends Controller
                 $order->thanhtien = $request->soluong*$g->gia;
                 $order->maban =$request->maban;
                 $order->mave = $request->mave;
+                ban::where('maban',$request->maban)->update([
+                    'trangthai' => "Có khách",
+                ]);
                 $order->save();
             }
-            $thanhtien = order::sum('thanhtien');
-            return view('banhang.chitietbanve',compact('vebuffet','banso','thanhtien'));
+            $thanhtien = order::where('maban',$maban)->sum('thanhtien');
+            $vechon = $request->mave;
+            $mon199 = mon::where('mave',$vechon)->get();
+            $mon269 = mon::where('mave',13)->orwhere('mave',14)->get();
+            $mon319 = mon::where('mave',13)->orwhere('mave',14)->orwhere('mave',15)->get();
+            switch($vechon){
+                case 13: return view('banhang.chitietban199',compact('banso','thanhtien','mon199')); break;
+                case 14: return view('banhang.chitietban269',compact('banso','thanhtien','mon269')); break;
+                case 15: return view('banhang.chitietban319',compact('banso','thanhtien','mon319')); break;
+            }
         }else{
             return redirect()->route('dangnhap');
         }
-    }    
+    }
 
     public function postThemMonChon(Request $request){
         if(Session::get('tendangnhap') && Session::get('vaitro')){

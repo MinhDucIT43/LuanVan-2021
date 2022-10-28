@@ -17,11 +17,12 @@
     color: white;
 }
 
-#thoigian{
+.thongtin{
     display: inline;
     position: relative;
     top: 5px;
     left: 10px;
+    color: white;
 }
 
 #back{
@@ -130,11 +131,6 @@
 .title-nhanvien{
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-#button-search{
-    position: relative;
-    right: 30px;
 }
 
 #danhsachnhanvien{

@@ -33,7 +33,7 @@ $(document).ready(function(){
             if(data===""){
                 errorsoDT.innerHTML = "";
             }else{
-                errorsoDT.innerHTML = "Số điện thoại: Số điện thoại đã tồn tại";
+                errorsoDT.innerHTML = "Số điện thoại: Số điện thoại đã tồn tại.";
                 errorsoDT.style.color = "red";
             }
         });

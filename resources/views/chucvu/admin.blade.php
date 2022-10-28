@@ -38,7 +38,7 @@
                         <td>{{number_format($cv['tienluong'])}} VNĐ</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.chucvu.suachucvu',['maCV' => $cv['maCV']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
-                            <a href="{{ route('admin.chucvu.xoachucvu',['maCV' => $cv['maCV']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
+                            <a class="deleteChucVu" href="{{ route('admin.chucvu.xoachucvu',['maCV' => $cv['maCV']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
                         </td>
                     </tr>
                 @endforeach

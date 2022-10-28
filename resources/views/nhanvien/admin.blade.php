@@ -16,7 +16,19 @@
     <form action="{{route('admin.nhanvien.search')}}" method="get" role="search">
         <label for="keyword">Tìm kiếm</label>
         <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Nhập từ khoá..." style="width:250px;display:inline;">
-        <button class="fa fa-search" id="button-search" type="submit"></button>
+        <select name="timkiemdanhmuc" id="timkiemdanhmuc">
+            <option>Danh mục</option>
+            <optgroup label="Chức vụ">
+                @foreach($chucvu as $cv)
+                    <option value="{{$cv->maCV}}">{{$cv['tenCV']}}</option>
+                @endforeach
+            </optgroup>
+            <optgroup label="Giới tính">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </optgroup>
+        </select>
+        <button class="btn btn-success" id="button-search" type="submit">Search</button>
     </form>
     <a class="btn btn-primary m-1" href="{{route('admin.nhanvien.themnhanvien')}}" role="button" id="button-themnhanvien">Thêm nhân viên</a>
     <div>
@@ -54,7 +66,7 @@
                         <td>{{App\Models\chucvu::where('maCV',$nv['maCV'])->value('tenCV')}}</td>
                         <td>
                             <a href="{{ route('admin.nhanvien.suanhanvien',['tendangnhap' => $nv['tendangnhap']]) }}" class="icon-sua-xoa"><i class="fas fa-wrench"></i></a>
-                            <a href="{{ route('admin.nhanvien.xoanhanvien',['tendangnhap' => $nv['tendangnhap']]) }}" class="icon-sua-xoa" style="color:red;"><i class="fas fa-user-minus"></i></a>
+                            <a href="{{ route('admin.nhanvien.xoanhanvien',['tendangnhap' => $nv['tendangnhap']]) }}" class="icon-sua-xoa deleteNhanVien" style="color:red;"><i class="fas fa-user-minus"></i></a>
                         </td>
                     </tr>
                     @endforeach
