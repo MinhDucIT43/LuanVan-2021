@@ -64,14 +64,8 @@ class ChucVuController extends Controller
 
     public function getSuaChucVu($maCV){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            $chucvu = nhanvien::orderBy('maCV','DESC')->get();
-            $chucvu_tt = nhanvien::where('maCV',$maCV)->first();
-            if($chucvu_tt){
-                return redirect()->route('admin.chucvu',compact('chucvu'))->with('success-themchucvu','Tồn tại nhân viên có chức vụ bạn muốn sửa.');
-            }else{
                 $chucvu = chucvu::where('maCV',$maCV)->get();
                 return view('chucvu.suachucvu.suachucvu',['chucvu' => $chucvu]);
-            }
         }else{
             return redirect()->route('dangnhap');
         }
@@ -92,13 +86,12 @@ class ChucVuController extends Controller
 
     public function XoaChucVu($maCV){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            $chucvu = nhanvien::orderBy('maCV','DESC')->get();
+            $chucvu = chucvu::orderBy('maCV','DESC')->get();
             $chucvu_tt = nhanvien::where('maCV',$maCV)->first();
             if($chucvu_tt){
                 return redirect()->route('admin.chucvu',compact('chucvu'))->with('success-themchucvu','Tồn tại nhân viên có chức vụ bạn muốn xóa.');
             }else{
                 chucvu::where('maCV',$maCV)->delete();
-                $chucvu = chucvu::orderBy('maCV','DESC')->get();
                 return redirect()->route('admin.chucvu',compact('chucvu'))->with('success-themchucvu','Xóa chức vụ thành công!');
             }
         }else{

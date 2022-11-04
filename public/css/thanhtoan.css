@@ -1,0 +1,34 @@
+* {
+    font-family: DejaVu Sans, sans-serif;
+}
+
+body {
+    font-size: 14px;
+}
+
+.companyInfo {
+    font-weight: bold;
+    text-align: center;
+}
+
+.tieude{
+    color: deepskyblue;
+}
+
+#sohoadon{
+    display: inline;
+    margin-right: 227px;
+}
+
+#giothanhtoan{
+    display: inline;
+    margin-right: 97px;
+}
+
+.thanhphan{
+    border-bottom: 2px dotted deepskyblue;
+}
+
+.vat{
+    border-bottom: 2px solid black;
+}

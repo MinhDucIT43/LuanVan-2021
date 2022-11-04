@@ -177,6 +177,8 @@ return [
 
         //Xử lý ảnh:
         Intervention\Image\ImageServiceProvider::class,
+        //PDF:
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -233,6 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //Xử lý ảnh:
         'Image' => Intervention\Image\Facades\Image::class,
+        //PDF:
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

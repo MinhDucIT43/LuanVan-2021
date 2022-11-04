@@ -38,7 +38,7 @@
                         <td>{{ $b['trangthai'] }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.ban.suaban',['maban' => $b['maban']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
-                            <a href="{{ route('admin.ban.xoaban',['maban' => $b['maban']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
+                            <a class="deleteBan" href="{{ route('admin.ban.xoaban',['maban' => $b['maban']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
                         </td>
                     </tr>
                 @endforeach

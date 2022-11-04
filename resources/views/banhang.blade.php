@@ -21,7 +21,7 @@
             </div>
             <div id="cacban">
                 @foreach($ban as $b)
-                    <a href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}" style="text-decoration: none">
+                    <a href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}" class="active" style="text-decoration: none">
                         <button id="display-ban" type="submit">
                             <i id="khachhang" class="fas fa-users"></i>
                             <p>{{$b['banso']}}</p>
@@ -32,6 +32,7 @@
             </div>
         </div>
         <div id="danhsachmonan">
+            <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
             <b style="color: white;">{{date('d/m/Y h:i:s a')}}</b>
             <h3 id="text-danhsachmonan">DANH SÁCH MẶT HÀNG</h3>
             <div id="display-danhsachmonan">

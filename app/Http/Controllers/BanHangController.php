@@ -14,28 +14,29 @@ use App\Models\mon;
 use App\Models\nhommon;
 use App\Models\ve;
 use App\Models\order;
-use App\Models\hoadon;
-use App\Models\chitiet_hd_thu;
+use App\Models\chitietorder;
+use App\Models\thanhtoan;
 
 use Carbon\Carbon;
+use PDF;
 
 use Session;
 
 class BanHangController extends Controller
 {
-    public function BanHang(){
-        if(Session::get('tendangnhap') && Session::get('vaitro')){
-            $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
-            return view('banhang',['ban'=>$ban]);
-        }else {
-            return redirect()->route('dangnhap');
-        }
-        if(Session::get('tendangnhap') && Session::get('vaitro')){
-            return view('banhang',compact('ban'));
-        }else {
-            return redirect()->route('dangnhap');
-        }
-    }
+    // public function BanHang(){
+    //     if(Session::get('tendangnhap') && Session::get('vaitro')){
+    //         $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
+    //         return view('banhang',['ban'=>$ban]);
+    //     }else {
+    //         return redirect()->route('dangnhap');
+    //     }
+    //     if(Session::get('tendangnhap') && Session::get('vaitro')){
+    //         return view('banhang',compact('ban'));
+    //     }else {
+    //         return redirect()->route('dangnhap');
+    //     }
+    // }
 
     public function BanHangAll(){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
@@ -49,7 +50,7 @@ class BanHangController extends Controller
                                 ->orwhere('tenNM','LIKE','%'.'truyền thống'.'%')
                                 ->pluck('maNM');
             $thit = mon::whereIn('maNM',$mathit)->paginate(11,'*','tp');
-            $vebuffet = ve::orderBy('mave','ASC')->paginate(4,'*','vp');
+            $vebuffet = ve::orderBy('mave','ASC')->paginate(3,'*','vp');
             return view('banhang.banhangall',['ban'=>$ban,'nuoc'=>$nuoc,'thit'=>$thit,'vebuffet'=>$vebuffet]);
         }else {
             return redirect()->route('dangnhap');
@@ -93,34 +94,69 @@ class BanHangController extends Controller
         }
     }
 
-    public function BanSo($maban){
-        if(Session::get('tendangnhap') && Session::get('vaitro')){
-            $banso = ban::where('maban',$maban)->get();
-            return view('banhang.chitietban',['banso'=>$banso]);
-        }else{
-            return redirect()->route('dangnhap');
-        }
-    }
+    // public function BanSo($maban){
+    //     if(Session::get('tendangnhap') && Session::get('vaitro')){
+    //         $banso = ban::where('maban',$maban)->get();
+    //         return view('banhang.chitietban',['banso'=>$banso]);
+    //     }else{
+    //         return redirect()->route('dangnhap');
+    //     }
+    // }
 
     public function BanSoVe($maban){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
             $banso = ban::where('maban',$maban)->get();
-            $thanhtien = order::where('maban',$maban)->sum('thanhtien');
+            //$thanhtien = order::where('maban',$maban)->sum(soluong*gia);
             $trangthai = ban::where('maban',$maban)->where('trangthai',"Có khách")->first();
+            $dathanhtoan = order::where('maban',$maban)->where('trangthai',0)->first();
+            $vebuffet = ve::orderBy('mave','ASC')->paginate(5);
+            $maorder = order::where('maban',$maban)->get();
+            foreach($maorder as $ma){}
             if($trangthai){
+                // if($dathanhtoan){
+                //     $vechon = order::where('maban',$maban)->get('mave');
+                //     foreach($vechon as $v){}
+                //     $listmon = mon::where('mave','<=',$v->mave)->where('mamon','<>',0)->get();
+                //     // $mon199 = mon::where('mave',13)->get();
+                //     // $mon269 = mon::where('mave',13)->orwhere('mave',14)->get();
+                //     // $mon319 = mon::where('mave',13)->orwhere('mave',14)->orwhere('mave',15)->get();
+                //     $soluongve = order::where('maban',$maban)->get('soluong');
+                //     foreach($soluongve as $slv){}
+                //     $giave = order::where('maban',$maban)->get('gia');
+                //     foreach($giave as $gv){}
+                //     $thanhtienve = $slv->soluong*$gv->gia;
+                //     $thanhtienmon = chitietorder::where('maorder',$ma->maorder)->sum('thanhtien');
+                //     $vebuffet = ve::where('mave',$v->mave)->get();
+                //     $vetreem = mon::where('mamon',0)->get();
+                //     // switch($v->mave){
+                //     //     case 13: return view('banhang.chitietban199',compact('banso','thanhtien','mon199','vebuffet')); break;
+                //     //     case 14: return view('banhang.chitietban269',compact('banso','thanhtien','mon269','vebuffet')); break;
+                //     //     case 15: return view('banhang.chitietban319',compact('banso','thanhtien','mon319','vebuffet')); break;
+                //     // }
+                //     return view('banhang.chitietban199',compact('banso','thanhtienve','thanhtienmon','listmon','vebuffet','vetreem'));
+                // }
                 $vechon = order::where('maban',$maban)->get('mave');
                 foreach($vechon as $v){}
-                $mon199 = mon::where('mave',$v->mave)->get();
-                $mon269 = mon::where('mave',13)->orwhere('mave',14)->get();
-                $mon319 = mon::where('mave',13)->orwhere('mave',14)->orwhere('mave',15)->get();
+                $listmon = mon::where('mave','<=',$v->mave)->where('mamon','<>',0)->get();
+                // $mon199 = mon::where('mave',13)->get();
+                // $mon269 = mon::where('mave',13)->orwhere('mave',14)->get();
+                // $mon319 = mon::where('mave',13)->orwhere('mave',14)->orwhere('mave',15)->get();
+                $soluongve = order::where('maban',$maban)->get('soluong');
+                foreach($soluongve as $slv){}
+                $giave = order::where('maban',$maban)->get('gia');
+                foreach($giave as $gv){}
+                $thanhtienve = $slv->soluong*$gv->gia;
+                $thanhtienmon = chitietorder::where('maorder',$ma->maorder)->sum('thanhtien');
                 $vebuffet = ve::where('mave',$v->mave)->get();
-                switch($v->mave){
-                    case 13: return view('banhang.chitietban199',compact('banso','thanhtien','mon199','vebuffet')); break;
-                    case 14: return view('banhang.chitietban269',compact('banso','thanhtien','mon269')); break;
-                    case 15: return view('banhang.chitietban319',compact('banso','thanhtien','mon319')); break;
-                }
+                $vetreem = mon::where('mamon',0)->get();
+                // switch($v->mave){
+                //     case 13: return view('banhang.chitietban199',compact('banso','thanhtien','mon199','vebuffet')); break;
+                //     case 14: return view('banhang.chitietban269',compact('banso','thanhtien','mon269','vebuffet')); break;
+                //     case 15: return view('banhang.chitietban319',compact('banso','thanhtien','mon319','vebuffet')); break;
+                // }
+                return view('banhang.chitietban199',compact('banso','thanhtienve','thanhtienmon','listmon','vebuffet','vetreem'));
             }else{
-                return view('banhang.chitietbanve',['banso'=>$banso,'vebuffet'=>$vebuffet,'thanhtien'=>$thanhtien]);
+                return view('banhang.chitietbanve',['banso'=>$banso,'vebuffet'=>$vebuffet]);
             }
         }else{
             return redirect()->route('dangnhap');
@@ -129,82 +165,169 @@ class BanHangController extends Controller
 
     public function postThemVe(Request $request){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
-            //dd($request->mave);
-            $vebuffet = ve::orderBy('mave','DESC')->paginate(5);
             $gia = ve::where('mave',$request->mave)->get('gia');
             $banso = ban::where('maban',$request->maban)->get();
             $order = order::where('maban',$request->maban)->where('mave',$request->mave)->first();
+            $maorder = order::where('maban',$request->maban)->get();
+            foreach($maorder as $ma){}
             if($order){
                 $order = order::where('maban',$request->maban)->where('mave',$request->mave)->get();
                 foreach($order as $o){}
-                foreach($gia as $g){}
                 $soluongmoi = $o->soluong + $request->soluong;
-                $thanhtienmoi = $o->thanhtien + ($request->soluong*$g->gia);
                 order::where('maban',$request->maban)->where('mave',$request->mave)->update([
                     'soluong' => $soluongmoi,
-                    'thanhtien' => $thanhtienmoi,
                 ]);
             }else{
                 $order = new order();
                 $order->soluong = $request->soluong;
                 foreach($gia as $g){}
-                $order->thanhtien = $request->soluong*$g->gia;
+                $order->gia = $g->gia;
                 $order->maban =$request->maban;
                 $order->mave = $request->mave;
+                $order->giovao = $request->giovao;
                 ban::where('maban',$request->maban)->update([
                     'trangthai' => "Có khách",
                 ]);
                 $order->save();
             }
-            $thanhtien = order::where('maban',$maban)->sum('thanhtien');
+            $soluongve = order::where('maban',$request->maban)->get('soluong');
+            foreach($soluongve as $slv){}
+            $giave = order::where('maban',$request->maban)->get('gia');
+            foreach($giave as $gv){}
+            $thanhtienve = $slv->soluong*$gv->gia;
+            $thanhtienmon = 0;
             $vechon = $request->mave;
-            $mon199 = mon::where('mave',$vechon)->get();
-            $mon269 = mon::where('mave',13)->orwhere('mave',14)->get();
-            $mon319 = mon::where('mave',13)->orwhere('mave',14)->orwhere('mave',15)->get();
-            switch($vechon){
-                case 13: return view('banhang.chitietban199',compact('banso','thanhtien','mon199')); break;
-                case 14: return view('banhang.chitietban269',compact('banso','thanhtien','mon269')); break;
-                case 15: return view('banhang.chitietban319',compact('banso','thanhtien','mon319')); break;
-            }
+            $listmon = mon::where('mave','<=',$vechon)->where('mamon','<>',0)->get();
+            // $mon269 = mon::where('mave',13)->get();
+            // $mon269 = mon::where('mave',13)->orwhere('mave',14)->get();
+            // $mon319 = mon::where('mave',13)->orwhere('mave',14)->orwhere('mave',15)->get();
+            $vebuffet = ve::where('mave',$request->mave)->get();
+            $vetreem = mon::where('mamon',0)->get();
+            //witch($vechon){
+                //case 13: return view('banhang.chitietban199',compact('banso','thanhtien','mon199','vebuffet')); break;
+                // case 14: return view('banhang.chitietban269',compact('banso','thanhtien','mon269')); break;
+                // case 15: return view('banhang.chitietban319',compact('banso','thanhtien','mon319')); break;
+            //}
+            return view('banhang.chitietban199',compact('banso','thanhtienve','thanhtienmon','listmon','vebuffet','vetreem'));
         }else{
             return redirect()->route('dangnhap');
         }
     }
 
-    public function postThemMonChon(Request $request){
+    public function postThemMon(Request $request){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
-            $mon = mon::orderBy('mamon','DESC')->paginate(9);
             $banso = ban::where('maban',$request->maban)->get();
-            $order = order::where('maban',$request->maban)->where('mamon',$request->mamon)->first();
-            if($order){
-                $order = order::where('maban',$request->maban)->where('mamon',$request->mamon)->get();
-                foreach($order as $o){}
-                $soluongmoi = $o->soluong + $request->soluong;
-                order::where('maban',$request->maban)->where('mamon',$request->mamon)->update([
-                    'soluong' => $soluongmoi
+            $vechon = $request->mave;
+            $listmon = mon::where('mave','<=',$vechon)->where('mamon','<>',0)->get();
+            $maorder = order::where('maban',$request->maban)->get();
+            foreach($maorder as $ma){}
+            $vebuffet = ve::where('mave',$ma->mave)->get();
+            $vetreem = mon::where('mamon',0)->get();
+            $check = chitietorder::where('mamon',$request->mamon)->first();
+            if($check){
+                $check = chitietorder::where('mamon',$request->mamon)->get();
+                foreach($check as $c){}
+                $soluongmoi = $c->soluong + $request->soluong;
+                $thanhtienmoi = $c->gia*$soluongmoi;
+                chitietorder::where('mamon',$request->mamon)->update([
+                    'soluong' => $soluongmoi,
+                    'thanhtien' => $thanhtienmoi,
                 ]);
             }else{
-                $order = new order();
-                $order->maban =$request->maban;
-                $order->mamon = $request->mamon;
-                $order->soluong = $request->soluong;
-                $order->save();
+                $chitietorder = new chitietorder();
+                $chitietorder->soluong = $request->soluong;
+                $giamon = mon::where('mamon',$request->mamon)->get('gia');
+                foreach($giamon as $g){}
+                $chitietorder->gia = $g->gia;
+                $chitietorder->thanhtien = $request->soluong*$g->gia;
+                $chitietorder->mamon = $request->mamon;
+                $chitietorder->maorder = $ma->maorder;
+                $chitietorder->save();
             }
-            return view('banhang.chitietban',compact('mon','banso'));
+            $soluongve = order::where('maban',$request->maban)->get('soluong');
+            foreach($soluongve as $slv){}
+            $giave = order::where('maban',$request->maban)->get('gia');
+            foreach($giave as $gv){}
+            $thanhtienve = $slv->soluong*$gv->gia;
+            $thanhtienmon = chitietorder::where('maorder',$ma->maorder)->sum('thanhtien');
+            return view('banhang.chitietban199',compact('banso','thanhtienmon','thanhtienve','listmon','vebuffet','vetreem'));
         }else{
             return redirect()->route('dangnhap');
         }
     }
 
-    public function XoaOrder($maban,$mamon){
+    public function XoaOrderMon($mactorder){
         if(Session::get('tendangnhap') && Session::get('vaitro')){
-            order::where('maban',$maban)->where('mamon',$mamon)->delete();
-            $mon = mon::orderBy('mamon','DESC')->paginate(9);
-            $banso = ban::where('maban',$maban)->get();
-            return view('banhang.chitietban',compact('banso','mon'));
+            $maorder = chitietorder::where('mactorder',$mactorder)->get();
+            foreach($maorder as $ma){}
+            $banso = order::where('maorder',$ma->maorder)->get();
+            $order = order::where('maorder',$ma->maorder)->get();
+            foreach($order as $o){}
+            $thanhtienve = $o->soluong*$o->gia;
+            $listmon = mon::where('mave','<=',$o->mave)->where('mamon','<>',0)->get();
+            $vebuffet = ve::where('mave',$o->mave)->get();
+            $vetreem = mon::where('mamon',0)->get();
+            chitietorder::where('mactorder',$mactorder)->delete();
+            $thanhtienmon = chitietorder::where('maorder',$ma->maorder)->sum('thanhtien');
+            return redirect()->route('banhang.chitietban.xoaordermon',compact('banso','thanhtienmon','thanhtienve','listmon','vebuffet','vetreem'));
         }else{
             return redirect()->route('dangnhap');
         }
+    }
+
+    public function XoaOrderVe($maban,$mave){
+        if(Session::get('tendangnhap') && Session::get('vaitro')){
+            $banso = order::where('maban',$maban)->get();
+            $maorder = order::where('maban',$maban)->where('mave',$mave)->get();
+            foreach($maorder as $ma){}
+            $thanhtienmon = chitietorder::where('maorder',$ma->maorder)->sum('thanhtien');
+            $order = order::where('maorder',$ma->maorder)->get();
+            foreach($order as $o){}
+            $thanhtienve = $o->soluong*$o->gia;
+            $listmon = mon::where('mave','<=',$mave)->where('mamon','<>',0)->get();
+            $vebuffet = ve::where('mave',$mave)->get();
+            $vetreem = mon::where('mamon',0)->get();
+            $check = chitietorder::where('maorder',$ma->maorder)->first();
+            if($check){
+                return redirect()->route('banhang.chitietban.xoaorderve',compact('banso','thanhtienmon','thanhtienve','listmon','vebuffet','vetreem'))->with('delete-xoave','Không thể xoá vé Buffet.');
+            }else{
+                order::where('maban',$maban)->where('mave',$mave)->delete();
+                ban::where('maban',$maban)->update([
+                    'trangthai' => "Trống",
+                ]);
+                return redirect()->route('banhang.chitietban.xoaorderve',compact('banso','thanhtienmon','thanhtienve','listmon','vebuffet','vetreem'));
+            }
+        }else{
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function thanhtoan($maorder){
+        $chitietorder = chitietorder::where('maorder',$maorder)->get();
+        $order = order::where('maorder',$maorder)->get();
+        $data = [
+            'danhsachorder' => $order,
+            'danhsachchitietorder'    => $chitietorder,
+        ];
+        // return view('banhang.thanhtoan')
+        //         ->with('danhsachorder', $order)
+        //         ->with('danhsachchitietorder', $chitietorder);
+        $thanhtoan = new thanhtoan();
+        $thanhtoan->nhanvien = Session::get('tendangnhap');
+        date_default_timezone_set("Asia/Ho_Chi_Minh");
+        $thanhtoan->giothanhtoan = date('Y/m/d h:i:s');
+        $thanhtoan->maorder = $maorder;
+        $maban = order::where('maorder',$maorder)->get();
+        foreach($maban as $mb){}
+        ban::where('maban',$mb->maban)->update([
+            'trangthai' => "Trống",
+        ]);
+        order::where('maorder',$maorder)->update([
+            'trangthai' => 1,
+        ]);
+        $thanhtoan->save();
+        $pdf = PDF::loadView('banhang.thanhtoan',$data);
+        return $pdf->download('hoadon.pdf');
     }
 
     // public function postThanhToan(Request $request){

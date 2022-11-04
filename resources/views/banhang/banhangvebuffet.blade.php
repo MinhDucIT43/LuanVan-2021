@@ -14,13 +14,22 @@
                 <td>
                     @foreach($vebuffet as $ve)
                         <p>
-                        {{$ve['tenve']}}
+                        <b>{{$ve['tenve']}}</b>
                         ................
                         {{number_format($ve['gia'])}} VNĐ
                         </p>
                     @endforeach
                     {{ $vebuffet->withQueryString()->links() }}
                 </td>
+            </tr>
+            <tr>
+                <td><b>Trẻ cao dưới 1m:</b> Miễn phí (số vé trẻ = số vé người lớn, </br>nhiều hơn thì với mỗi vé nhiều hơn thu 75,000).</td>
+            </tr>
+            <tr>
+                <td><b>Trẻ cao từ 1m đến 1m3:</b> 75,000 đồng/trẻ.</td>
+            </tr>
+            <tr>
+                <td><b>Trẻ cao hơn 1m3:</b> Thu giá vé như người lớn.</td>
             </tr>
         </table>
         <img src="{{asset('hinhanh/backgroundvebuffet.jpg')}}" alt="Vé Buffet" id="backgroundvebuffet">

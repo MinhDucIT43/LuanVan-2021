@@ -23,7 +23,7 @@
         <div class="main">
             <div class="col-md-6 col-sm-12">
                 <div class="login-form">
-                <a class="btn btn-primary m-1" href="{{route('trove')}}" role="button" id="trove">Trở về</a>
+                <a class="btn btn-secondary" href="{{route('trove')}}" role="button" id="trove">Trở về</a>
                     <h1 id="title-doimatkhau">Đổi mật khẩu</h1>
                     <form method="post" action="{{ route('postDoiMatKhau') }}"> @csrf
                         <div class="form-group" id="top-form">
@@ -38,7 +38,7 @@
                             <label>Mật khẩu mới</label>
                             <input type="password" name="matkhaumoi" class="form-control" placeholder="Nhập mật khẩu mới" value="{{old('matkhaumoi')}}">
                         </div>
-                        <button type="submit" class="btn btn-black">Cập nhật</button>
+                        <button type="submit" class="btn btn-success">Cập nhật</button>
                         <ul class="alert text-danger">
                             @foreach($errors->all() as $error)
                                 <li>{{ $error }}</li>

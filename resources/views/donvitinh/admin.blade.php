@@ -36,7 +36,7 @@
                         <td>{{ $dvt['tenDVT'] }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.donvitinh.suadonvitinh',['maDVT' => $dvt['maDVT']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
-                            <a href="{{ route('admin.donvitinh.xoadonvitinh',['maDVT' => $dvt['maDVT']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
+                            <a class="deleteDonViTinh" href="{{ route('admin.donvitinh.xoadonvitinh',['maDVT' => $dvt['maDVT']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
                         </td>
                     </tr>
                 @endforeach

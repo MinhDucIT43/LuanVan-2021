@@ -39,7 +39,7 @@
                         <td>{{ App\Models\donvitinh::where('maDVT',$ve['maDVT'])->value('tenDVT') }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.ve.suave',['mave' => $ve['mave']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
-                            <a href="{{ route('admin.ve.xoave',['mave' => $ve['mave']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
+                            <a class="deleteVe" href="{{ route('admin.ve.xoave',['mave' => $ve['mave']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
                         </td>
                     </tr>
                 @endforeach

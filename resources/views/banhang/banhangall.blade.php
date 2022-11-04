@@ -73,6 +73,11 @@
                     {{number_format($ve['gia'])}} VNĐ
                     </p>
                 @endforeach
+                <p style="font-size: 13px;">
+                    <b>Trẻ cao dưới 1m:</b> Miễn phí (số vé trẻ = số vé người lớn, nhiều hơn thì với mỗi vé nhiều hơn thu 75,000).</br>
+                    <b>Trẻ cao từ 1m đến 1m3:</b> 75,000 đồng/trẻ.</br>
+                    <b>Trẻ cao hơn 1m3:</b> Thu giá vé như người lớn.
+                </p>
                 {{ $vebuffet->withQueryString()->links() }}
                 </td>
             </tr>

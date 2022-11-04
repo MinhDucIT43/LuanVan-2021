@@ -26,10 +26,13 @@ class NhanVienController extends Controller
 
     public function Search(Request $request){
         if($request->keyword==''){
-            $nhanvien = nhanvien::where('maCV',$request->timkiemdanhmuc)
-                                ->orwhere('gioitinh','LIKE','%'.$request->timkiemdanhmuc.'%')
-                                ->orderBy('tendangnhap','DESC')->Paginate(3);
-            
+            if($request->timkiemdanhmuc==''){
+                $nhanvien = nhanvien::orderBy('tendangnhap','DESC')->Paginate(3);
+            }else{
+                $nhanvien = nhanvien::where('maCV',$request->timkiemdanhmuc)
+                                    ->orwhere('gioitinh','LIKE','%'.$request->timkiemdanhmuc.'%')
+                                    ->orderBy('tendangnhap','DESC')->Paginate(3);
+            }
         }else{
             $tenCV = chucvu::where('tenCV',$request->keyword)->first();
             if($tenCV){

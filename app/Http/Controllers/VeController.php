@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\ve;
 use App\Models\donvitinh;
+use App\Models\mon;
+use App\Models\order;
 
 use Session;
 
@@ -80,9 +82,17 @@ class VeController extends Controller
 
     public function XoaVe($mave){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            ve::where('mave',$mave)->delete();
             $vebuffet = ve::orderBy('mave','DESC')->get();
+            $mon_ve = mon::where('mave',$mave)->first();
+            $order_ve = order::where('mave',$mave)->first();
+            if($mon_ve){
+                return redirect()->route('admin.ve',compact('vebuffet'))->with('success-themvebuffet','Tồn tại món ăn thuộc loại vé bạn muốn xoá!');
+            }else if($order_ve){
+                return redirect()->route('admin.ve',compact('vebuffet'))->with('success-themvebuffet','Tồn tại order có loại vé bạn muốn xoá!');                
+            }else{
+                ve::where('mave',$mave)->delete();
             return redirect()->route('admin.ve',compact('vebuffet'))->with('success-themvebuffet','Xóa vé Buffet thành công!');
+            }
         }else{
             return redirect()->route('dangnhap');
         }

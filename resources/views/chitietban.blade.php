@@ -32,47 +32,69 @@
             </div>
         </div>
         <div id="order">
-            <?php $data = DB::table('order')->where('maban',$b->maban)->first(); ?>
+            <?php
+                $data = DB::table('order')->where('maban',$b->maban)->first(); 
+            ?>
             @if($data)
+                <?php
+                    $mabancoorder = DB::table('order')->where('maban',$b->maban)->get();
+                    foreach($mabancoorder as $mbco){}
+                    $monorder = DB::table('chitietorder')->where('maorder',$mbco->maorder)->first();
+                ?>
                 <table class="table table-bordered">
                     <tr>
+                        <th>STT</th>
                         <th>Tên món</th>
                         <th>Số lượng</th>
-                        <th>Đơn vị</th>
                         <th>Đơn giá</th>
                         <th>Thành tiền</th>
                         <th></th>
                     </tr>
                     <tbody>
                         <?php
-                            $datane = DB::table('order')->where('maban',$b->maban)->get(); 
-                            $tongtien = 0;
+                            $datane = DB::table('order')->where('maban',$b->maban)->get();
+                            $monorderne = DB::table('chitietorder')->where('maorder',$mbco->maorder)->get();
                         ?>
                         <form action="" method="POST"> @csrf
                             <input type="hidden" name="maban" value="{{$b['maban']}}">
                             @foreach($datane as $dt)
                                 <tr>
+                                    <td></td>
                                     <td>{{ App\Models\ve::where('mave',$dt->mave)->value('tenve') }}</td>
                                     <td>{{$dt->soluong}}</td>
-                                    <?php $madvt = App\Models\ve::where('mave',$dt->mave)->value('maDVT');?>
-                                    <td>{{ App\Models\donvitinh::where('maDVT',$madvt)->value('tenDVT') }}</td>
                                     <td>{{ number_format(App\Models\ve::where('mave',$dt->mave)->value('gia'))}}</td>
                                     <td>{{ number_format(($dt->soluong)*(App\Models\ve::where('mave',$dt->mave)->value('gia'))) }}</td>
+                                    <td><a href="{{ url('') }}/banhang/chitietban/xoaorderve/{{$dt->maban}}/{{$dt->mave}}"><i class="fas fa-trash-alt" style="color: #ff0000"></i></a></td>
                                 </tr>
-                                @endforeach
+                            @endforeach
+                        @if($monorder)
+                            @foreach($monorderne as $mo)
+                                <tr>
+                                    <td></td>
+                                    <td>{{ App\Models\mon::where('mamon',$mo->mamon)->value('tenmon') }}</td>
+                                    <td>{{$mo->soluong}}</td>
+                                    <td>{{ number_format(App\Models\mon::where('mamon',$mo->mamon)->value('gia'))}}</td>
+                                    <td>{{ number_format(($mo->soluong)*(App\Models\mon::where('mamon',$mo->mamon)->value('gia'))) }}</td>
+                                    <td><a href="{{ url('') }}/banhang/chitietban/xoaordermon/{{$mo->mactorder}}"><i class="fas fa-trash-alt" style="color: #ff0000"></i></a></td>
+                                </tr>
+                            @endforeach
+                        @endif
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td>Tổng tiền:</td>
-                                <td>{{number_format($thanhtien)}}</td>
+                                <td>{{number_format($thanhtienve+$thanhtienmon)}}</td>
                             </tr>
+                            @foreach($datane as $dt)
                             <tr>
-                                <td><button type="submit">Thanh toán</button></td>
+                                <td><a class="btn btn-success" href="{{ url('') }}/banhang/chitietban/thanhtoan/{{$dt->maorder}}">Thanh toán</a></td>
                             </tr>
+                            @endforeach
                         </form>
                 @else
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

@@ -31,6 +31,19 @@
                 </td>
             </tr>
             <tr>
+                <td><label for="thuocve">Thuộc loại vé</label></td>
+                <td>
+                    <select name="thuocve">
+                    @foreach($ve as $v)
+                        @if($v->mave == $m->mave)
+                            <option value="{{$v->mave}}" selected="selected" style="display:none">{{$v->tenve}}</option>
+                        @endif
+                        <option value="{{$v->mave}}">{{$v->tenve}}</option>
+                    @endforeach
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td><label for="gia">Giá</label></td>
                 <td><input type="text" id="gia" name="gia" placeholder="Nhập giá" value="{{$m->gia}}" required=""/></td>
             </tr>

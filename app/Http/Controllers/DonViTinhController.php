@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\donvitinh;
-use App\Models\sanpham;
+use App\Models\mon;
 
 use Session;
 
@@ -63,14 +63,8 @@ class DonViTinhController extends Controller
 
     public function getSuaDonViTinh($maDVT){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            $donvitinh = donvitinh::orderBy('maDVT','DESC')->get();
-            $donvitinh_tt = sanpham::where('maDVT',$maDVT)->first();
-            if($donvitinh_tt){
-                return redirect()->route('admin.donvitinh',compact('donvitinh'))->with('success-themdonvitinh','Tồn tại sản phẩm thuộc đơn vị tính bạn muốn sửa.');
-            }else{
                 $donvitinh = donvitinh::where('maDVT',$maDVT)->get();
                 return view('donvitinh.suadonvitinh.suadonvitinh',['donvitinh' => $donvitinh]);
-            }
         }else{
             return redirect()->route('dangnhap');
         }
@@ -91,12 +85,11 @@ class DonViTinhController extends Controller
     public function XoaDonViTinh($maDVT){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $donvitinh = donvitinh::orderBy('maDVT','DESC')->get();
-            $donvitinh_tt = sanpham::where('maDVT',$maDVT)->first();
+            $donvitinh_tt = mon::where('maDVT',$maDVT)->first();
             if($donvitinh_tt){
                 return redirect()->route('admin.donvitinh',compact('donvitinh'))->with('success-themdonvitinh','Tồn tại sản phẩm thuộc đơn vị tính bạn muốn xóa.');
             }else{
                 donvitinh::where('maDVT',$maDVT)->delete();
-                $donvitinh = donvitinh::orderBy('maDVT','DESC')->get();
                 return redirect()->route('admin.donvitinh',compact('donvitinh'))->with('success-themdonvitinh','Xóa đơn vị tính thành công!');
             }
         }else{

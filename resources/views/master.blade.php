@@ -19,6 +19,51 @@
         <script src="sweetalert2.all.min.js"></script>
 
         <script src="{{asset('js/trove.js')}}"></script>
+
+        <!-- Thống kê -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Tháng', 'Doanh thu'],
+                <?php 
+                    for($i = 1;$i <=12;$i++) 
+                    {
+                        $tongtienmoi=0;
+                        $ve = DB::table('order')->get();
+                        foreach($ve as $v){}
+                        $tongtienve = $v->soluong*$v->gia;
+                        $tongtienmon = DB::table('chitietorder')->sum('thanhtien');
+                        $tongtien = DB::table('thanhtoan')->get();
+                        foreach($tongtien as $tt){
+                            $thang = substr($tt->giothanhtoan,5,2);
+                            if($thang == $i)
+                            {
+                                $tongtienmoi += ($tongtienve+$tongtienmon);
+                                echo "['".$i."',".$tongtienmoi."],";
+                            }
+                            else
+                            {
+                                echo "['".$i."',0],";
+                            }
+                        }
+                        
+                    }
+                ?>
+            ]);
+
+            var options = {
+                title: 'Doanh thu năm 2021',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+            }
+        </script>
     </head>
     <body>
         <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
@@ -50,6 +95,17 @@
                         <a href="{{route('admin.mon')}}" class="list-group-item @yield('convert_color_menu_ma')"><i class="fas fa-cookie"></i>Quản lý món ăn</a>
                         <a href="{{route('admin.ve')}}" class="list-group-item @yield('convert_color_menu_ve')"><i class="fa fa-ticket" aria-hidden="true"></i>Quản lý vé Buffet</a>
                         <a href="{{route('admin.ban')}}" class="list-group-item @yield('convert_color_menu_b')"><i class="fas fa-table"></i>Quản lý bàn</a>
+                        <div class="btn-group dropend">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-chart-line">Quản lý doanh thu</i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Doanh thu theo ngày</a></li>
+                                <li><a class="dropdown-item" href="{{route('admin.thongke')}}">Doanh thu theo tháng</a></li>
+                                <li><a class="dropdown-item" href="#">Doanh thu theo năm</a></li>
+                                <li><a class="dropdown-item" href="#">Doanh thu theo quý</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,5 +127,10 @@
         <script src="{{asset('js/themve.js')}}"></script>
         <script src="{{asset('js/xoanhanvien.js')}}"></script>
         <script src="{{asset('js/xoachucvu.js')}}"></script>
+        <script src="{{asset('js/xoadonvitinh.js')}}"></script>
+        <script src="{{asset('js/xoanhommon.js')}}"></script>
+        <script src="{{asset('js/xoamonan.js')}}"></script>
+        <script src="{{asset('js/xoave.js')}}"></script>
+        <script src="{{asset('js/xoaban.js')}}"></script>
     </body>
 </html>

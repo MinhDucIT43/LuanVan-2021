@@ -162,8 +162,8 @@ Route::get('admin/mon','App\Http\Controllers\MonController@Admin')->name('admin.
 Route::get('admin/mon/search','App\Http\Controllers\MonController@Search')->name('admin.mon.search');
 Route::get('admin/mon/themmon','App\Http\Controllers\MonController@getThemMon')->name('admin.mon.themmon');
 Route::post('admin/mon/themmon',[
-    'as'=>'postThemMon',
-    'uses'=>'App\Http\Controllers\MonController@postThemMon',
+    'as'=>'postThemMonAn',
+    'uses'=>'App\Http\Controllers\MonController@postThemMonAn',
 ]);
 Route::get('admin/mon/suamon/{mamon}','App\Http\Controllers\MonController@getSuaMon')->name('admin.mon.suamon');
 Route::post('admin/mon/suamon/{mamon}',[
@@ -211,15 +211,24 @@ Route::post('admin/ban/suaban/{maban}',[
 Route::get('admin/ban/xoaban/{maban}','App\Http\Controllers\BanController@XoaBan')->name('admin.ban.xoaban');
 
 //Bán hàng:
-Route::get('banhang','App\Http\Controllers\BanHangController@BanHang')->name('banhang');
+// Route::get('banhang','App\Http\Controllers\BanHangController@BanHang')->name('banhang');
 Route::get('banhang','App\Http\Controllers\BanHangController@BanHangAll')->name('banhangall');
 Route::get('banhangvebuffet','App\Http\Controllers\BanHangController@BanHangVeBuffet')->name('banhangvebuffet');
 Route::get('banhangmonan','App\Http\Controllers\BanHangController@BanHangMonAn')->name('banhangmonan');
 Route::get('banhangthucuong','App\Http\Controllers\BanHangController@BanHangThucUong')->name('banhangthucuong');
-Route::get('banhang/chitietban/{maban}','App\Http\Controllers\BanHangController@BanSo')->name('banhang.chitietban');
+//Route::get('banhang/chitietban/{maban}','App\Http\Controllers\BanHangController@BanSo')->name('banhang.chitietban');
 Route::get('banhang/chitietbanve/{maban}','App\Http\Controllers\BanHangController@BanSoVe')->name('banhang.chitietbanve');
 Route::post('banhang/chitietbanve/order',[
     'as'=>'postThemVe',
     'uses'=>'App\Http\Controllers\BanHangController@postThemVe',
 ]);
-Route::get('banhang/chitietban/xoaorder/{maban}/{mamon}','App\Http\Controllers\BanHangController@XoaOrder')->name('banhang.xoaorder');
+Route::post('banhang/chitietbanve/order1',[
+    'as'=>'postThemMon',
+    'uses'=>'App\Http\Controllers\BanHangController@postThemMon',
+]);
+Route::get('banhang/chitietban/xoaorderve/{maban}/{mave}','App\Http\Controllers\BanHangController@XoaOrderVe')->name('banhang.chitietban.xoaorderve');
+Route::get('banhang/chitietban/xoaordermon/{mactorder}','App\Http\Controllers\BanHangController@XoaOrderMon')->name('banhang.chitietban.xoaordermon');
+Route::get('banhang/chitietban/thanhtoan/{maorder}','App\Http\Controllers\BanHangController@thanhtoan')->name('thanhtoan.pdf');
+
+//Quản lý thống kê:
+Route::get('admin/thongke','App\Http\Controllers\ThongKeController@Admin')->name('admin.thongke');

@@ -17,7 +17,7 @@
         <label for="keyword">Tìm kiếm</label>
         <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Nhập từ khoá..." style="width:250px;display:inline;">
         <select name="timkiemdanhmuc" id="timkiemdanhmuc">
-            <option>Danh mục</option>
+            <option value="">Danh mục</option>
             <optgroup label="Chức vụ">
                 @foreach($chucvu as $cv)
                     <option value="{{$cv->maCV}}">{{$cv['tenCV']}}</option>

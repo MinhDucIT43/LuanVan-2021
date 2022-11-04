@@ -9,7 +9,7 @@
 @endsection
 
 @section('main')
-    <form action="{{route('postThemMon')}}" method="post" enctype="multipart/form-data" id="form-themchucvu"> @csrf
+    <form action="{{route('postThemMonAn')}}" method="post" enctype="multipart/form-data" id="form-themchucvu"> @csrf
         <h2 id="title-themnhanvien" class="title-nhanvien">THÊM MÓN ĂN</h2>
         <table>
             <tr>
@@ -22,6 +22,16 @@
                     <select name="thuocnhom">
                     @foreach($nhommon as $nm)
                         <option value="{{$nm->maNM}}">{{$nm->tenNM}}</option>
+                    @endforeach
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="thuocve">Thuộc loại vé</label></td>
+                <td>
+                    <select name="thuocve">
+                    @foreach($ve as $v)
+                        <option value="{{$v->mave}}">{{$v->tenve}}</option>
                     @endforeach
                     </select>
                 </td>

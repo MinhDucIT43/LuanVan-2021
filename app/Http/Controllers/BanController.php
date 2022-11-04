@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\ban;
+use App\Models\order;
 
 use Session;
 
@@ -87,9 +88,14 @@ class BanController extends Controller
 
     public function XoaBan($maban){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            ban::where('maban',$maban)->delete();
+            $order_ban = order::where('maban',$maban)->first();
             $ban = ban::orderBy('maban','DESC')->get();
-            return redirect()->route('admin.ban',compact('ban'))->with('success-themban','Xóa bàn ăn thành công!');
+            if($order_ban){
+                return redirect()->route('admin.ban',compact('ban'))->with('success-themban','Bàn bạn muốn xoá đang có khách!');    
+            }else{
+                ban::where('maban',$maban)->delete();
+                return redirect()->route('admin.ban',compact('ban'))->with('success-themban','Xóa bàn ăn thành công!');
+            }
         }else{
             return redirect()->route('dangnhap');
         }

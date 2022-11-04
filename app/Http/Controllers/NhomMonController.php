@@ -63,14 +63,8 @@ class NhomMonController extends Controller
 
     public function getSuaNhomMon($maNM){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            $nhommon = nhommon::orderBy('maNM','DESC')->get();
-            $nhommon_tt = mon::where('maNM',$maNM)->first();
-            if($nhommon_tt){
-                return redirect()->route('admin.nhommon',compact('nhommon'))->with('success-themnhommon','Tồn tại món thuộc nhóm món bạn muốn sửa.');
-            }else{
                 $nhommon = nhommon::where('maNM',$maNM)->get();
                 return view('nhommon.suanhommon.suanhommon',['nhommon' => $nhommon,]);
-            }
         }else{
             return redirect()->route('dangnhap');
         }
@@ -96,7 +90,6 @@ class NhomMonController extends Controller
                 return redirect()->route('admin.nhommon',compact('nhommon'))->with('success-themnhommon','Tồn tại món thuộc nhóm món bạn muốn xóa.');
             }else{
                 nhommon::where('maNM',$maNM)->delete();
-                $nhommon = nhommon::orderBy('maNM','DESC')->get();
                 return redirect()->route('admin.nhommon',compact('nhommon'))->with('success-themnhommon','Xóa nhóm món thành công!');
             }
         }else{

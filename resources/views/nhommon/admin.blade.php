@@ -36,7 +36,7 @@
                         <td>{{ $nm['tenNM'] }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.nhommon.suanhommon',['maNM' => $nm['maNM']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
-                            <a href="{{ route('admin.nhommon.xoanhommon',['maNM' => $nm['maNM']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
+                            <a class="deleteNhomMon" href="{{ route('admin.nhommon.xoanhommon',['maNM' => $nm['maNM']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>
                         </td>
                     </tr>
                 @endforeach
