@@ -17,7 +17,8 @@
         <div class="ban">
             <div id="header">
                 <p id="home">Nhân viên: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('tendangnhap'))->value('tenNV') }} </i></p>
-                <a href="{{ route('dangxuat') }}" class="btn btn-danger" id="logout"><i class="fas fa-sign-out-alt">Đăng xuất</i></a>
+                <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
+                <b style="color: white;" id="time">{{date('d/m/Y h:i:s a')}}</b>
             </div>
             <div id="cacban">
                 @foreach($ban as $b)
@@ -32,9 +33,8 @@
             </div>
         </div>
         <div id="danhsachmonan">
-            <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
-            <b style="color: white;">{{date('d/m/Y h:i:s a')}}</b>
             <h3 id="text-danhsachmonan">DANH SÁCH MẶT HÀNG</h3>
+            <a href="{{ route('dangxuat') }}" class="btn btn-danger" id="logout"><i class="fas fa-sign-out-alt">Đăng xuất</i></a>
             <div id="display-danhsachmonan">
                 <div id="menu-mathang">
                     <ul class="nav">

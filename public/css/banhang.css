@@ -17,13 +17,11 @@
 #header{
     width: 550px;
     height: 43px;
-    background-color: #5c90c4;
+    background-color: black;
 }
 
 #logout{
-    position: absolute;
-    left: 421px;
-    font-size: 19px;
+    float: right;
 }
 
 #home{
@@ -31,6 +29,12 @@
     top: 5px;
     font-size:20px;
     color: white;
+}
+
+#time{
+    float: right;
+    position: relative;
+    top: 10px;
 }
 
 #cacban{
@@ -55,15 +59,15 @@
     width: 816px;
     height: 625px;
     float: right;
-    background-color: #5c90c4;
+    background-color: black;
 }
 
 #text-danhsachmonan{
     font-family: Cambria;
-    color: white;
+    color: #FF8C00;
     display: inline;
     position: relative;
-    left: 100px;
+    left: 250px;
     top: 5px;
     padding: 0px 25px 0px 25px;
 }
@@ -156,4 +160,12 @@
     float: right;
     width: 100px;
     height: 532px;
+}
+
+.title-mathang{
+    color: #FF8C00;
+}
+
+.tenmon{
+    font-family: Cambria;
 }

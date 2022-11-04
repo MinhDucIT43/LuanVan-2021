@@ -27,7 +27,7 @@ class DangNhapController extends Controller
         ]);
 
         $tendangnhap = $request->tendangnhap;
-        $matkhau =  $request->matkhau;
+        $matkhau =  md5($request->matkhau);
 
         $chucvuadmin=1;
         $chucvuthungan=2;
@@ -65,13 +65,13 @@ class DangNhapController extends Controller
         ]);
 
         $tendangnhap = $request->tendangnhap;
-        $matkhaucu =  $request->matkhaucu;
+        $matkhaucu =  md5($request->matkhaucu);
 
         $nhanvien = nhanvien::where('tendangnhap',$tendangnhap)->where('matkhau',$matkhaucu)->first();
 
         if($nhanvien){
             nhanvien::where('tendangnhap',$tendangnhap)->where('matkhau',$matkhaucu)->update([
-                'matkhau' => $request->matkhaumoi,
+                'matkhau' => md5($request->matkhaumoi),
             ]);
             return redirect()->route('doimatkhau')->with('success-doimatkhau','Đổi mật khẩu thành công!');
         }else{

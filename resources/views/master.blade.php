@@ -19,51 +19,6 @@
         <script src="sweetalert2.all.min.js"></script>
 
         <script src="{{asset('js/trove.js')}}"></script>
-
-        <!-- Thống kê -->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Tháng', 'Doanh thu'],
-                <?php 
-                    for($i = 1;$i <=12;$i++) 
-                    {
-                        $tongtienmoi=0;
-                        $ve = DB::table('order')->get();
-                        foreach($ve as $v){}
-                        $tongtienve = $v->soluong*$v->gia;
-                        $tongtienmon = DB::table('chitietorder')->sum('thanhtien');
-                        $tongtien = DB::table('thanhtoan')->get();
-                        foreach($tongtien as $tt){
-                            $thang = substr($tt->giothanhtoan,5,2);
-                            if($thang == $i)
-                            {
-                                $tongtienmoi += ($tongtienve+$tongtienmon);
-                                echo "['".$i."',".$tongtienmoi."],";
-                            }
-                            else
-                            {
-                                echo "['".$i."',0],";
-                            }
-                        }
-                        
-                    }
-                ?>
-            ]);
-
-            var options = {
-                title: 'Doanh thu năm 2021',
-                legend: { position: 'bottom' }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-            chart.draw(data, options);
-            }
-        </script>
     </head>
     <body>
         <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>

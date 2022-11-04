@@ -9,7 +9,7 @@
         <div id="monan-private-content">
             <table id="monan-private-table">
                 <tr style="text-align: center;">
-                    <td><h3 style="color: #FF4500;">Thức uống</h3></td>
+                    <td><h3 class="title-mathang">Thức uống</h3></td>
                 </tr>
                 <tr style="font-family: Comic Sans MS cursive;">
                     <td>
@@ -17,11 +17,9 @@
                         {{$n['tenmon']}}
                         ................
                         {{number_format($n['gia'])}} VNĐ
-                        .......
                         @if($n['soluong'] == 0)
-                            SL: <p style="display: inline; color: red;">Hết hàng</p>
+                            <p style="display: inline; color: red;"> => Hết hàng</p>
                         @else
-                            SL: {{$n['soluong']}}
                         @endif
                         </p>
                     @endforeach

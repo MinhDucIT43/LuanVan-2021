@@ -104,7 +104,7 @@ class NhanVienController extends Controller
             }
             $nhanvien->namsinh = $request->namsinh;
             $nhanvien->gioitinh = $request->gioitinh;
-            $nhanvien->matkhau = $request->matkhau;
+            $nhanvien->matkhau = md5($request->matkhau);
             $nhanvien->diachi = $request->diachi;
             $nhanvien->soDT = $request->soDT;
             $nhanvien->ngayvaolam = $request->ngayvaolam;

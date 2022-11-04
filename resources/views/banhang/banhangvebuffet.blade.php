@@ -8,7 +8,7 @@
     <div id="vebuffet-private">
         <table id="vebuffet-private-table">
             <tr style="text-align: center;">
-                <td><h3 style="color: #FF4500;">Vé Buffet</h3></td>
+                <td><h3 class="title-mathang">Vé Buffet</h3></td>
             </tr>
             <tr style="font-family: Comic Sans MS cursive;">
                 <td>

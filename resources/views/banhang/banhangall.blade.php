@@ -8,46 +8,45 @@
     <div id="thucuong">
         <table>
             <tr>
-                <td><h3>Thức uống:</h3></td>
+                <td class="title-mathang"><h3>Thức uống:</h3></td>
             </tr>
+            @foreach($nuoc as $n)
             <tr>
-                <td>
-                @foreach($nuoc as $n)
+                <td class="tenmon">
                     {{$n['tenmon']}}
-                    ................
-                    {{number_format($n['gia'])}} VNĐ
-                    .......
+                </td>
+                <td class="title-mathang">
+                    <i>..... {{number_format($n['gia'])}} VNĐ</i>
+                </td>
+                <td>
                     @if($n['soluong'] == 0)
-                        SL: <p style="display: inline; color: red;">Hết hàng</p>
+                        <b style="display: inline; color: red;"> => Hết hàng</b>
                     @else
-                        SL: {{$n['soluong']}}
                     @endif
-                    </p>
-                @endforeach
                 </td>
             </tr>
+            @endforeach
         </table>
         {{ $nuoc->withQueryString()->links() }}
     </div>
     <div id="monan">
         <table>
             <tr>
-                <td><h3>Món ăn:</h3></td>
+                <td class="title-mathang"><h3>Món ăn:</h3></td>
             </tr>
+            @foreach($thit as $t)
             <tr>
-                <td>
-                @foreach($thit as $t)
+                <td class="tenmon">
                     {{$t['tenmon']}}
-                    ................
+                </td>
+                <td>
                     @if($t['soluong'] == 0)
-                        SL: <p style="display: inline; color: red;">Hết hàng</p>
+                        ..... <b style="display: inline; color: red;">Hết hàng</b> .....
                     @else
-                        SL: {{$t['soluong']}}
                     @endif
-                    </p>
-                @endforeach
                 </td>
             </tr>
+            @endforeach
         </table>
         {{ $thit->withQueryString()->links() }}
     </div>
@@ -62,18 +61,17 @@
     <div id="vebuffet">
         <table>
             <tr>
-                <td><h3>Vé Buffet:</h3></td>
+                <td class="title-mathang"><h3>Vé Buffet:</h3></td>
             </tr>
             <tr>
                 <td>
                 @foreach($vebuffet as $ve)
-                    <p>
+                    <p class="tenmon">
                     {{$ve['tenve']}}
-                    ................
-                    {{number_format($ve['gia'])}} VNĐ
+                    <i class="title-mathang"> ................{{number_format($ve['gia'])}} VNĐ</i>
                     </p>
                 @endforeach
-                <p style="font-size: 13px;">
+                <p style="font-size: 13px;" class="tenmon">
                     <b>Trẻ cao dưới 1m:</b> Miễn phí (số vé trẻ = số vé người lớn, nhiều hơn thì với mỗi vé nhiều hơn thu 75,000).</br>
                     <b>Trẻ cao từ 1m đến 1m3:</b> 75,000 đồng/trẻ.</br>
                     <b>Trẻ cao hơn 1m3:</b> Thu giá vé như người lớn.

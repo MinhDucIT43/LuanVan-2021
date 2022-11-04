@@ -42,14 +42,14 @@ class BanHangController extends Controller
         if(Session::get('tendangnhap') && Session::get('vaitro')){
             $ban = ban::orderBy('maban','ASC')->paginate(16,'*','bp');
             $manuoc = nhommon::where('tenNM','LIKE','%'.'nước'.'%')->pluck('maNM');
-            $nuoc = mon::whereIn('maNM',$manuoc)->paginate(5,'*','np');
+            $nuoc = mon::whereIn('maNM',$manuoc)->paginate(8,'*','np');
             $mathit = nhommon::where('tenNM','LIKE','%'.'thịt'.'%')
                                 ->orwhere('tenNM','LIKE','%'.'hải sản'.'%')
                                 ->orwhere('tenNM','LIKE','%'.'lẩu'.'%')
                                 ->orwhere('tenNM','LIKE','%'.'canh'.'%')
                                 ->orwhere('tenNM','LIKE','%'.'truyền thống'.'%')
                                 ->pluck('maNM');
-            $thit = mon::whereIn('maNM',$mathit)->paginate(11,'*','tp');
+            $thit = mon::whereIn('maNM',$mathit)->paginate(18,'*','tp');
             $vebuffet = ve::orderBy('mave','ASC')->paginate(3,'*','vp');
             return view('banhang.banhangall',['ban'=>$ban,'nuoc'=>$nuoc,'thit'=>$thit,'vebuffet'=>$vebuffet]);
         }else {
