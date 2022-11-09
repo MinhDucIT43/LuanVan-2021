@@ -163,9 +163,11 @@
 }
 
 .title-mathang{
+    font-family: Comic Sans MS cursive;
     color: #FF8C00;
 }
 
 .tenmon{
-    font-family: Cambria;
+    font-family: Comic Sans MS cursive;
+    font-weight: bold;
 }

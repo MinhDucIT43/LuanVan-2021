@@ -21,14 +21,35 @@
                 <b style="color: white;" id="time">{{date('d/m/Y h:i:s a')}}</b>
             </div>
             <div id="cacban">
-                @foreach($ban as $b)
-                    <a href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}" class="active" style="text-decoration: none">
-                        <button id="display-ban" type="submit">
-                            <i id="khachhang" class="fas fa-users"></i>
-                            <p>{{$b['banso']}}</p>
-                        </button>
-                    </a>
-                @endforeach
+                    @foreach($ban as $b)
+                        @if($tableisworking)
+                            <?php
+                                $tableisworking = DB::table('order')->where('maban',$b->maban)->where('trangthai',0)->first();
+                            ?>
+                                @if($tableisworking)
+                                    <a href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}" style="text-decoration: none">
+                                        <button style="color:#FF8C00;" id="display-ban" type="submit">
+                                            <i id="khachhang" class="fas fa-users"></i>
+                                            <p>{{$b->banso}}</p>
+                                        </button>
+                                    </a>
+                                @else
+                                    <a href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}" style="text-decoration: none">
+                                        <button id="display-ban" type="submit">
+                                            <i id="khachhang" class="fas fa-users"></i>
+                                            <p>{{$b['banso']}}</p>
+                                        </button>
+                                    </a>
+                                @endif
+                        @else
+                            <a href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}" style="text-decoration: none">
+                                <button id="display-ban" type="submit">
+                                    <i id="khachhang" class="fas fa-users"></i>
+                                    <p>{{$b['banso']}}</p>
+                                </button>
+                            </a>
+                        @endif
+                    @endforeach
                 {{ $ban->withQueryString()->links() }}
             </div>
         </div>

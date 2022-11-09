@@ -9,7 +9,7 @@
 }
 
 #header{
-    background-color: #5c90c4;
+    background-color: black;
     width: 800px;
     height: 50px;
     float: left;
@@ -28,6 +28,13 @@
     font-size: 24px;
 }
 
+#time{
+    float: right;
+    position: relative;
+    left: 100px;
+    top: 10px;
+}
+
 #order{
     width: 800px;
     height: 575px;
@@ -41,7 +48,7 @@
 }
 
 #header-chonmon{
-    background-color: #5c90c4;
+    background-color: black;
     height: 50px;
 }
 #banso{
@@ -53,7 +60,7 @@
 }
 
 #content-chonmon{
-    background-color: #5c90c4;
+    background-color: black;
     height: 575px;
 }
 #maincontent-chonmon{

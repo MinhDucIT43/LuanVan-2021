@@ -11,13 +11,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Link Fontawesome-icon -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- SweetAlert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
     <script src="{{asset('js/trove.js')}}"></script>
+
+    <script src="{{asset('js/thanhtoan.js')}}"></script>
 </head>
 <body>
     <div id="wrapper">
         <div id="header">
             <a href="{{route('banhangall')}}" class="btn btn-success" id="trove">Trở về</a>
             <p id="nhanvien">Nhân viên: <i style="color: #00ff00;"  > {{ App\Models\nhanvien::where('tendangnhap',Session::get('tendangnhap'))->value('tenNV') }} </i></p>
+            <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
+                <b style="color: white;" id="time">{{date('d/m/Y h:i:s')}}</b>
         </div>
         <div id="chonmon">
             <div id="header-chonmon">
@@ -33,11 +41,11 @@
         </div>
         <div id="order">
             <?php
-                $data = DB::table('order')->where('maban',$b->maban)->first(); 
+                $data = DB::table('order')->where('maban',$b->maban)->where('trangthai',0)->first(); 
             ?>
             @if($data)
                 <?php
-                    $mabancoorder = DB::table('order')->where('maban',$b->maban)->get();
+                    $mabancoorder = DB::table('order')->where('maban',$b->maban)->where('trangthai',0)->get();
                     foreach($mabancoorder as $mbco){}
                     $monorder = DB::table('chitietorder')->where('maorder',$mbco->maorder)->first();
                 ?>
@@ -52,14 +60,14 @@
                     </tr>
                     <tbody>
                         <?php
-                            $datane = DB::table('order')->where('maban',$b->maban)->get();
+                            $datane = DB::table('order')->where('maban',$b->maban)->where('trangthai',0)->get();
                             $monorderne = DB::table('chitietorder')->where('maorder',$mbco->maorder)->get();
                         ?>
                         <form action="" method="POST"> @csrf
                             <input type="hidden" name="maban" value="{{$b['maban']}}">
                             @foreach($datane as $dt)
                                 <tr>
-                                    <td></td>
+                                    <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ App\Models\ve::where('mave',$dt->mave)->value('tenve') }}</td>
                                     <td>{{$dt->soluong}}</td>
                                     <td>{{ number_format(App\Models\ve::where('mave',$dt->mave)->value('gia'))}}</td>
@@ -70,7 +78,7 @@
                         @if($monorder)
                             @foreach($monorderne as $mo)
                                 <tr>
-                                    <td></td>
+                                    <td>{{ $loop->index + 2 }}</td>
                                     <td>{{ App\Models\mon::where('mamon',$mo->mamon)->value('tenmon') }}</td>
                                     <td>{{$mo->soluong}}</td>
                                     <td>{{ number_format(App\Models\mon::where('mamon',$mo->mamon)->value('gia'))}}</td>
@@ -92,7 +100,8 @@
                             </tr>
                             @endforeach
                         </form>
-                @else
+                    </tbody>
+            @else
                     <tr>
                         <td></td>
                         <td></td>
@@ -101,7 +110,6 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    </tbody>
                 </table>
             @endif
         </div>

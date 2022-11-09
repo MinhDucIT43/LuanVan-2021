@@ -59,6 +59,9 @@
                 @endforeach
                 </tbody>
                 <b style="font-size: 20px;"><label id='errorsoluong'></label></b>
+                @if(session('delete-xoave'))
+                    <p style="color:#e32b56;"><i class="fas fa-check"></i> {{ session('delete-xoave') }}</p>
+                @endif
             </table>
 
     <table class="table table-bordered table-hover">

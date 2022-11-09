@@ -15,7 +15,6 @@
                     <td>
                     @foreach($thit as $t)
                         {{$t['tenmon']}}
-                        ................
                         @if($t['soluong'] == 0)
                             <p style="display: inline; color: red;">Hết hàng</p>
                         @else
