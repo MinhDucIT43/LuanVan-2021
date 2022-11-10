@@ -16,7 +16,9 @@ class VeController extends Controller
     public function Admin(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $vebuffet = ve::orderBy('mave','DESC')->Paginate(8);
-            return view('ve.admin',compact('vebuffet'));
+            $datangay=0;
+            $datathang=0;
+            return view('ve.admin',compact('vebuffet','datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -25,7 +27,9 @@ class VeController extends Controller
     public function getThemVeBuffet(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $donvitinh = donvitinh::all();
-            return view('ve.themvebuffet.themvebuffet',['donvitinh'=>$donvitinh]);
+            $datangay=0;
+            $datathang=0;
+            return view('ve.themvebuffet.themvebuffet',['donvitinh'=>$donvitinh,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }
@@ -49,7 +53,9 @@ class VeController extends Controller
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $vebuffet = ve::where('mave',$mave)->get();
             $donvitinh = donvitinh::all();
-            return view('ve.suavebuffet.suavebuffet',['vebuffet' => $vebuffet,'donvitinh'=>$donvitinh]);
+            $datangay=0;
+            $datathang=0;
+            return view('ve.suavebuffet.suavebuffet',['vebuffet' => $vebuffet,'donvitinh'=>$donvitinh,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }

@@ -14,7 +14,9 @@ class BanController extends Controller
     public function Admin(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $ban = ban::orderBy('maban','DESC')->Paginate(8);
-            return view('ban.admin',compact('ban'));
+            $datangay=0;
+            $datathang=0;
+            return view('ban.admin',compact('ban','datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -29,12 +31,16 @@ class BanController extends Controller
                         ->orderBy('maban','DESC')->Paginate(8);
         }
         $nhap = $request->keyword;
-        return view('ban.admin',compact('ban','nhap'));
+        $datangay=0;
+        $datathang=0;
+        return view('ban.admin',compact('ban','nhap','datangay','datathang'));
     }
 
     public function getThemBan(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            return view('ban.themban.themban');
+            $datangay=0;
+            $datathang=0;
+            return view('ban.themban.themban',compact('datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -67,7 +73,9 @@ class BanController extends Controller
     public function getSuaBan($maban){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $ban = ban::where('maban',$maban)->get();
-            return view('ban.suaban.suaban',['ban' => $ban]);
+            $datangay=0;
+            $datathang=0;
+            return view('ban.suaban.suaban',['ban' => $ban,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }

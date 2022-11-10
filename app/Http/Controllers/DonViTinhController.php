@@ -14,7 +14,9 @@ class DonViTinhController extends Controller
     public function Admin(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $donvitinh = donvitinh::orderBy('maDVT','DESC')->Paginate(8);
-            return view('donvitinh.admin',compact('donvitinh'));
+            $datangay = 0;
+            $datathang = 0;
+            return view('donvitinh.admin',compact('donvitinh','datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -27,12 +29,16 @@ class DonViTinhController extends Controller
             $donvitinh = donvitinh::where('tenDVT','LIKE','%'.$request->keyword.'%')->orderBy('maDVT','DESC')->Paginate(8);
         }
         $nhap = $request->keyword;
-        return view('donvitinh.admin',compact('donvitinh','nhap'));
+        $datangay = 0;
+        $datathang = 0;
+        return view('donvitinh.admin',compact('donvitinh','nhap','datangay','datathang'));
     }
 
     public function getThemDonViTinh(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            return view('donvitinh.themdonvitinh.themdonvitinh');
+            $datangay = 0;
+            $datathang = 0;
+            return view('donvitinh.themdonvitinh.themdonvitinh',compact('datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -64,7 +70,9 @@ class DonViTinhController extends Controller
     public function getSuaDonViTinh($maDVT){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
                 $donvitinh = donvitinh::where('maDVT',$maDVT)->get();
-                return view('donvitinh.suadonvitinh.suadonvitinh',['donvitinh' => $donvitinh]);
+                $datangay = 0;
+                $datathang = 0;
+                return view('donvitinh.suadonvitinh.suadonvitinh',['donvitinh' => $donvitinh,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }

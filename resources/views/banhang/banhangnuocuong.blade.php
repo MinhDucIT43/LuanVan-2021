@@ -17,7 +17,7 @@
                         <b>{{$n['tenmon']}}</b>
                         <i class="title-mathang">................{{number_format($n['gia'])}} VNĐ</i>
                         @if($n['soluong'] == 0)
-                            <p style="display: inline; color: red;"> => Hết hàng</p>
+                            <p style="display: inline; color: red;"><b>=> Hết hàng</b></p>
                         @else
                         @endif
                         </p>

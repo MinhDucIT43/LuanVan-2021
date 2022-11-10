@@ -97,6 +97,7 @@
                             @foreach($datane as $dt)
                             <tr>
                                 <td><a class="btn btn-success" href="{{ url('') }}/banhang/chitietban/thanhtoan/{{$dt->maorder}}">Thanh toán</a></td>
+                                <td><a href="#" class="btn btn-warning" id="trove">Chuyển bàn</a></td>
                             </tr>
                             @endforeach
                         </form>

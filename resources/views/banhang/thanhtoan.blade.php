@@ -96,7 +96,7 @@
                 <td></td>
                 <td></td>
                 <td colspan="2"><b>TỔNG:</b></td>
-                <td align="right"><b>0%</b></td>
+                <td align="right"><b>{{number_format($thanhtienmon+$thanhtienve)}}</b></td>
             </tr>
             <tr>
                 <td colspan="6" align="center"><h3>Cảm ơn quý khách, hẹn gặp lại!</h3></td>

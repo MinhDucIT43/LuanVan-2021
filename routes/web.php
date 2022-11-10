@@ -231,4 +231,8 @@ Route::get('banhang/chitietban/xoaordermon/{mactorder}','App\Http\Controllers\Ba
 Route::get('banhang/chitietban/thanhtoan/{maorder}','App\Http\Controllers\BanHangController@thanhtoan')->name('thanhtoan.pdf');
 
 //Quản lý thống kê:
-Route::get('admin/thongke','App\Http\Controllers\ThongKeController@Admin')->name('admin.thongke');
+Route::get('admin/thongke/thongkengay','App\Http\Controllers\ThongKeController@ThongKeNgay')->name('admin.thongke.thongkengay');
+Route::get('admin/thongke/thongkethang','App\Http\Controllers\ThongKeController@ThongKeThang')->name('admin.thongke.thongkethang');
+
+//Gọi trang khách hàng:
+Route::get('khachhang','App\Http\Controllers\KhachHangController@KhachHang')->name('khachhang');

@@ -195,6 +195,17 @@
     width: 400px;
 }
 
+#thongkengay{
+    width: 690px;
+}
+
+#thongkethang{
+    width: 470px;
+    position: absolute;
+    left: 695px;
+    bottom: 0px;
+}
+
 label{
     font-weight: bold;
 }

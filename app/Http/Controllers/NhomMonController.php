@@ -14,7 +14,9 @@ class NhomMonController extends Controller
     public function Admin(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $nhommon = nhommon::orderBy('maNM','DESC')->Paginate(8);
-            return view('nhommon.admin',compact('nhommon'));
+            $datangay=0;
+            $datathang=0;
+            return view('nhommon.admin',compact('nhommon','datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -27,12 +29,16 @@ class NhomMonController extends Controller
             $nhommon = nhommon::where('tenNM','LIKE','%'.$request->keyword.'%')->orderBy('maNM','DESC')->Paginate(8);
         }
         $nhap = $request->keyword;
-        return view('nhommon.admin',compact('nhommon','nhap'));
+        $datangay=0;
+        $datathang=0;
+        return view('nhommon.admin',compact('nhommon','nhap','datangay','datathang'));
     }
 
     public function getThemNhomMon(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            return view('nhommon.themnhommon.themnhommon');
+            $datangay=0;
+            $datathang=0;
+            return view('nhommon.themnhommon.themnhommon',compact('datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -64,7 +70,9 @@ class NhomMonController extends Controller
     public function getSuaNhomMon($maNM){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
                 $nhommon = nhommon::where('maNM',$maNM)->get();
-                return view('nhommon.suanhommon.suanhommon',['nhommon' => $nhommon,]);
+                $datangay=0;
+                $datathang=0;
+                return view('nhommon.suanhommon.suanhommon',['nhommon' => $nhommon,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }

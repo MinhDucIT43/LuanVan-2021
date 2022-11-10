@@ -18,7 +18,9 @@ class MonController extends Controller
             $mon = mon::orderBy('mamon','DESC')->Paginate(8);
             $nhommon = nhommon::orderBy('maNM','DESC')->get();
             $loaive = ve::orderBy('mave','DESC')->get();
-            return view('mon.admin',compact('mon','nhommon','loaive'));
+            $datangay=0;
+            $datathang=0;
+            return view('mon.admin',compact('mon','nhommon','loaive','datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -52,7 +54,9 @@ class MonController extends Controller
         $nhap = $request->keyword;
         $nhommon = nhommon::orderBy('maNM','DESC')->get();
         $loaive = ve::orderBy('mave','DESC')->get();
-        return view('mon.admin',compact('mon','nhap','nhommon','loaive'));
+        $datangay=0;
+        $datathang=0;
+        return view('mon.admin',compact('mon','nhap','nhommon','loaive','datangay','datathang'));
     }
 
     public function getThemMon(){
@@ -60,7 +64,9 @@ class MonController extends Controller
             $nhommon = nhommon::all();
             $ve = ve::all();
             $donvitinh = donvitinh::all();
-            return view('mon.themmon.themmon',['nhommon' => $nhommon,'donvitinh' => $donvitinh,'ve' => $ve]);
+            $datangay=0;
+            $datathang=0;
+            return view('mon.themmon.themmon',['nhommon' => $nhommon,'donvitinh' => $donvitinh,'ve' => $ve,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }
@@ -91,7 +97,9 @@ class MonController extends Controller
             $nhommon = nhommon::all();
             $donvitinh = donvitinh::all();
             $ve = ve::all();
-            return view('mon.suamon.suamon',['mon' => $mon, 'nhommon' => $nhommon, 'donvitinh' => $donvitinh, 've' => $ve]);
+            $datangay=0;
+            $datathang=0;
+            return view('mon.suamon.suamon',['mon' => $mon, 'nhommon' => $nhommon, 'donvitinh' => $donvitinh, 've' => $ve,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }

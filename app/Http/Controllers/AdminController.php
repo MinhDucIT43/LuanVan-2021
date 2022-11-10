@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\thanhtoan;
+use App\Models\order;
 
 use Carbon\Carbon;
 
@@ -17,20 +18,24 @@ class AdminController extends Controller
     public function Admin(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $thang = date('m');
-            switch($thang){
-                case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                    $songay = 31;    break;
-                case 2: case 4: case 6: case 9: case 11:
-                    $songay = 30; break;
+            $resultngay = DB::select(DB::raw("SELECT DATE(giothanhtoan) ngay, SUM(thanhtien) tongtien
+                                        FROM `thanhtoan`
+                                        WHERE MONTH(DATE(giothanhtoan))=MONTH(CURDATE())
+                                        GROUP BY DATE(giothanhtoan);"));
+            $datangay = "";
+            foreach($resultngay as $valngay){
+                $datangay.="['".$valngay->ngay."',".$valngay->tongtien."],";
             }
-            $ngay = [];
-            for($i=1; $i<=$songay; $i++){
-                $ngay[] = $i;
+            $resultthang = DB::select(DB::raw("SELECT MONTH(DATE(giothanhtoan)) thang, SUM(thanhtien) tongtien 
+                                        FROM `thanhtoan` 
+                                        GROUP BY MONTH(DATE(giothanhtoan));"));
+            $datathang = "";
+            foreach($resultthang as $valthang){
+                $datathang.="['".$valthang->thang."',".$valthang->tongtien."],";
             }
-            $giothanhtoan = thanhtoan::select('giothanhtoan')->get();
-            foreach($giothanhtoan as $gtt){}
-            dd(substr($gtt->giothanhtoan,8,2));
-            return view('admin.admin',compact('thang','ngay'));
+            $dathanhtoan = thanhtoan::count();
+            $bandangphucvu = order::where('trangthai',0)->count();
+            return view('admin.admin',compact('thang','datangay','datathang','dathanhtoan','bandangphucvu'));
         }else{
             return redirect()->route('dangnhap');
         }

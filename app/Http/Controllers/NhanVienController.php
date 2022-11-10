@@ -18,7 +18,9 @@ class NhanVienController extends Controller
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $nhanvien = nhanvien::orderBy('tendangnhap','DESC')->Paginate(3);
             $chucvu = chucvu::orderBy('maCV','DESC')->get();
-            return view('nhanvien.admin',compact('nhanvien','chucvu'));
+            $datangay = 0;
+            $datathang = 0;
+            return view('nhanvien.admin',compact('nhanvien','chucvu','datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -50,13 +52,17 @@ class NhanVienController extends Controller
         }
         $nhap = $request->keyword;
         $chucvu = chucvu::orderBy('maCV','DESC')->get();
-        return view('nhanvien.admin',compact('nhanvien','nhap','chucvu'));
+        $datangay = 0;
+        $datathang = 0;
+        return view('nhanvien.admin',compact('nhanvien','nhap','chucvu','datangay','datathang'));
     }
 
     public function getThemNhanVien(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $chucvu = chucvu::all();
-            return view('nhanvien.themnhanvien.themnhanvien',['chucvu' => $chucvu]);
+            $datangay = 0;
+            $datathang = 0;
+            return view('nhanvien.themnhanvien.themnhanvien',['chucvu' => $chucvu,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }
@@ -121,7 +127,9 @@ class NhanVienController extends Controller
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $chucvu = chucvu::all();
             $nhanvien = nhanvien::where('tendangnhap',$tendangnhap)->get();
-            return view('nhanvien.suanhanvien.suanhanvien',['chucvu' => $chucvu,'nhanvien' => $nhanvien]);
+            $datangay = 0;
+            $datathang = 0;
+            return view('nhanvien.suanhanvien.suanhanvien',['chucvu' => $chucvu,'nhanvien' => $nhanvien,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }

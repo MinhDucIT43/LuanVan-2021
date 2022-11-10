@@ -14,7 +14,9 @@ class ChucVuController extends Controller
     public function Admin(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
             $chucvu = chucvu::orderBy('maCV','DESC')->Paginate(8);
-            return view('chucvu.admin',compact('chucvu'));
+            $datangay = 0;
+            $datathang = 0;
+            return view('chucvu.admin',compact('chucvu','datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -27,12 +29,16 @@ class ChucVuController extends Controller
             $chucvu = chucvu::where('tenCV','LIKE','%'.$request->keyword.'%')->orderBy('maCV','DESC')->Paginate(8);
         }
         $nhap = $request->keyword;
-        return view('chucvu.admin',compact('chucvu','nhap'));
+        $datangay = 0;
+        $datathang = 0;
+        return view('chucvu.admin',compact('chucvu','nhap','datangay','datathang'));
     }
 
     public function getThemChucVu(){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
-            return view('chucvu.themchucvu.themchucvu');
+            $datangay = 0;
+            $datathang = 0;
+            return view('chucvu.themchucvu.themchucvu',compact('datangay','datathang'));
         }else{
             return redirect()->route('dangnhap');
         }
@@ -65,7 +71,9 @@ class ChucVuController extends Controller
     public function getSuaChucVu($maCV){
         if(Session::has('tendangnhap') && Session::has('vaitro')){
                 $chucvu = chucvu::where('maCV',$maCV)->get();
-                return view('chucvu.suachucvu.suachucvu',['chucvu' => $chucvu]);
+                $datangay = 0;
+                $datathang = 0;
+                return view('chucvu.suachucvu.suachucvu',['chucvu' => $chucvu,'datangay'=>$datangay,'datathang'=>$datathang]);
         }else{
             return redirect()->route('dangnhap');
         }
