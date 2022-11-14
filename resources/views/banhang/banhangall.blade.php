@@ -67,7 +67,7 @@
                 <td>
                 @foreach($vebuffet as $ve)
                     <p class="tenmon">
-                    {{$ve['tenve']}}
+                    {{$ve['tenve']}}:
                     <i class="title-mathang"> ................{{number_format($ve['gia'])}} VNĐ</i>
                     </p>
                 @endforeach

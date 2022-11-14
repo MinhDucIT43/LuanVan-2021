@@ -13,79 +13,104 @@ use Session;
 
 class DangNhapController extends Controller
 {
-    public function Admin(){
+    public function Admin()
+    {
         return view('dangnhap.dangnhap');
     }
 
-    public function DangNhap(Request $request){
+    public function DangNhap(Request $request)
+    {
         $request->validate([
-            'tendangnhap'=>'required',
-            'matkhau'=>'required',
-        ],[
-            'tendangnhap.required'=>'Tên đăng nhập rỗng.',
-            'matkhau.required'=>'Mật khẩu rỗng.',
+            'tendangnhap' => 'required',
+            'matkhau' => 'required',
+        ], [
+            'tendangnhap.required' => 'Tên đăng nhập rỗng.',
+            'matkhau.required' => 'Mật khẩu rỗng.',
         ]);
 
         $tendangnhap = $request->tendangnhap;
         $matkhau =  md5($request->matkhau);
 
-        $chucvuadmin=1;
-        $chucvuthungan=2;
+        $phucvu = chucvu::where('tenCV', 'LIKE', '%' . 'phục vụ' . '%')->get();
+        $thungan = chucvu::where('tenCV', 'LIKE', '%' . 'thu ngân' . '%')->get();
+        foreach ($thungan as $tn) {
+        }
+        $admin = chucvu::where('tenCV', 'LIKE', '%' . 'admin' . '%')->get();
+        foreach ($admin as $ad) {
+        }
 
-        $admin = nhanvien::where('tendangnhap',$tendangnhap)->where('matkhau',$matkhau)->where('maCV',$chucvuadmin)->first();
-        $thungan = nhanvien::where('tendangnhap',$tendangnhap)->where('matkhau',$matkhau)->where('maCV',$chucvuthungan)->first();
 
-        if($admin){
-            Session::put('tendangnhap',$admin->tendangnhap);
-            Session::put('vaitro',$admin->maCV);
+        $admin = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $ad->maCV)->first();
+        $thungan = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $tn->maCV)->first();
+        if ($admin) {
+            Session::put('admin', $admin->tendangnhap);
+            Session::put('vaitroadmin', $admin->maCV);
             return redirect()->route('admin');
-        }else if($thungan){
-            Session::put('tendangnhap',$thungan->tendangnhap);
-            Session::put('vaitro',$thungan->maCV);
-            //$data = ban::orderBy('MaBan','ASC')->get();
+        } else if ($thungan) {
+            Session::put('thungan', $thungan->tendangnhap);
+            Session::put('vaitrothungan', $thungan->maCV);
             return redirect()->route('banhangall');
-        }else{
-            return redirect::back()->withInput()->with('alert-sai','Sai tên đăng nhập hoặc mật khẩu.');
+        } else {
+            return redirect::back()->withInput()->with('alert-sai', 'Sai tên đăng nhập hoặc mật khẩu.');
         }
     }
 
-    public function DoiMatKhau(){
+    public function DoiMatKhau()
+    {
         return view('dangnhap.doimatkhau');
     }
 
-    public function postDoiMatKhau(Request $request){
+    public function postDoiMatKhau(Request $request)
+    {
         $request->validate([
-            'tendangnhap'=>'required',
-            'matkhaucu'=>'required',
-            'matkhaumoi'=>'required',
-        ],[
-            'tendangnhap.required'=>'Tên đăng nhập rỗng.',
-            'matkhaucu.required'=>'Mật khẩu cũ rỗng.',
-            'matkhaumoi.required'=>'Mật khẩu mới rỗng.',
+            'tendangnhap' => 'required',
+            'matkhaucu' => 'required',
+            'matkhaumoi' => 'required',
+        ], [
+            'tendangnhap.required' => 'Tên đăng nhập rỗng.',
+            'matkhaucu.required' => 'Mật khẩu cũ rỗng.',
+            'matkhaumoi.required' => 'Mật khẩu mới rỗng.',
         ]);
 
         $tendangnhap = $request->tendangnhap;
         $matkhaucu =  md5($request->matkhaucu);
 
-        $nhanvien = nhanvien::where('tendangnhap',$tendangnhap)->where('matkhau',$matkhaucu)->first();
+        $nhanvien = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhaucu)->first();
 
-        if($nhanvien){
-            nhanvien::where('tendangnhap',$tendangnhap)->where('matkhau',$matkhaucu)->update([
+        if ($nhanvien) {
+            nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhaucu)->update([
                 'matkhau' => md5($request->matkhaumoi),
             ]);
-            return redirect()->route('doimatkhau')->with('success-doimatkhau','Đổi mật khẩu thành công!');
-        }else{
-            return redirect::back()->withInput()->with('fail-doimatkhau','Sai tên đăng nhập hoặc mật khẩu cũ.');
+            return redirect()->route('doimatkhau')->with('success-doimatkhau', 'Đổi mật khẩu thành công!');
+        } else {
+            return redirect::back()->withInput()->with('fail-doimatkhau', 'Sai tên đăng nhập hoặc mật khẩu cũ.');
         }
     }
 
-    public function DangXuatAdmin(){
-        Session::put('tendangnhap',null);
-        Session::put('vaitro',null);
-        return redirect()->route('dangnhap');
+    public function DangXuatAdmin()
+    {
+        if (Session::has('admin') && Session::has('vaitroadmin')) {
+            Session::forget('admin');
+            Session::forget('vaitroadmin');
+            return redirect()->route('dangnhap');
+        } else {
+            return redirect()->route('dangnhap');
+        }
     }
 
-    public function TroVe(){
+    public function DangXuatThuNgan()
+    {
+        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+            Session::forget('thungan');
+            Session::forget('vaitrothungan');
+            return redirect()->route('dangnhap');
+        } else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function TroVe()
+    {
         return redirect()->intended();
     }
 }

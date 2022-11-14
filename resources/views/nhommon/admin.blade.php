@@ -26,6 +26,7 @@
             <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th id="thongtin-ten">Tên nhóm món ăn</th>
                         <th>Thao tác</th>
                     </tr>
@@ -33,6 +34,7 @@
                 <tbody>
                 @foreach($nhommon as $nm)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $nm['tenNM'] }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.nhommon.suanhommon',['maNM' => $nm['maNM']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>

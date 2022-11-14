@@ -13,7 +13,7 @@
     @if(session('success-themvebuffet'))
         <p style="color:#e32b56;"><i class="fas fa-check"></i> {{ session('success-themvebuffet') }}</p>
     @endif
-    <form action="" method="get" role="search">
+    <form action="{{route('admin.ve.search')}}" method="get" role="search">
         <label for="keyword">Tìm kiếm</label>
         <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Nhập từ khoá..." style="width:250px;display:inline;">
         <button class="fa fa-search" id="button-search" type="submit"></button>
@@ -25,6 +25,7 @@
             <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th id="thongtin-ten">Loại vé</th>
                         <th class="thongtin-ngay">Giá vé</th>
                         <th>Đơn vị tính</th>
@@ -34,6 +35,7 @@
                 <tbody>
                 @foreach($vebuffet as $ve)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $ve['tenve'] }}</td>
                         <td>{{number_format($ve['gia'])}} VNĐ</td>
                         <td>{{ App\Models\donvitinh::where('maDVT',$ve['maDVT'])->value('tenDVT') }}</td>

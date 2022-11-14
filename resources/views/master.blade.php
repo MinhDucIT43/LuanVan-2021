@@ -136,10 +136,10 @@
     <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
     <div id="wrapper">
         <div id="header">
-            <p class="thongtin">Admin: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('tendangnhap'))->value('tenNV') }} </i> || </p>
-            <b class="thongtin">{{date('d/m/Y h:i:s a')}}</b>
+            <p class="thongtin">Admin: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('admin'))->value('tenNV') }} </i> || </p>
+            <b class="thongtin">{{date('d/m/Y h:i:s a')}}, {{Session::get('vaitroadmin')}}</b>
             <a href="javascript:goBack()" class="btn btn-secondary" id="back">Trở về</a>
-            <a href="{{route('dangxuat')}}" class="btn btn-danger" id="logout"><i class="fas fa-sign-out-alt"> Đăng xuất</i></a>
+            <a href="{{route('dangxuatadmin')}}" class="btn btn-danger" id="logout"><i class="fas fa-sign-out-alt"> Đăng xuất</i></a>
         </div>
         <div id="menu">
             <div id="menu-showadmin">

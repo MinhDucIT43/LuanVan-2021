@@ -26,6 +26,7 @@
             <table class="table table-bordered table-hover" id="table-dsnv">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th id="thongtin-ten">Tên chức vụ</th>
                         <th class="thongtin-ngay">Tiền lương</th>
                         <th>Thao tác</th>
@@ -34,6 +35,7 @@
                 <tbody>
                 @foreach($chucvu as $cv)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $cv['tenCV'] }}</td>
                         <td>{{number_format($cv['tienluong'])}} VNĐ</td>
                         <td id="thaotac">

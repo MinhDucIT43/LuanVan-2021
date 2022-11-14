@@ -19,7 +19,8 @@ Route::post('doimatkhau',[
 //---------------------------------------------------------------------------------//
 
 //Đăng xuất:
-Route::get('dangxuat','App\Http\Controllers\DangNhapController@DangXuatAdmin')->name('dangxuat');
+Route::get('dangxuatadmin','App\Http\Controllers\DangNhapController@DangXuatAdmin')->name('dangxuatadmin');
+Route::get('dangxuatthungan','App\Http\Controllers\DangNhapController@DangXuatThuNgan')->name('dangxuatthungan');
 //---------------------------------------------------------------------------------//
 
 //Trở về:
@@ -174,6 +175,8 @@ Route::get('admin/mon/xoamon/{mamon}','App\Http\Controllers\MonController@XoaMon
 
 //Quản lý vé Buffet:
 Route::get('admin/vebuffet','App\Http\Controllers\VeController@Admin')->name('admin.ve');
+//Search:
+Route::get('admin/vebuffet/search','App\Http\Controllers\VeController@Search')->name('admin.ve.search');
 Route::get('admin/vebuffet/themvebuffet','App\Http\Controllers\VeController@getThemVeBuffet')->name('admin.ve.themve');
 //Kiểm tra tên vé:
 Route::get('admin/vebuffet/kiemtratenve/{tenve}','App\Http\Controllers\VeController@kiemtratenve')->name('kiemtratenve');

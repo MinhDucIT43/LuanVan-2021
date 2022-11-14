@@ -11,7 +11,7 @@ class ThongKeController extends Controller
 {
     public function ThongKeNgay()
     {
-        if (Session::get('tendangnhap') && Session::get('vaitro')) {
+        if (Session::has('admin') && Session::has('vaitroadmin')) {
             $thang = date('m');
             $resultngay = DB::select(DB::raw("SELECT DATE(giothanhtoan) ngay, SUM(thanhtien) tongtien
                                         FROM `thanhtoan`
@@ -24,13 +24,13 @@ class ThongKeController extends Controller
             $datathang = 0;
             return view('thongke.thongkengay', compact('thang', 'datangay', 'datathang'));
         } else {
-            return redirect()->route('showlogin');
+            return redirect()->route('dangnhap');
         }
     }
 
     public function ThongKeThang()
     {
-        if (Session::get('tendangnhap') && Session::get('vaitro')) {
+        if (Session::has('admin') && Session::has('vaitroadmin')) {
             $thang = date('m');
             $datangay = 0;
             $resultthang = DB::select(DB::raw("SELECT MONTH(DATE(giothanhtoan)) thang, SUM(thanhtien) tongtien 
@@ -42,7 +42,7 @@ class ThongKeController extends Controller
             }
             return view('thongke.thongkethang', compact('thang', 'datangay', 'datathang'));
         } else {
-            return redirect()->route('showlogin');
+            return redirect()->route('dangnhap');
         }
     }
 }

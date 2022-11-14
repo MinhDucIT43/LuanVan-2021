@@ -143,6 +143,7 @@
 
 .tendangnhap{
     width: 82px;
+    text-align: center;
 }
 
 .icon-sua-xoa{
@@ -152,6 +153,7 @@
 
 #button-themnhanvien{
     float: right;
+    display: inline;
 }
 
 #title-themnhanvien{

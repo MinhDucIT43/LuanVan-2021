@@ -39,6 +39,7 @@
             <table class="table table-bordered table-hover" id="danhsachnhanvien">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th>Tên món ăn</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
@@ -50,6 +51,7 @@
                 <tbody>
                 @foreach($mon as $ma)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $ma['tenmon'] }}</td>
                         <td>{{ number_format($ma['gia']) }} VNĐ</td>
                         <td>{{ $ma['soluong'] }}  {{ App\Models\donvitinh::where('maDVT',$ma['maDVT'])->value('tenDVT') }}</td>

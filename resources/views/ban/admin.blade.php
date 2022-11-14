@@ -26,6 +26,7 @@
             <table class="table table-bordered table-hover" id="table-dsb">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th>Bàn số</th>
                         <th>Trạng thái</th>
                         <th>Thao tác</th>
@@ -34,8 +35,15 @@
                 <tbody>
                 @foreach($ban as $b)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $b['banso'] }}</td>
-                        <td>{{ $b['trangthai'] }}</td>
+                        <td>
+                            @if($b['trangthai'] == 0)
+                                Trống
+                            @else
+                                Có khách
+                            @endif
+                        </td>
                         <td id="thaotac">
                             <a href="{{ route('admin.ban.suaban',['maban' => $b['maban']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>
                             <a class="deleteBan" href="{{ route('admin.ban.xoaban',['maban' => $b['maban']]) }}"><i class="fas fa-user-minus" style="color: #ff0000"></i></a>

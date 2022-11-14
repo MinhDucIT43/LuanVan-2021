@@ -13,7 +13,7 @@
     @if(session('success-themnhanvien'))
         <p style="color:#e32b56;"><i class="fas fa-check"></i> {{ session('success-themnhanvien') }}</p>
     @endif
-    <form action="{{route('admin.nhanvien.search')}}" method="get" role="search">
+    <form action="{{route('admin.nhanvien.search')}}" method="get" role="search" style="display: inline;">
         <label for="keyword">Tìm kiếm</label>
         <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Nhập từ khoá..." style="width:250px;display:inline;">
         <select name="timkiemdanhmuc" id="timkiemdanhmuc">
@@ -38,6 +38,7 @@
             <table class="table table-bordered table-hover" id="danhsachnhanvien">
                 <thead class="table-primary">
                 <tr>
+                    <th>STT</th>
                     <th>Tên nhân viên</th>
                     <th>Ảnh</th>
                     <th>Năm sinh</th>
@@ -53,11 +54,12 @@
                 <tbody>
                     @foreach($nhanvien as $nv)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{$nv['tenNV']}}</td>
                         <td><img id="anhnhanvien" src="{{asset('anhnhanvien/'.$nv['anhnhanvien'])}}" alt="{{$nv['anhnhanvien']}}"></td>
                         <?php $namsinh = date_create($nv['namsinh']) ?>
                         <td>{{date_format($namsinh,"d-m-Y")}}</td>
-                        <td>{{$nv['gioitinh']}}</td>
+                        <td align="center">{{$nv['gioitinh']}}</td>
                         <td>{{$nv['diachi']}}</td>
                         <td>{{$nv['soDT']}}</td>
                         <?php $ngayvaolam = date_create($nv['ngayvaolam']) ?>

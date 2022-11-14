@@ -16,7 +16,7 @@ use Session;
 class AdminController extends Controller
 {
     public function Admin(){
-        if(Session::has('tendangnhap') && Session::has('vaitro')){
+        if(Session::has('admin') && Session::has('vaitroadmin')){
             $thang = date('m');
             $resultngay = DB::select(DB::raw("SELECT DATE(giothanhtoan) ngay, SUM(thanhtien) tongtien
                                         FROM `thanhtoan`
@@ -40,12 +40,4 @@ class AdminController extends Controller
             return redirect()->route('dangnhap');
         }
     }
-
-    // public function Master(){
-    //     if(Session::has('tendangnhap') && Session::has('vaitro')){
-    //         return view('master');
-    //     }else{
-    //         return redirect()->route('dangnhap');
-    //     }
-    // }
 }

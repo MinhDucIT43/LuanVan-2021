@@ -26,6 +26,7 @@
             <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th id="thongtin-ten">Tên đơn vị tính</th>
                         <th>Thao tác</th>
                     </tr>
@@ -33,6 +34,7 @@
                 <tbody>
                 @foreach($donvitinh as $dvt)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $dvt['tenDVT'] }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.donvitinh.suadonvitinh',['maDVT' => $dvt['maDVT']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>

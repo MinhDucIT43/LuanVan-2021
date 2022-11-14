@@ -19,17 +19,20 @@
             </tr>
             <tr>
                 <td><label for="trangthai">Trạng thái</label></td>
-                @if($b->trangthai == 'Trống')
-                <td>
-                    <input type="radio" name="trangthai" id="trangthai" value="Trống" checked="checked"/>Trống
-                    <input type="radio" name="trangthai" id="trangthai" value="Có khách"/>Có khách
-                </td>
-                @elseif($b->trangthai == 'Có khách')
-                <td>
-                    <input type="radio" name="trangthai" id="trangthai" value="Trống"/>Trống
-                    <input type="radio" name="trangthai" id="trangthai" value="Có khách" checked="checked"/>Có khách
-                </td>
-                @endif
+                @switch($b->trangthai)
+                    @case(0) 
+                        <td>
+                            <input type="radio" name="trangthai" id="trangthai" value="0" checked="checked"/>Trống
+                            <input type="radio" name="trangthai" id="trangthai" value="1"/>Có khách
+                        </td>
+                        @break
+                    @case(1)
+                        <td>
+                            <input type="radio" name="trangthai" id="trangthai" value="0"/>Trống
+                            <input type="radio" name="trangthai" id="trangthai" value="1" checked="checked"/>Có khách
+                        </td>
+                        @break
+                @endswitch
             </tr>
             <tr>
                 <td></td>

@@ -19,8 +19,8 @@
             <tr>
                 <td><label for="trangthai">Trạng thái</label></td>
                 <td>
-                    <input type="radio" name="trangthai" id="trangthai" value="Trống" checked="checked"/>Trống
-                    <input type="radio" name="trangthai" id="trangthai" value="Có khách"/>Có khách
+                    <input type="radio" name="trangthai" id="trangthai" value="0" checked="checked"/>Trống
+                    <input type="radio" name="trangthai" id="trangthai" value="1"/>Có khách
                 </td>
             </tr>
             <tr>

@@ -33,7 +33,7 @@
                             <label>Mật khẩu</label>
                             <input type="password" name="matkhau" class="form-control" placeholder="Nhập mật khẩu" value="{{old('matkhau')}}">
                         </div>
-                        <button type="submit" class="btn btn-black">Đăng nhập</button>
+                        <button type="submit" class="btn btn-success">Đăng nhập</button>
                         <a href="{{route('doimatkhau')}}" id="doimatkhau"><img src="{{asset('hinhanh/key.png')}}" alt="Key" id="key"> Đổi mật khẩu</a>
                         <ul class="alert text-danger">
                             @foreach($errors->all() as $error)
