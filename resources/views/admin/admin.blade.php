@@ -27,7 +27,7 @@ Admin
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
-                Số hoá đơn: <h3 style="text-align:center;"><?php echo $dathanhtoan ?></h3>
+                Số hoá đơn: {{date('d/m/Y')}} <h3 style="text-align:center;"><?php echo $sothanhtoan ?></h3>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>

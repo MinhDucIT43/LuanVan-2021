@@ -1,0 +1,46 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#wrapper{
+    font-family: Comic Sans MS cursive;
+    width: 1354px;
+    height: 552px;
+}
+
+#header{
+    width: 1366px;
+    height: 45px;
+}
+#menu-datban{
+    float: right;
+}
+
+#dadatban{
+    width: 1366px;
+    height: 580px;
+}
+#text-duyetdatban{
+    text-align: center;
+}
+#table-duyetban{
+    border-style: groove;
+    position: relative;
+    left: 530px;
+}
+
+#text-danhsachdatban{
+    text-align: center;
+    color: #00BFFF;
+}
+
+.columnName{
+    text-align: center;
+}
+
+#inputSubmit{
+    position: relative;
+    top: 150px;
+    right: 600px;
+}

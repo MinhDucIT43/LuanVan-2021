@@ -6,6 +6,7 @@
 #wrapper{
     width: 1366px;
     height: 625px;
+    font-family: Comic Sans MS cursive;
 }
 
 .ban{
@@ -22,6 +23,9 @@
 
 #logout{
     float: right;
+    position: relative;
+    right: 6px;
+    font-size: 20px;
 }
 
 #home{
@@ -32,9 +36,15 @@
 }
 
 #time{
-    float: right;
     position: relative;
     top: 10px;
+    left: 251px;
+}
+
+#banDat{
+    float: right;
+    position: relative;
+    top: 3px;
 }
 
 #cacban{
@@ -163,11 +173,9 @@
 }
 
 .title-mathang{
-    font-family: Comic Sans MS cursive;
     color: #FF8C00;
 }
 
 .tenmon{
-    font-family: Comic Sans MS cursive;
     font-weight: bold;
 }

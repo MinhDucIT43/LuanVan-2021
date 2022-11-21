@@ -31,13 +31,9 @@ class NhanVienController extends Controller
     {
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             if ($request->keyword == '') {
-                if ($request->timkiemdanhmuc == '') {
-                    $nhanvien = nhanvien::orderBy('tendangnhap', 'DESC')->Paginate(3);
-                } else {
                     $nhanvien = nhanvien::where('maCV', $request->timkiemdanhmuc)
                         ->orwhere('gioitinh', 'LIKE', '%' . $request->timkiemdanhmuc . '%')
                         ->orderBy('tendangnhap', 'DESC')->Paginate(3);
-                }
             } else {
                 $tenCV = chucvu::where('tenCV', $request->keyword)->first();
                 if ($tenCV) {

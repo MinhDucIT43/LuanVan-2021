@@ -1,10 +1,11 @@
 @extends("chitietban")
 
 @section('main')
-            <h3>Chọn loại vé:</h3>
+            <h3><b>Vui lòng chọn giá vé:</b></h3>
             <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th>Tên vé</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
@@ -21,10 +22,11 @@
                         @foreach($banso as $b)
                             <input type="hidden" name="maban" value="{{$b['maban']}}">
                         @endforeach
+                        <td align="center">{{++$i}}</td>
                         <td>
                             <input type="hidden" id="mucve" name="mucve" value="{{ $v['mave'] }}"/><b>{{ $v['tenve'] }}</b>
                         </td>
-                        <td>{{ number_format($v['gia'])}}</td>
+                        <td><b>{{ number_format($v['gia'])}}</b></td>
                         <td>
                             <div class="buttons_added">
                                 <input aria-label="quantity" style="width: 50px;" class="input-qty" min="0" id="soluong" name="soluong" type="number" value="0">
@@ -37,7 +39,7 @@
                 </form>
                 @endforeach
                 </tbody>
-                <b style="font-size: 20px;"><label id='errorsoluong'></label></b>
             </table>
+            <b style="font-size: 20px;"><label id='errorsoluong'></label></b>
             {{ $vebuffet->links() }}
 @endsection

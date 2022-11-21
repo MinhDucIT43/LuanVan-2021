@@ -4,13 +4,14 @@
 }
 
 #wrapper{
-    width: 1366px;
+    width: 1349px;
     height: 625px;
+    font-family: Comic Sans MS cursive;
 }
 
 #header{
     background-color: black;
-    width: 800px;
+    width: 554px;
     height: 50px;
     float: left;
 }
@@ -21,7 +22,7 @@
     float: right;
     position: relative;
     top: 7px;
-    right: 430px;
+    right: 230px;
 }
 
 #trove{
@@ -31,32 +32,38 @@
 #time{
     float: right;
     position: relative;
-    left: 100px;
-    top: 10px;
+    left: 235px;
+    top: 12px;
 }
 
 #order{
-    width: 800px;
+    width: 554px;
     height: 575px;
     float: left;
 }
 
 #chonmon{
     float: right;
-    width: 566px;
+    width: 795px;
     height: 625px;
 }
 
 #header-chonmon{
     background-color: black;
+    width: 795px;
     height: 50px;
 }
 #banso{
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     color: #00ff00;
-    position: relative;
-    bottom: 5px;
+}
+
+#chuyenBan{
+    position: absolute;
+    float: right;
+    right: 120px;
+    top: 5px;
 }
 
 #content-chonmon{
@@ -66,6 +73,6 @@
 #maincontent-chonmon{
     background-color: white;
     height: 575px;
-    width: 560px;
+    width: 786px;
     float: right;
 }

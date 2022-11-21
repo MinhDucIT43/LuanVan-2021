@@ -33,9 +33,13 @@ class AdminController extends Controller
             foreach($resultthang as $valthang){
                 $datathang.="['".$valthang->thang."',".$valthang->tongtien."],";
             }
-            $dathanhtoan = thanhtoan::count();
+            $dathanhtoan = DB::select(DB::raw("SELECT COUNT(*) dathanhtoan 
+                                            FROM `thanhtoan` 
+                                            WHERE DATE(giothanhtoan)=CURRENT_DATE();"));
+            foreach($dathanhtoan as $datadathanhtoan){}
+            $sothanhtoan = $datadathanhtoan->dathanhtoan;
             $bandangphucvu = order::where('trangthai',0)->count();
-            return view('admin.admin',compact('thang','datangay','datathang','dathanhtoan','bandangphucvu'));
+            return view('admin.admin',compact('thang','datangay','datathang','sothanhtoan','bandangphucvu'));
         }else{
             return redirect()->route('dangnhap');
         }

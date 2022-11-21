@@ -231,6 +231,10 @@ Route::post('banhang/chitietbanve/order1',[
 ]);
 Route::get('banhang/chitietban/xoaorderve/{maban}/{mave}','App\Http\Controllers\BanHangController@XoaOrderVe')->name('banhang.chitietban.xoaorderve');
 Route::get('banhang/chitietban/xoaordermon/{mactorder}','App\Http\Controllers\BanHangController@XoaOrderMon')->name('banhang.chitietban.xoaordermon');
+Route::post('banhang/chitietban/chuyenban',[
+    'as'=>'postChuyenBan',
+    'uses'=>'App\Http\Controllers\BanHangController@postChuyenBan',
+]);
 Route::get('banhang/chitietban/thanhtoan/{maorder}','App\Http\Controllers\BanHangController@thanhtoan')->name('thanhtoan.pdf');
 
 //Quản lý thống kê:
@@ -239,3 +243,17 @@ Route::get('admin/thongke/thongkethang','App\Http\Controllers\ThongKeController@
 
 //Gọi trang khách hàng:
 Route::get('khachhang','App\Http\Controllers\KhachHangController@KhachHang')->name('khachhang');
+Route::get('khachhang/datban','App\Http\Controllers\KhachHangController@DatBan')->name('khachhang.datban');
+Route::post('khachhang/datban',[
+    'as'=>'postDatBan',
+    'uses'=>'App\Http\Controllers\KhachHangController@postDatBan',
+]);
+Route::get('khachhang/thucdon','App\Http\Controllers\KhachHangController@ThucDon')->name('khachhang.thucdon');
+
+// Đặt bàn:
+Route::get('datban','App\Http\Controllers\DatBanController@Admin')->name('datban');
+Route::get('datban/duyetbandat/{maDatBan}','App\Http\Controllers\DatBanController@getDuyetBanDat')->name('datban.getduyetbandat');
+Route::post('datban/duyetbandat/{maDatBan}',[
+    'as'=>'postDuyetDatBan',
+    'uses'=>'App\Http\Controllers\DatBanController@postDuyetDatBan',
+]);

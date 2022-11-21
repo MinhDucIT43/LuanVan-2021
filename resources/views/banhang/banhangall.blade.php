@@ -15,8 +15,8 @@
                 <td class="tenmon">
                     {{$n['tenmon']}}
                 </td>
-                <td class="title-mathang">
-                    <i>..... {{number_format($n['gia'])}} VNĐ</i>
+                <td>
+                    <b><i class="title-mathang">..... {{number_format($n['gia'])}} VNĐ</i></b>
                 </td>
                 <td>
                     @if($n['soluong'] == 0)

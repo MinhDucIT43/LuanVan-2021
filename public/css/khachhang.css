@@ -1,0 +1,145 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    font-family: Comic Sans MS cursive;
+}
+
+#wrapper{
+    width: 1349px;
+}
+
+#header{
+    background-color: black;
+    height: 80px;
+    width: 1366px;
+    position: fixed;
+    top: 0px;
+}
+#wrapper-header-logo{
+    width: 200px;
+    height: 77px;
+    position: relative;
+    left: 100px;
+}
+#wrapper-header-menu{
+    position: relative;
+    top: 20%;
+    right: 50px;
+    float: right;
+}
+.nav-item{
+    padding-right: 20px;
+}
+
+#slides{
+    width: 1349px;
+    height: 1200px;
+}
+
+#contents{
+    width: 1349px;
+    margin-top: 70px;
+}
+#datban{
+    width: 1300px;
+    position: relative;
+    top: 20px;
+    margin-left: 35px;
+}
+#inputSubmit{
+    position: relative;
+    top: 50px;
+    left: 100px;
+}
+
+#concept{
+    margin-top: 50px;
+}
+#concept-noidung{
+    text-align: center;
+    float: left;
+    width: 549px;
+    padding-top: 90px;
+}
+.text{
+    color: #DEB887;
+    font-size: 70px;
+}
+
+#concept-hinhanh{
+    float: right;
+}
+
+#menu-hinhanh{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-bottom-style: dashed;
+}
+
+#menu2_hinhanh{
+    width: 605px;
+    float: left;
+}
+
+#menu2_hinhanh1{
+    margin-bottom: 30px;
+}
+
+#menu2_contents{
+    text-align: center;
+    float: right;
+    width: 744px;
+    padding-top: 90px;
+}
+
+/* Slide */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 20%;
+    right: 77%;
+    padding: 11px;
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    transition: 0.7s ease;
+}
+  
+.next {
+    right: 20%;
+}
+  
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+}
+  
+.cham {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: 0.6s ease;
+}
+  
+.active, .cham:hover {
+    background-color: #717171;
+}
+  
+.an {
+    -webkit-animation-name: an;
+    -webkit-animation-duration: 3s;
+    animation-name: an;
+    animation-duration: 3s;
+}
+  
+@-webkit-keyframes an {
+    from {opacity: .1} 
+    to {opacity: 1}
+}
