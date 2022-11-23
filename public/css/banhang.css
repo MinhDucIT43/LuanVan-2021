@@ -50,19 +50,26 @@
 #cacban{
     width: 550px;
     height: 582px;
-    padding-left: 15px;
 }
 
-#display-ban{
-    display:inline;
-    text-align: center;
-    padding: 10px 25px 10px 25px;
-    margin: 5px;
-    font-size: 20px;
+.linkBan{
+    text-decoration: none;
+}
+
+.trong{
+    color: black;
+}
+
+.coKhach{
+    color: #FF8C00;
 }
 
 #khachhang {
     font-size: 50px;
+}
+
+.thongtinBan{
+    height: 100px;
 }
 
 #danhsachmonan{

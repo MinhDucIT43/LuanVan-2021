@@ -257,3 +257,5 @@ Route::post('datban/duyetbandat/{maDatBan}',[
     'as'=>'postDuyetDatBan',
     'uses'=>'App\Http\Controllers\DatBanController@postDuyetDatBan',
 ]);
+Route::get('datban/daduyet','App\Http\Controllers\DatBanController@DaDuyet')->name('datban.daduyet');
+Route::get('datban/themdatban','App\Http\Controllers\DatBanController@getThemDatBan')->name('datban.getthembandat');

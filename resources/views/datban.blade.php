@@ -25,9 +25,9 @@
             <a href="{{route('banhangall')}}" class="btn btn-success" id="trove">Trở về</a>
             <div id="menu-datban">
                 <ul class="nav">
-                    <li class="nav-item"><a href="" class="nav-link list-group-item @yield('convert_color_dadatban')">Đã đặt bàn</a></li>
-                    <li class="nav-item"><a href="" class="nav-link list-group-item @yield('convert_color_datiepnhan')">Đã tiếp nhận</a></li>
-                    <li class="nav-item"><a href="" class="nav-link list-group-item @yield('convert_color_themdatban')">Thêm đặt bàn</a></li>
+                    <li class="nav-item"><a href="{{route('datban')}}" class="nav-link list-group-item @yield('convert_color_dadatban')">Đã đặt bàn</a></li>
+                    <li class="nav-item"><a href="{{route('datban.daduyet')}}" class="nav-link list-group-item @yield('convert_color_daduyet')">Đã duyệt</a></li>
+                    <li class="nav-item"><a href="{{route('datban.getthembandat')}}" class="nav-link list-group-item @yield('convert_color_themdatban')">Thêm đặt bàn</a></li>
                 </ul>
             </div>
         </div>

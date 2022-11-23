@@ -65,7 +65,7 @@
             $thanhtienve = $mbco->soluong * $mbco->gia;
             $monorder = DB::table('chitietorder')->where('maorder', $mbco->maorder)->first();
             ?>
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover table-striped">
                 <thead class="table-primary">
                     <tr>
                         <th style="width: 3px;">STT</th>
@@ -113,8 +113,8 @@
                         <td><a class="btn btn-success thanhToan" href="{{ url('') }}/banhang/chitietban/thanhtoan/{{$dt->maorder}}">Thanh toán</a></td>
                         @endforeach
                         <td></td>
-                        <td>Tổng tiền:</td>
-                        <td align="right"><b>{{number_format($thanhtienve+$thanhtienmon)}}</b></td>
+                        <td><strong>Tổng tiền:</strong></td>
+                        <td align="right"><strong>{{number_format($thanhtienve+$thanhtienmon)}}</strong></td>
                     </tr>
                 </tbody>
                 @else

@@ -6,8 +6,9 @@
     <table class="table table-bordered table-hover">
         <thead class="table-primary">
             <tr>
-                <th>Tên vé</th>
-                <th>Giá</th>
+                <th style="width: 3px;">STT</th>
+                <th style="width: 350px;">Tên vé</th>
+                <th style="width: 159px;">Giá</th>
                 <th>Số lượng</th>
                 <th></th>
             </tr>
@@ -20,6 +21,7 @@
                     @foreach($banso as $b)
                     <input type="hidden" name="maban" value="{{$b['maban']}}">
                     @endforeach
+                    <td align="center">{{++$i}}</td>
                     <td>
                         <input type="hidden" id="mucve" name="mucve" value="{{ $v['mave'] }}" /><b>{{ $v['tenve'] }}</b>
                     </td>
@@ -45,6 +47,7 @@
                     @foreach($banso as $b)
                     <input type="hidden" name="maban" value="{{$b['maban']}}">
                     @endforeach
+                    <td align="center">{{++$i}}</td>
                     <td><b>{{ $vte['tenmon'] }}</b></td>
                     <td>{{ number_format($vte['gia'])}}</td>
                     <td>
@@ -62,9 +65,10 @@
     </table>
     <h4 style="display: inline;"><b>Vui lòng chọn món ăn:</b></h4>
     <b style="font-size: 20px;"><label id='errorsoluongmon'></label></b>
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover table-striped">
         <thead class="table-primary">
             <tr>
+                <th style="width: 3px;">STT</th>
                 <th>Tên món ăn</th>
                 <th>Giá</th>
                 <th>Số lượng</th>
@@ -82,7 +86,8 @@
                     @foreach($banso as $b)
                     <input type="hidden" name="maban" value="{{$b['maban']}}">
                     @endforeach
-                    <td>{{ $m['tenmon'] }}</td>
+                    <td align="center">{{++$i-2}}</td>
+                    <td><strong>{{ $m['tenmon'] }}</strong></td>
                     <td>{{ number_format($m['gia']) }} VNĐ</td>
                     <td>
                         <div class="buttons_added">
