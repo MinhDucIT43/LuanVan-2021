@@ -25,10 +25,9 @@
             <div id="header">
                 <p id="home">Thu ngân: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </i> ||</p>
                 <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
-                <b style="color: white;" id="time">{{date('d/m/Y')}} <strong>
-                        <p style="display:inline;" id="demo"></p>
-                    </strong></b>
-                <a id="banDat" class="btn btn-info" href="{{route('datban')}}">Bàn được đặt</a>
+                <b style="color: white;" id="time">{{date('d/m/Y')}} <strong><p style="display:inline;" id="demo"></p></strong></b>
+                <?php $countDatBan = DB::table('datban')->where('ngayDat',date('d/m/Y'))->where('trangthai',0)->count(); ?>
+                <a id="banDat" class="btn btn-info" href="{{route('datban')}}">Bàn được đặt</a><strong id="soLuongBanDat">{{$countDatBan}}</strong>
             </div>
             <div id="cacban">
                 <div class="row">

@@ -18,7 +18,7 @@ active
         Lưu ý: <br>• Các trường thông tin có dấu * là bắt buộc.<br>
         • Quý khách vui lòng đặt bàn trước giờ dùng bữa ít nhất <b>1</b> tiếng.
     </div>
-    <form action="" method="post" enctype="multipart/form-data"> @csrf
+    <form action="{{route('postDatBan')}}" method="post" enctype="multipart/form-data"> @csrf
         <div class="mb-3">
             <label for="inputName" class="form-label">Họ và tên (*)</label>
             <input autofocus="" data-parsley-required-message="Thông tin bắt buộc" type="text" class="form-control" id="inputName" name="inputName" placeholder="Điền họ và tên" value="" required>

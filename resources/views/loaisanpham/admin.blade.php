@@ -26,6 +26,7 @@
             <table class="table table-bordered table-hover">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th id="thongtin-ten">Tên loại sản phẩm</th>
                         <th>Thao tác</th>
                     </tr>
@@ -33,6 +34,7 @@
                 <tbody>
                 @foreach($loaisanpham as $lsp)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $lsp['tenLSP'] }}</td>
                         <td id="thaotac">
                             <a href="{{ route('admin.loaisanpham.sualoaisanpham',['maLSP' => $lsp['maLSP']]) }}"><i class="fas fa-wrench" style="color: #3b95ef"></i></a>

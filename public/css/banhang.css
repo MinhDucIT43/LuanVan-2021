@@ -47,6 +47,16 @@
     top: 3px;
 }
 
+#soLuongBanDat{
+    background-color: #DC143C;
+    padding: 4px;
+    border-radius: 25px;
+    float: right;
+    position: relative;
+    left: 120px;
+    color: white
+}
+
 #cacban{
     width: 550px;
     height: 582px;

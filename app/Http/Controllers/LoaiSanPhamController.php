@@ -15,7 +15,9 @@ class LoaiSanPhamController extends Controller
     {
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $loaisanpham = loaisanpham::orderBy('maLSP', 'DESC')->Paginate(8);
-            return view('loaisanpham.admin', compact('loaisanpham'));
+            $datangay = 0;
+            $datathang = 0;
+            return view('loaisanpham.admin', compact('loaisanpham','datangay','datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -30,7 +32,9 @@ class LoaiSanPhamController extends Controller
                 $loaisanpham = loaisanpham::where('tenLSP', 'LIKE', '%' . $request->keyword . '%')->orderBy('maLSP', 'DESC')->Paginate(8);
             }
             $nhap = $request->keyword;
-            return view('loaisanpham.admin', compact('loaisanpham', 'nhap'));
+            $datangay = 0;
+            $datathang = 0;
+            return view('loaisanpham.admin', compact('loaisanpham', 'nhap','datangay','datathang'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -39,7 +43,9 @@ class LoaiSanPhamController extends Controller
     public function getThemLoaiSanPham()
     {
         if (Session::has('admin') && Session::has('vaitroadmin')) {
-            return view('loaisanpham.themloaisanpham.themloaisanpham');
+            $datangay = 0;
+            $datathang = 0;
+            return view('loaisanpham.themloaisanpham.themloaisanpham',compact('datangay','datathang'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -75,11 +81,13 @@ class LoaiSanPhamController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $loaisanpham = loaisanpham::orderBy('maLSP', 'DESC')->get();
             $loaisanpham_tt = sanpham::where('maLSP', $maLSP)->first();
+            $datangay = 0;
+            $datathang = 0;
             if ($loaisanpham_tt) {
-                return redirect()->route('admin.loaisanpham', compact('loaisanpham'))->with('success-themloaisanpham', 'Tồn tại sản phẩm thuộc loại sản phẩm bạn muốn sửa.');
+                return redirect()->route('admin.loaisanpham', compact('loaisanpham','datangay','datathang'))->with('success-themloaisanpham', 'Tồn tại sản phẩm thuộc loại sản phẩm bạn muốn sửa.');
             } else {
                 $loaisanpham = loaisanpham::where('maLSP', $maLSP)->get();
-                return view('loaisanpham.sualoaisanpham.sualoaisanpham', ['loaisanpham' => $loaisanpham]);
+                return view('loaisanpham.sualoaisanpham.sualoaisanpham', ['loaisanpham' => $loaisanpham,'datangay' => $datangay, 'datathang' => $datathang]);
             }
         } else {
             return redirect()->route('dangnhap');

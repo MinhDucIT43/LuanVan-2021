@@ -86,8 +86,8 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="mb-3 form-check">
-                        <label for="tendangnhap">Nhân viên duyệt</label>
+                    <div class="mb-3">
+                        <label class="form-label" for="tendangnhap">Nhân viên duyệt</label>
                         <input data-parsley-required-message="Thông tin bắt buộc" type="text" class="form-control" id="tendangnhap" name="tendangnhap" placeholder="Điền số điện thoại" value="{{App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV')}}" required>
                     </div>
                 </div>

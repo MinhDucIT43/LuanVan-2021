@@ -16,7 +16,9 @@ class SanPhamController extends Controller
     {
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $sanpham = sanpham::orderBy('maSP', 'DESC')->Paginate(10);
-            return view('sanpham.admin', compact('sanpham'));
+            $datangay = 0;
+            $datathang = 0;
+            return view('sanpham.admin', compact('sanpham','datangay','datathang'))->with('i', (request()->input('page', 1) - 1) * 10);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -39,7 +41,9 @@ class SanPhamController extends Controller
                 }
             }
             $nhap = $request->keyword;
-            return view('sanpham.admin', compact('sanpham', 'nhap'));
+            $datangay = 0;
+            $datathang = 0;
+            return view('sanpham.admin', compact('sanpham', 'nhap','datangay','datathang'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -50,7 +54,9 @@ class SanPhamController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $loaisanpham = loaisanpham::all();
             $donvitinh = donvitinh::all();
-            return view('sanpham.themsanpham.themsanpham', ['loaisanpham' => $loaisanpham, 'donvitinh' => $donvitinh]);
+            $datangay = 0;
+            $datathang = 0;
+            return view('sanpham.themsanpham.themsanpham', ['loaisanpham' => $loaisanpham, 'donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang]);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -80,7 +86,9 @@ class SanPhamController extends Controller
             $sanpham = sanpham::where('maSP', $maSP)->get();
             $loaisanpham = loaisanpham::all();
             $donvitinh = donvitinh::all();
-            return view('sanpham.suasanpham.suasanpham', ['sanpham' => $sanpham, 'loaisanpham' => $loaisanpham, 'donvitinh' => $donvitinh]);
+            $datangay = 0;
+            $datathang = 0;
+            return view('sanpham.suasanpham.suasanpham', ['sanpham' => $sanpham, 'loaisanpham' => $loaisanpham, 'donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang]);
         } else {
             return redirect()->route('dangnhap');
         }

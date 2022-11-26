@@ -26,6 +26,7 @@
             <table class="table table-bordered table-hover" id="danhsachnhanvien">
                 <thead class="table-primary">
                     <tr>
+                        <th>STT</th>
                         <th id="thongtin-ten">Tên sản phẩm</th>
                         <th>Giá nhập</th>
                         <th>Hạn sử dụng</th>
@@ -37,6 +38,7 @@
                 <tbody>
                 @foreach($sanpham as $sp)
                     <tr>
+                        <td align="center">{{++$i}}</td>
                         <td>{{ $sp['tenSP'] }}</td>
                         <td>{{ number_format($sp['gianhap']) }} VNĐ</td>
                         <?php $hsd = date_create($sp['HSD']) ?>

@@ -2,7 +2,7 @@
 
 @section('main')
             <h3><b>Vui lòng chọn giá vé:</b></h3>
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover table-striped">
                 <thead class="table-primary">
                     <tr>
                         <th>STT</th>
