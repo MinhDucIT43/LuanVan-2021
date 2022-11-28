@@ -59,11 +59,11 @@
         <div id="order">
             @if($data)
             <?php
-            $mabancoorder = DB::table('order')->where('maban', $b->maban)->where('trangthai', 0)->get();
-            foreach ($mabancoorder as $mbco) {
-            }
-            $thanhtienve = $mbco->soluong * $mbco->gia;
-            $monorder = DB::table('chitietorder')->where('maorder', $mbco->maorder)->first();
+                $mabancoorder = DB::table('order')->where('maban', $b->maban)->where('trangthai', 0)->get();
+                foreach ($mabancoorder as $mbco) {
+                }
+                $thanhtienve = $mbco->soluong * $mbco->gia;
+                $monorder = DB::table('chitietorder')->where('maorder', $mbco->maorder)->first();
             ?>
             <table class="table table-bordered table-hover table-striped">
                 <thead class="table-primary">
@@ -108,16 +108,36 @@
                     @endforeach
                     @endif
                     <tr>
-                        <td></td>
-                        @foreach($mabancoorder as $dt)
-                        <td><a class="btn btn-success thanhToan" href="{{ url('') }}/banhang/chitietban/thanhtoan/{{$dt->maorder}}">Thanh toán</a></td>
-                        @endforeach
-                        <td></td>
+                        @if(Session::has('thungan') && Session::has('vaitrothungan'))
+                            @foreach($mabancoorder as $dt)
+                            <td colspan="3">
+                                <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Thanh toán<!-- <a class="btn btn-success thanhToan" href="{{ url('') }}/banhang/chitietban/thanhtoan/{{$dt->maorder}}">Thanh toán</a> -->
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="btn btn-success thanhToan" href="{{ url('') }}/banhang/chitietban/thanhtoan/{{$dt->maorder}}">Thanh toán bằng tiền mặt</a></li>
+                                    <li>
+                                        <div class="col-md--12">
+                                            <?php 
+                                                $vnd_to_usd = round(($thanhtienve+$thanhtienmon)/24780,2); 
+                                                \Session::put('vnd_to_usd',$vnd_to_usd);
+                                            ?>
+                                            <!-- <div id="paypal-button"></div> -->
+                                            <a class="btn btn-primary m-3" href="{{ route('processTransaction', ['maorder' => $dt->maorder]) }}">Thanh toán bằng Paypal</a>
+                                            <!-- <input type="hidden" id="vnd_to_usd" value="{{$vnd_to_usd}}"> -->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                            @endforeach
+                        @else
+                            <td></td>
+                        @endif
                         <td><strong>Tổng tiền:</strong></td>
                         <td align="right"><strong>{{number_format($thanhtienve+$thanhtienmon)}}</strong></td>
                     </tr>
                 </tbody>
-                @else
+            @else
                 <tr>
                     <td></td>
                     <td></td>
@@ -138,6 +158,50 @@
     <script src="{{asset('js/chonmonbuffet.js')}}"></script>
     <script src="{{asset('js/thanhtoan.js')}}"></script>
     <script src="{{asset('js/time.js')}}"></script>
+
+    <!-- Thanh toán PayPal -->
+    <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+    var usd = document.getElementById("vnd_to_usd").value;
+    paypal.Button.render({
+        // Configure environment
+        env: 'sandbox',
+        client: {
+            sandbox: 'AY2Zmj9QdDkWTdH5KW7U9kG5Wem8cjS1LTEy4ZJ2VhWsNR288MjbeO3cyQHoU9hadWAVY2VFlU7Ilqxr',
+            production: 'demo_production_client_id'
+        },
+        // Customize button (optional)
+        locale: 'en_US',
+        style: {
+            size: 'small',
+            color: 'gold',
+            shape: 'pill',
+        },
+
+        // Enable Pay Now checkout flow (optional)
+        commit: true,
+
+        // Set up a payment
+        payment: function(data, actions) {
+        return actions.payment.create({
+            transactions: [{
+            amount: {
+                total: `${usd}`,
+                currency: 'USD'
+            }
+            }]
+        });
+        },
+        // Execute the payment
+        onAuthorize: function(data, actions) {
+        return actions.payment.execute().then(function() {
+            // Show a confirmation message to the buyer
+            window.alert('Thanh toán thành công!');
+        });
+        }
+    }, '#paypal-button');
+
+    </script> -->
 </body>
 
 </html>

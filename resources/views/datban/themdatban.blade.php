@@ -1,7 +1,7 @@
 @extends("./datban")
 
 @section('page_title')
-Đặt bàn - Duyệt bàn đặt
+Đặt bàn - Thêm đặt bàn
 @endsection
 
 @section('convert_color_themdatban')

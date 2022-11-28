@@ -32,14 +32,13 @@ class DangNhapController extends Controller
         $matkhau =  md5($request->matkhau);
 
         $phucvu = chucvu::where('tenCV', 'LIKE', '%' . 'phục vụ' . '%')->get();
+        foreach($phucvu as $pv){}
         $thungan = chucvu::where('tenCV', 'LIKE', '%' . 'thu ngân' . '%')->get();
-        foreach ($thungan as $tn) {
-        }
+        foreach ($thungan as $tn){}
         $admin = chucvu::where('tenCV', 'LIKE', '%' . 'admin' . '%')->get();
-        foreach ($admin as $ad) {
-        }
+        foreach ($admin as $ad){}
 
-
+        $phucvu = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $pv->maCV)->first();
         $admin = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $ad->maCV)->first();
         $thungan = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $tn->maCV)->first();
         if ($admin) {
@@ -49,6 +48,10 @@ class DangNhapController extends Controller
         } else if ($thungan) {
             Session::put('thungan', $thungan->tendangnhap);
             Session::put('vaitrothungan', $thungan->maCV);
+            return redirect()->route('banhangall');
+        } else if($phucvu){
+            Session::put('phucvu', $phucvu->tendangnhap);
+            Session::put('vaitrophucvu', $phucvu->maCV);
             return redirect()->route('banhangall');
         } else {
             return redirect::back()->withInput()->with('alert-sai', 'Sai tên đăng nhập hoặc mật khẩu.');
@@ -104,7 +107,12 @@ class DangNhapController extends Controller
             Session::forget('thungan');
             Session::forget('vaitrothungan');
             return redirect()->route('dangnhap');
-        } else {
+        } else if(Session::has('phucvu') && Session::has('vaitrophucvu')){
+            Session::forget('phucvu');
+            Session::forget('vaitrophucvu');
+            return redirect()->route('dangnhap');
+        }
+        else {
             return redirect()->route('dangnhap');
         }
     }

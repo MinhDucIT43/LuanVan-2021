@@ -34,7 +34,7 @@ class KhachHangController extends Controller
             $datban->soNguoi = $request->inputNumber;
             $datban->ghiChu = $request->inputNote;
             $datban->save();
-            return redirect()->back()->with('datbanthanhcong','Bạn đã đặt bàn thành công.');
+            return redirect()->back()->with('datbanthanhcong','Cảm ơn bạn đã đặt bàn! Chúng tôi sẽ thông tin đến bạn qua email.');
         }
     }
 

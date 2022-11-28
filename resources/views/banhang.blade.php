@@ -23,13 +23,32 @@
     <div id="wrapper">
         <div class="ban">
             <div id="header">
-                <p id="home">Thu ngân: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </i> ||</p>
+                    @if(Session::has('thungan') && Session::has('vaitrothungan'))
+                        <p id="home">Thu ngân: <i style="color: #00ff00;">
+                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </i> ||
+                    @elseif(Session::has('phucvu') && Session::has('vaitrophucvu'))
+                        <p id="home">Phục vụ: <i style="color: #00ff00;">
+                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('phucvu'))->value('tenNV') }} </i> ||
+                    @endif
+                </p>
                 <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
                 <b style="color: white;" id="time">{{date('d/m/Y')}} <strong><p style="display:inline;" id="demo"></p></strong></b>
-                <?php $countDatBan = DB::table('datban')->where('ngayDat',date('d/m/Y'))->where('trangthai',0)->count(); ?>
-                <a id="banDat" class="btn btn-info" href="{{route('datban')}}">Bàn được đặt</a><strong id="soLuongBanDat">{{$countDatBan}}</strong>
+                <?php $countDatBan = DB::table('datban')->where('ngayDat','>=',date('Y-m-d'))->where('trangthai',0)->count(); ?>
+                @if(Session::has('thungan') && Session::has('vaitrothungan'))
+                    <a id="banDat" class="btn btn-info" href="{{route('datban')}}">Bàn được đặt</a><strong id="soLuongBanDat">{{$countDatBan}}</strong>
+                @endif
             </div>
             <div id="cacban">
+                <!-- Thông báo Paypal -->
+                @if(\Session::has('error'))
+                    <div class="alert alert-danger">{{ \Session::get('error') }}</div>
+                    {{ \Session::forget('error') }}
+                @endif
+                @if(\Session::has('success'))
+                    <div class="alert alert-success">{{ \Session::get('success') }}</div>
+                    {{ \Session::forget('success') }}
+                @endif
+                <!-- Thông báo Paypal -->
                 <div class="row">
                     @foreach($ban as $b)
                     <div class="col-md-4">

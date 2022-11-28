@@ -28,9 +28,9 @@ class BanHangController extends Controller
 {
     public function BanHangAll()
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
-            $datban = datban::where('ngayDat','>=',date('Y/m/d'))->where('trangthai',1)->get();
+            $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
             $manuoc = nhommon::where('tenNM', 'LIKE', '%' . 'nước' . '%')->pluck('maNM');
             $nuoc = mon::whereIn('maNM', $manuoc)->paginate(8, '*', 'np');
             $mathit = nhommon::where('tenNM', 'LIKE', '%' . 'thịt' . '%')
@@ -49,11 +49,11 @@ class BanHangController extends Controller
 
     public function BanHangVeBuffet()
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
             $vebuffet = ve::orderBy('mave', 'ASC')->paginate(3, '*', 'vp');
-            $datban = datban::where('ngayDat','>=',date('Y/m/d'))->where('trangthai',1)->get();
-            return view('banhang.banhangvebuffet', ['ban' => $ban, 'vebuffet' => $vebuffet ,'datban' => $datban]);
+            $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+            return view('banhang.banhangvebuffet', ['ban' => $ban, 'vebuffet' => $vebuffet, 'datban' => $datban]);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -61,7 +61,7 @@ class BanHangController extends Controller
 
     public function BanHangMonAn()
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
             $mathit = nhommon::where('tenNM', 'LIKE', '%' . 'thịt' . '%')
                 ->orwhere('tenNM', 'LIKE', '%' . 'hải sản' . '%')
@@ -70,8 +70,8 @@ class BanHangController extends Controller
                 ->orwhere('tenNM', 'LIKE', '%' . 'truyền thống' . '%')
                 ->pluck('maNM');
             $thit = mon::whereIn('maNM', $mathit)->paginate(11, '*', 'tp');
-            $datban = datban::where('ngayDat','>=',date('Y/m/d'))->where('trangthai',1)->get();
-            return view('banhang.banhangmonan', ['ban' => $ban, 'thit' => $thit ,'datban' => $datban]);
+            $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+            return view('banhang.banhangmonan', ['ban' => $ban, 'thit' => $thit, 'datban' => $datban]);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -79,12 +79,12 @@ class BanHangController extends Controller
 
     public function BanHangThucUong()
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
             $manuoc = nhommon::where('tenNM', 'LIKE', '%' . 'nước' . '%')->pluck('maNM');
             $nuoc = mon::whereIn('maNM', $manuoc)->paginate(11, '*', 'np');
-            $datban = datban::where('ngayDat','>=',date('Y/m/d'))->where('trangthai',1)->get();
-            return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc ,'datban' => $datban]);
+            $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+            return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc, 'datban' => $datban]);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -92,10 +92,10 @@ class BanHangController extends Controller
 
     public function BanSoVe($maban)
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $banso = ban::where('maban', $maban)->get();
-            $trangthai = ban::where('maban', $maban)->where('trangthai',1)->first();
-            $chuathanhtoan = order::where('maban', $maban)->where('trangthai',0)->first();
+            $trangthai = ban::where('maban', $maban)->where('trangthai', 1)->first();
+            $chuathanhtoan = order::where('maban', $maban)->where('trangthai', 0)->first();
             $vebuffet = ve::orderBy('mave', 'ASC')->paginate(5);
             $vetreem = mon::where('mamon', 0)->get();
             if ($trangthai) {
@@ -117,14 +117,14 @@ class BanHangController extends Controller
 
     public function postThemVe(Request $request)
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
-            $order = order::where('maban', $request->maban)->where('trangthai',0)->first();
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            $order = order::where('maban', $request->maban)->where('trangthai', 0)->first();
             if ($order) {
-                $order = order::where('maban', $request->maban)->where('trangthai',0)->get();
+                $order = order::where('maban', $request->maban)->where('trangthai', 0)->get();
                 foreach ($order as $o) {
                 }
                 $soluongmoi = $o->soluong + $request->soluong;
-                order::where('maban', $request->maban)->where('trangthai',0)->update([
+                order::where('maban', $request->maban)->where('trangthai', 0)->update([
                     'soluong' => $soluongmoi,
                 ]);
             } else {
@@ -136,7 +136,7 @@ class BanHangController extends Controller
                 $order->gia = $g->gia;
                 $order->mave = $request->mave;
                 $order->maban = $request->maban;
-                ban::where('maban', $request->maban)->where('trangthai',0)->update([
+                ban::where('maban', $request->maban)->where('trangthai', 0)->update([
                     'trangthai' => 1,
                 ]);
                 $order->giovao = $request->giovao;
@@ -150,20 +150,22 @@ class BanHangController extends Controller
 
     public function postThemMon(Request $request)
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $maorder = order::where('maban', $request->maban)->where('trangthai', 0)->get();
-            foreach ($maorder as $ma) {}
-            $checkmamon = chitietorder::where('mamon', $request->mamon)->where('maorder',$ma->maorder)->first();
+            foreach ($maorder as $ma) {
+            }
+            $checkmamon = chitietorder::where('mamon', $request->mamon)->where('maorder', $ma->maorder)->first();
             if ($checkmamon) {
-                $checkmamon = chitietorder::where('mamon', $request->mamon)->where('maorder',$ma->maorder)->get();
-                foreach ($checkmamon as $cmm) {}
+                $checkmamon = chitietorder::where('mamon', $request->mamon)->where('maorder', $ma->maorder)->get();
+                foreach ($checkmamon as $cmm) {
+                }
                 $soluongmoi = $cmm->soluong + $request->soluong;
                 $thanhtienmoi = $cmm->gia * $soluongmoi;
-                chitietorder::where('mamon', $request->mamon)->where('maorder',$ma->maorder)->update([
+                chitietorder::where('mamon', $request->mamon)->where('maorder', $ma->maorder)->update([
                     'soluong' => $soluongmoi,
                     'thanhtien' => $thanhtienmoi,
                 ]);
-            }else {
+            } else {
                 $chitietorder = new chitietorder();
                 $chitietorder->soluong = $request->soluong;
                 $giamon = mon::where('mamon', $request->mamon)->get('gia');
@@ -183,7 +185,7 @@ class BanHangController extends Controller
 
     public function XoaOrderMon($mactorder)
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             chitietorder::where('mactorder', $mactorder)->delete();
             return redirect()->back();
         } else {
@@ -193,13 +195,13 @@ class BanHangController extends Controller
 
     public function XoaOrderVe($maban, $mave)
     {
-        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $maorder = order::where('maban', $maban)->where('mave', $mave)->where('trangthai', 0)->get();
             foreach ($maorder as $ma) {
             }
             $check = chitietorder::where('maorder', $ma->maorder)->first();
             if ($check) {
-                return redirect()->back()->with('delete-Ve','Không thể xoá vé.');
+                return redirect()->back()->with('delete-Ve', 'Không thể xoá vé.');
             } else {
                 order::where('maban', $maban)->where('mave', $mave)->where('trangthai', 0)->delete();
                 ban::where('maban', $maban)->update([
@@ -212,26 +214,30 @@ class BanHangController extends Controller
         }
     }
 
-    public function postChuyenBan(Request $request){
-        $banso = ban::where('maban',$request->mabanmoi)->get();
-        $vechon = order::where('maban',$request->mabancu)->where('trangthai',0)->get();
-        foreach($vechon as $vc){}
-        $listmon = mon::where('mave', '<=', $vc->mave)->where('mamon', '<>', 0)->get();
-        $vebuffet = ve::where('mave', $vc->mave)->get();
-        $vetreem = mon::where('mamon', 0)->get();
-        if($request->mabanmoi == ''){
-            return redirect()->back();
-        }else{
-            order::where('maban',$request->mabancu)->update([
-                'maban' => $request->mabanmoi,
-            ]);
-            ban::where('maban',$request->mabancu)->update([
-                'trangthai' => 0,
-            ]);
-            ban::where('maban',$request->mabanmoi)->update([
-                'trangthai' => 1,
-            ]);
-            return view('banhang.chitietban199', compact('banso', 'listmon', 'vebuffet', 'vetreem'))->with('i', (request()->input('page', 1) - 1));
+    public function postChuyenBan(Request $request)
+    {
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            $banso = ban::where('maban', $request->mabanmoi)->get();
+            $vechon = order::where('maban', $request->mabancu)->where('trangthai', 0)->get();
+            foreach ($vechon as $vc) {
+            }
+            $listmon = mon::where('mave', '<=', $vc->mave)->where('mamon', '<>', 0)->get();
+            $vebuffet = ve::where('mave', $vc->mave)->get();
+            $vetreem = mon::where('mamon', 0)->get();
+            if ($request->mabanmoi == '') {
+                return redirect()->back();
+            } else {
+                order::where('maban', $request->mabancu)->update([
+                    'maban' => $request->mabanmoi,
+                ]);
+                ban::where('maban', $request->mabancu)->update([
+                    'trangthai' => 0,
+                ]);
+                ban::where('maban', $request->mabanmoi)->update([
+                    'trangthai' => 1,
+                ]);
+                return view('banhang.chitietban199', compact('banso', 'listmon', 'vebuffet', 'vetreem'))->with('i', (request()->input('page', 1) - 1));
+            }
         }
     }
 

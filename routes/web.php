@@ -259,3 +259,10 @@ Route::post('datban/duyetbandat/{maDatBan}',[
 ]);
 Route::get('datban/daduyet','App\Http\Controllers\DatBanController@DaDuyet')->name('datban.daduyet');
 Route::get('datban/themdatban','App\Http\Controllers\DatBanController@getThemDatBan')->name('datban.getthembandat');
+Route::get('datban/xacnhan/{maDatBan}','App\Http\Controllers\DatBanController@xacNhan')->name('emails.xacnhan');
+
+// Thanh toán PayPal:
+Route::get('create-transaction','App\Http\Controllers\PayPalController@createTransaction')->name('createTransaction');
+Route::get('process-transaction/{maorder}','App\Http\Controllers\PayPalController@processTransaction')->name('processTransaction');
+Route::get('success-transaction/{maorder}','App\Http\Controllers\PayPalController@successTransaction')->name('successTransaction');
+Route::get('cancel-transaction','App\Http\Controllers\PayPalController@cancelTransaction')->name('cancelTransaction');
