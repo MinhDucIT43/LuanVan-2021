@@ -8,15 +8,15 @@
     <div id="thucuong">
         <table>
             <tr>
-                <td class="title-mathang"><h3>Thức uống:</h3></td>
+                <td class="title-mathang"><h3><strong>Thức uống:</strong></h3></td>
             </tr>
             @foreach($nuoc as $n)
-            <tr>
+            <tr style="padding-left: 5px;">
                 <td class="tenmon">
                     {{$n['tenmon']}}
                 </td>
                 <td>
-                    <b><i class="title-mathang">..... {{number_format($n['gia'])}} VNĐ</i></b>
+                    <i class="title-mathang">..... {{number_format($n['gia'])}} VNĐ</i>
                 </td>
                 <td>
                     @if($n['soluong'] == 0)
@@ -32,7 +32,7 @@
     <div id="monan">
         <table>
             <tr>
-                <td class="title-mathang"><h3>Món ăn:</h3></td>
+                <td class="title-mathang"><h3><strong>Món ăn:</strong></h3></td>
             </tr>
             @foreach($thit as $t)
             <tr>
@@ -51,17 +51,17 @@
         {{ $thit->withQueryString()->links() }}
     </div>
     <div id="show-pic">
-        <img src="{{asset('hinhanh/thucuong1.jpg')}}" alt="Thức uống 1" class="img-thucuong">
-        <img src="{{asset('hinhanh/thucuong2.jpg')}}" alt="Thức uống 2" class="img-thucuong">
-        
-        <img src="{{asset('hinhanh/thit1.jpg')}}" alt="Thịt 1" class="img-monan">
-        <img src="{{asset('hinhanh/thit2.jpg')}}" alt="Thịt 2" class="img-monan">
-        <img src="{{asset('hinhanh/thit3.jpg')}}" alt="Thịt 2" class="img-monan">
+        <br/><br/>
+        <img src="{{asset('hinhanh/thucuong1.jpg')}}" alt="Thức uống 1" class="img-thucuong rounded">
+        <br/><br/><br/>
+        <img src="{{asset('hinhanh/thit1.jpg')}}" alt="Thịt 1" class="img-monan rounded">
+        <br/><br/><br/>
+        <img src="{{asset('hinhanh/thit3.jpg')}}" alt="Thịt 2" class="img-monan rounded">
     </div>
     <div id="vebuffet">
         <table>
             <tr>
-                <td class="title-mathang"><h3>Vé Buffet:</h3></td>
+                <td class="title-mathang"><h3><strong>Vé Buffet:</strong></h3></td>
             </tr>
             <tr>
                 <td>

@@ -8,14 +8,17 @@ Khách hàng - Đặt bàn
 active
 @endsection
 
-@section('bootstrap')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-@endsection
-
 @section('main')
     <div id="datban">
+        @if(session('datbanthatbai'))
+        <div class="alert alert-danger">
+            <strong>{{ session('datbanthatbai') }}</strong>
+        </div>
+        @endif
         @if(session('datbanthanhcong'))
-            <p style="color:#e32b56;"><i class="fas fa-check"></i> {{ session('datbanthanhcong') }}</p>
+        <div class="alert alert-success">
+            <strong>{{ session('datbanthanhcong') }}</strong>
+        </div>
         @endif
         <h2 style="text-align:center;">THÔNG TIN ĐẶT BÀN</h2>
         <div class="alert alert-primary" role="alert">
@@ -81,7 +84,7 @@ active
                 </div>
                 <div class="mb-3">
                     <label for="inputNote" class="form-label">Ghi chú</label>
-                    <textarea class="form-control" rows="3" id="descriptionInput" name="inputNote"></textarea>
+                    <textarea class="form-control" rows="3" cols="53" id="descriptionInput" name="inputNote"></textarea>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" type="submit" name="submit" id="inputSubmit">Xác nhận<i style="margin-left: 10px" class="fas fa-spinner fa-spin visually-hidden"></i></button>

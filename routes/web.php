@@ -216,9 +216,12 @@ Route::get('admin/ban/xoaban/{maban}','App\Http\Controllers\BanController@XoaBan
 //Bán hàng:
 // Route::get('banhang','App\Http\Controllers\BanHangController@BanHang')->name('banhang');
 Route::get('banhang','App\Http\Controllers\BanHangController@BanHangAll')->name('banhangall');
-Route::get('banhangvebuffet','App\Http\Controllers\BanHangController@BanHangVeBuffet')->name('banhangvebuffet');
-Route::get('banhangmonan','App\Http\Controllers\BanHangController@BanHangMonAn')->name('banhangmonan');
-Route::get('banhangthucuong','App\Http\Controllers\BanHangController@BanHangThucUong')->name('banhangthucuong');
+Route::get('banhang/vebuffet','App\Http\Controllers\BanHangController@BanHangVeBuffet')->name('banhangvebuffet');
+Route::get('banhang/vebuffet/search','App\Http\Controllers\BanHangController@SearchVeBuffet')->name('banhang.vebuffet.search');
+Route::get('banhang/monan','App\Http\Controllers\BanHangController@BanHangMonAn')->name('banhangmonan');
+Route::get('banhang/monan/search','App\Http\Controllers\BanHangController@SearchMonAn')->name('banhang.monan.search');
+Route::get('banhang/thucuong','App\Http\Controllers\BanHangController@BanHangThucUong')->name('banhangthucuong');
+Route::get('banhang/thucuong/search','App\Http\Controllers\BanHangController@SearchThucUong')->name('banhang.thucuong.search');
 //Route::get('banhang/chitietban/{maban}','App\Http\Controllers\BanHangController@BanSo')->name('banhang.chitietban');
 Route::get('banhang/chitietbanve/{maban}','App\Http\Controllers\BanHangController@BanSoVe')->name('banhang.chitietbanve');
 Route::post('banhang/chitietbanve/order',[

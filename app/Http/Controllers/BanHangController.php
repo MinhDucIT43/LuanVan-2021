@@ -23,6 +23,7 @@ use PDF;
 use Illuminate\Support\Facades\Storage;
 
 use Session;
+use Svg\Tag\Rect;
 
 class BanHangController extends Controller
 {
@@ -31,7 +32,11 @@ class BanHangController extends Controller
         if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
             $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
-            $manuoc = nhommon::where('tenNM', 'LIKE', '%' . 'nước' . '%')->pluck('maNM');
+            $manuoc = nhommon::where('tenNM', 'LIKE', '%' . 'nước' . '%')
+                ->orwhere('tenNM', 'LIKE', '%' . 'rượu' . '%')
+                ->orwhere('tenNM', 'LIKE', '%' . 'bia' . '%')
+                ->orwhere('tenNM', 'LIKE', '%' . 'cocktail' . '%')
+                ->pluck('maNM');
             $nuoc = mon::whereIn('maNM', $manuoc)->paginate(8, '*', 'np');
             $mathit = nhommon::where('tenNM', 'LIKE', '%' . 'thịt' . '%')
                 ->orwhere('tenNM', 'LIKE', '%' . 'hải sản' . '%')
@@ -59,6 +64,22 @@ class BanHangController extends Controller
         }
     }
 
+    public function SearchVeBuffet(Request $request){
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            if($request->search == ''){
+                return redirect()->back();
+            }else{
+                $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
+                $vebuffet = ve::where('tenve','LIKE','%'.$request->search.'%')->orwhere('gia',$request->search)->paginate(3, '*', 'vp');
+                $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+                $nhap = $request->search;
+                return view('banhang.banhangvebuffet', ['ban' => $ban, 'vebuffet' => $vebuffet, 'datban' => $datban , 'nhap' => $nhap]);
+            }
+        } else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
     public function BanHangMonAn()
     {
         if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
@@ -77,16 +98,75 @@ class BanHangController extends Controller
         }
     }
 
+    public function SearchMonAn(Request $request){
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            if($request->search == ''){
+                return redirect()->back();
+            }else{
+                $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
+                $mathit = nhommon::where('tenNM', 'LIKE', '%' . 'thịt' . '%')
+                    ->orwhere('tenNM', 'LIKE', '%' . 'hải sản' . '%')
+                    ->orwhere('tenNM', 'LIKE', '%' . 'lẩu' . '%')
+                    ->orwhere('tenNM', 'LIKE', '%' . 'canh' . '%')
+                    ->orwhere('tenNM', 'LIKE', '%' . 'truyền thống' . '%')
+                    ->pluck('maNM');
+                $tenNM = nhommon::whereIn('maNM',$mathit)->where('tenNM','LIKE','%'.$request->search.'%')->first();
+                if($tenNM){
+                    $tenNM = nhommon::whereIn('maNM',$mathit)->where('tenNM','LIKE','%'.$request->search.'%')->get();
+                    foreach($tenNM as $tnm){}
+                    $thit = mon::where('maNM',$tnm->maNM)->orwhere('tenmon','LIKE','%' .$request->search. '%')->paginate(11, '*', 'tp');
+                }else{
+                    $thit = mon::whereIn('maNM',$mathit)->where('tenmon','LIKE','%'.$request->search.'%')->paginate(11, '*', 'tp');
+                }
+                $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+                $nhap = $request->search;
+                return view('banhang.banhangmonan', ['ban' => $ban, 'thit' => $thit, 'datban' => $datban, 'nhap' => $nhap]);
+            }
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
     public function BanHangThucUong()
     {
         if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
             $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
-            $manuoc = nhommon::where('tenNM', 'LIKE', '%' . 'nước' . '%')->pluck('maNM');
+            $manuoc = nhommon::where('tenNM', 'LIKE', '%' . 'nước' . '%')
+                ->orwhere('tenNM', 'LIKE', '%' . 'rượu' . '%')
+                ->orwhere('tenNM', 'LIKE', '%' . 'bia' . '%')
+                ->orwhere('tenNM', 'LIKE', '%' . 'cocktail' . '%')
+                ->pluck('maNM');
             $nuoc = mon::whereIn('maNM', $manuoc)->paginate(11, '*', 'np');
             $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
             return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc, 'datban' => $datban]);
         } else {
             return redirect()->route('dangnhap');
+        }
+    }
+
+    public function SearchThucUong(Request $request){
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            if($request->search == ''){
+                return redirect()->back();
+            }else{
+                $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
+                $manuoc = nhommon::where('tenNM', 'LIKE', '%' . 'nước' . '%')
+                    ->orwhere('tenNM', 'LIKE', '%' . 'rượu' . '%')
+                    ->orwhere('tenNM', 'LIKE', '%' . 'bia' . '%')
+                    ->orwhere('tenNM', 'LIKE', '%' . 'cocktail' . '%')
+                    ->pluck('maNM');
+                $tenNM = nhommon::whereIn('maNM',$manuoc)->where('tenNM','LIKE','%'.$request->search.'%')->first();
+                if($tenNM){
+                    $tenNM = nhommon::whereIn('maNM',$manuoc)->where('tenNM','LIKE','%'.$request->search.'%')->get();
+                    foreach($tenNM as $tnm){}
+                    $nuoc = mon::where('maNM',$tnm->maNM)->orwhere('tenmon','LIKE','%' .$request->search. '%')->paginate(11, '*', 'np');
+                }else{
+                    $nuoc = mon::whereIn('maNM',$manuoc)->where('tenmon','LIKE','%'.$request->search.'%')->paginate(11, '*', 'np');
+                }
+                $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+                $nhap = $request->search;
+                return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc, 'datban' => $datban, 'nhap' => $nhap]);
+            }
         }
     }
 

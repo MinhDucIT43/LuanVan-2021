@@ -4,9 +4,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>King BBQ</title>
+        <title>Duck BBQ</title>
         <link rel="stylesheet" href="{{asset('css/dangnhap.css')}}">
-        <link rel="shortcut icon" href="{{asset('hinhanh/icon.png')}}">
+        <link rel="shortcut icon" href="{{asset('hinhanh/logo.png')}}">
         <!-- Link Bootstrap -->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <!-- Link Fontawesome-icon -->
@@ -17,13 +17,13 @@
             <div class="login-main-text">
                 <i class="fas fa-utensils"></i>
                 <h2>Nhà hàng Buffet</h2>
-                <p>King BBQ</p>
+                <p>Duck BBQ</p>
             </div>
         </div>
         <div class="main">
             <div class="col-md-6 col-sm-12">
                 <div class="login-form">
-                    <img src="{{asset('hinhanh/dangnhap.png')}}" alt="Đăng nhập" id="dangnhap-img">
+                    <img src="{{asset('hinhanh/logo.png')}}" alt="Đăng nhập" id="dangnhap-img">
                     <form method="post" action="{{ route('postDangNhap') }}"> @csrf
                         <div class="form-group" id="top-form">
                             <label>Tên đăng nhập</label>

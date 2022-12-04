@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{asset('hinhanh/icon.png')}}">
+    <link rel="icon" href="{{asset('hinhanh/logo.png')}}">
     <title>@yield('page_title')</title>
     <link rel="stylesheet" href="{{asset('css/khachhang.css')}}">
     <!-- Link Bootstrap -->
@@ -17,19 +17,18 @@
     <!-- SweetAlert2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
-    @yield('bootstrap')
 </head>
 
 <body>
     <div id="wrapper">
         <div id="header">
-            <a href="{{route('khachhang')}}"><img src="{{asset('hinhanh/logotrangkhach.jpg')}}" alt="Logo" id="wrapper-header-logo"></a>
+            <a href="{{route('khachhang')}}"><img src="{{asset('hinhanh/logo.png')}}" alt="Logo" id="wrapper-header-logo"></a>
             <div id="wrapper-header-menu">
                 <ul class="nav">
                     <li class="nav-item"><a href="{{route('khachhang')}}" class="nav-link list-group-item @yield('convert_color_trangchu')">TRANG CHỦ</a></li>
                     <li class="nav-item"><a href="{{route('khachhang.thucdon')}}" class="nav-link list-group-item @yield('convert_color_thucdon')">THỰC ĐƠN</a></li>
                     <li class="nav-item"><a href="{{route('khachhang.datban')}}" class="nav-link list-group-item @yield('convert_color_datban')">ĐẶT BÀN</a></li>
-                    <li class="nav-item" style="color: red; padding-top: 7px;">HOTLINE: 0945579649</li>
+                    <li class="nav-item" style="color: red; padding-top: 7px;">HOTLINE: 0945.579.649</li>
                 </ul>
             </div>
         </div>

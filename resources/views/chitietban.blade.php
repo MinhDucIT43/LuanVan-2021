@@ -24,9 +24,15 @@
     <div id="wrapper">
         <div id="header">
             <a href="{{route('banhangall')}}" class="btn btn-success" id="trove">Trở về</a>
-            <p id="nhanvien">Thu ngân: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </i></p>
+            @if(Session::has('thungan') && Session::has('vaitrothungan'))
+                        <p id="nhanvien">Thu ngân: <strong style="color: #00ff00;">
+                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </strong> ||
+                    @elseif(Session::has('phucvu') && Session::has('vaitrophucvu'))
+                        <p id="nhanvien">Phục vụ: <strong style="color: #00ff00;">
+                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('phucvu'))->value('tenNV') }} </strong> ||
+                    @endif
             <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
-            <b style="color: white;" id="time">{{date('d/m/Y')}} <strong><p style="display:inline;" id="demo"></p></strong></b>
+            <b id="time">{{date('d/m/Y')}} <strong><p style="display:inline;" id="demo"></p></strong></b>
         </div>
         <div id="chonmon">
             <div id="header-chonmon">
@@ -131,6 +137,8 @@
                             </td>
                             @endforeach
                         @else
+                            <td></td>
+                            <td></td>
                             <td></td>
                         @endif
                         <td><strong>Tổng tiền:</strong></td>

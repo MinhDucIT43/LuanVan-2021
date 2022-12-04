@@ -18,11 +18,11 @@ class KhachHangController extends Controller
 
     public function postDatBan(Request $request){
         $sdt_chuaduyet = datban::where('soDT',$request->inputPhone)->where('trangthai',0)->first();
-        $sdt_ngaygio = datban::where('soDT',$request->inputPhone)->where('ngayDat',$request->ngaydatban)->where('gioDat',$request->inputHour)->first();
+        $sdt_ngaygio = datban::where('soDT',$request->inputPhone)->where('ngayDat',$request->ngaydatban)->where('gioDat','>=',($request->inputHour)-5)->first();
         if($sdt_chuaduyet){
-            return redirect()->back()->with('datbanthanhcong','Số điện thoại này đã đặt bàn nhưng chưa được duyệt.');
+            return redirect()->back()->with('datbanthatbai','Số điện thoại này đã đặt bàn nhưng chưa được duyệt.');
         }else if($sdt_ngaygio){
-            return redirect()->back()->with('datbanthanhcong','Số điện thoại này đã đặt bàn vào giờ và ngày này.');
+            return redirect()->back()->with('datbanthatbai','Số điện thoại này đã đặt bàn vào ngày và giờ này.');
         }else{
             $datban = new datban();
             $datban->hoTen = $request->inputName;

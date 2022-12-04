@@ -38,7 +38,7 @@
 #time{
     position: relative;
     top: 10px;
-    left: 251px;
+    left: 265px;
 }
 
 #banDat{
@@ -124,7 +124,7 @@
 
 .img-thucuong{
     width: 100px;
-    height: 100px;
+    height: 150px;
 }
 
 .img-monan{
@@ -139,13 +139,16 @@
 }
 
 #vebuffet-private{
+    background-image: url(../hinhanh/backgroundve.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 799px;
     height: 532px;
 }
 #vebuffet-private-table{
     position: relative;
-    left: 80px;
-    top: 50px;
+    left: 255px;
+    top: 79px;
 }
 #backgroundvebuffet{
     float: right;
@@ -171,6 +174,7 @@
 }
 #monan-private-table{
     position: relative;
+    bottom: 59px;
     left: 30px;
 }
 #monan-private-pic{
@@ -183,6 +187,27 @@
    left: 50px;
 }
 
+.backgroundmonan3{
+    width: 290px;
+    height: 174px;
+}
+
+#thucuong-private-table{
+    position: relative;
+    bottom: 59px;
+    left: 30px;
+}
+
+.backgroundthucuong{
+    position: relative;
+    left: 90px;
+ }
+
+ .backgroundthucuong2{
+    width: 227px;
+    height: 215px;
+}
+
 #show-pic{
     float: right;
     width: 100px;
@@ -193,6 +218,9 @@
     color: #FF8C00;
 }
 
-.tenmon{
-    font-weight: bold;
+.formSearch{
+    position: relative;
+    top: -43px;
+    width: 302px;
+    left: 447px;
 }

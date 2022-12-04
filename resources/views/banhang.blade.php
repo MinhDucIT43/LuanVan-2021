@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bán hàng</title>
     <link rel="stylesheet" href="{{asset('css/banhang.css')}}">
-    <link rel="shortcut icon" href="./hinhanh/icon.png">
+    <link rel="shortcut icon" href="{{asset('hinhanh/logo.png')}}">
     <!-- Link Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Link Fontawesome-icon -->
@@ -24,11 +24,11 @@
         <div class="ban">
             <div id="header">
                     @if(Session::has('thungan') && Session::has('vaitrothungan'))
-                        <p id="home">Thu ngân: <i style="color: #00ff00;">
-                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </i> ||
+                        <p id="home">Thu ngân: <strong style="color: #00ff00;">
+                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </strong> ||
                     @elseif(Session::has('phucvu') && Session::has('vaitrophucvu'))
-                        <p id="home">Phục vụ: <i style="color: #00ff00;">
-                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('phucvu'))->value('tenNV') }} </i> ||
+                        <p id="home">Phục vụ: <strong style="color: #00ff00;">
+                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('phucvu'))->value('tenNV') }} </strong> ||
                     @endif
                 </p>
                 <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
@@ -92,7 +92,7 @@
             </div>
         </div>
         <div id="danhsachmonan">
-            <h3 id="text-danhsachmonan">DANH SÁCH MẶT HÀNG</h3>
+            <h3 id="text-danhsachmonan"><strong>DANH SÁCH MẶT HÀNG</strong></h3>
             <a class="btn btn-danger dangXuat" href="{{ route('dangxuatthungan') }}" id="logout"><i class="fas fa-sign-out-alt">Đăng xuất</i></a>
             <div id="display-danhsachmonan">
                 <div id="menu-mathang">

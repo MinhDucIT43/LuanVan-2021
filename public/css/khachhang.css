@@ -19,10 +19,11 @@ body{
     top: 0px;
 }
 #wrapper-header-logo{
-    width: 200px;
-    height: 77px;
+    width: 172px;
+    height: 65px;
     position: relative;
     left: 100px;
+    top: 5px;
 }
 #wrapper-header-menu{
     position: relative;
@@ -62,7 +63,6 @@ body{
     text-align: center;
     float: left;
     width: 549px;
-    padding-top: 90px;
 }
 .text{
     color: #DEB887;
@@ -142,4 +142,19 @@ body{
 @-webkit-keyframes an {
     from {opacity: .1} 
     to {opacity: 1}
+}
+
+.footer{
+    background-color: #B22222;
+    text-align: center;
+    color: white;
+    position: relative;
+    top: 470px;
+    height: 200px;
+}
+
+#info{
+    position: relative;
+    bottom: 200px;
+    right: 250px;
 }

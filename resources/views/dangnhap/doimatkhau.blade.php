@@ -4,9 +4,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>King BBQ</title>
+        <title>Duck BBQ</title>
         <link rel="stylesheet" href="{{asset('css/doimatkhau.css')}}">
-        <link rel="shortcut icon" href="{{asset('hinhanh/icon.png')}}">
+        <link rel="shortcut icon" href="{{asset('hinhanh/logo.png')}}">
         <!-- Link Bootstrap -->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <!-- Link Fontawesome-icon -->
@@ -17,7 +17,7 @@
             <div class="login-main-text">
                 <i class="fas fa-utensils"></i>
                 <h2>Nhà hàng Buffet</h2>
-                <p>King BBQ</p>
+                <p>Duck BBQ</p>
             </div>
         </div>
         <div class="main">
@@ -45,7 +45,9 @@
                             @endforeach
                         </ul>
                         @if(session('success-doimatkhau'))
-                            <p style="color:green;"><i class="fas fa-check"></i> {{ session('success-doimatkhau') }}</p>
+                        <div class="alert alert-success">
+                            <strong>{{ session('success-doimatkhau') }}</strong>
+                        </div>
                         @endif
                         @if(session('fail-doimatkhau'))
                             <p style="color:#dc3545;"><i class="fa fa-circle" aria-hidden="true" style="font-size:8px;"></i> {{ session('fail-doimatkhau') }}</p>

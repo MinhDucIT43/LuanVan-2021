@@ -31,16 +31,16 @@ class DangNhapController extends Controller
         $tendangnhap = $request->tendangnhap;
         $matkhau =  md5($request->matkhau);
 
-        $phucvu = chucvu::where('tenCV', 'LIKE', '%' . 'phục vụ' . '%')->get();
-        foreach($phucvu as $pv){}
-        $thungan = chucvu::where('tenCV', 'LIKE', '%' . 'thu ngân' . '%')->get();
-        foreach ($thungan as $tn){}
         $admin = chucvu::where('tenCV', 'LIKE', '%' . 'admin' . '%')->get();
         foreach ($admin as $ad){}
+        $thungan = chucvu::where('tenCV', 'LIKE', '%' . 'thu ngân' . '%')->get();
+        foreach ($thungan as $tn){}
+        $phucvu = chucvu::where('tenCV', 'LIKE', '%' . 'phục vụ' . '%')->get();
+        foreach($phucvu as $pv){}
 
-        $phucvu = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $pv->maCV)->first();
         $admin = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $ad->maCV)->first();
         $thungan = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $tn->maCV)->first();
+        $phucvu = nhanvien::where('tendangnhap', $tendangnhap)->where('matkhau', $matkhau)->where('maCV', $pv->maCV)->first();
         if ($admin) {
             Session::put('admin', $admin->tendangnhap);
             Session::put('vaitroadmin', $admin->maCV);
