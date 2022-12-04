@@ -27,7 +27,7 @@ active
                     <tr style="font-family: Comic Sans MS cursive;">
                         <td>
                             @foreach($nuoc as $n)
-                            <b>{{$n['tenmon']}}</b>
+                            {{$n['tenmon']}}
                             <i class="title-mathang">................{{number_format($n['gia'])}} VNĐ</i>
                             @if($n['soluong'] == 0)
                             <p style="display: inline; color: red;"><b>=> Hết hàng</b></p>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt bàn - Duyệt bàn đặt</title>
     <link rel="stylesheet" href="{{asset('css/datban.css')}}">
-    <link rel="shortcut icon" href="{{asset('hinhanh/icon.png')}}">
+    <link rel="shortcut icon" href="{{asset('hinhanh/logo.png')}}">
     <!-- Link Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Link Fontawesome-icon -->
@@ -20,44 +20,44 @@
 </head>
 
 <body>
-    <div id="duyetban">
+    <div id="duyetban" style="padding-left: 9px;">
         <a href="{{route('datban')}}" class="btn btn-success" id="trove">Trở về</a>
         <h2 id="text-duyetdatban">Duyệt đặt bàn</h2>
         @foreach($datban as $db)
         <form action="{{route('postDuyetDatBan',['maDatBan' => $db['maDatBan']]) }}" method="post" enctype="multipart/form-data"> @csrf
             <div class="mb-3" style="width: 1349px;">
-                <label for="inputName" class="form-label">Họ và tên</label>
+                <label for="inputName" class="form-label"><strong>Họ và tên</strong></label>
                 <input autofocus="" data-parsley-required-message="Thông tin bắt buộc" type="text" class="form-control" id="inputName" name="inputName" placeholder="Điền họ và tên" value="{{$db->hoTen}}" required>
             </div>
             <div class="row" style="width: 1361px;">
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="inputEmail" class="form-label">Email</label>
+                        <label for="inputEmail" class="form-label"><strong>Email</strong></label>
                         <input autofocus="" data-parsley-required-message="Thông tin bắt buộc" data-parsley-type-message="Địa chỉ email không đúng định dạng" type="email" parsley-type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Điền email" value="{{$db->email}}" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="inputPhone" class="form-label">Số điện thoại</label>
+                        <label for="inputPhone" class="form-label"><strong>Số điện thoại</strong></label>
                         <input data-parsley-required-message="Thông tin bắt buộc" type="text" class="form-control" id="inputPhone" name="inputPhone" placeholder="Điền số điện thoại" value="{{$db->soDT}}" required>
                     </div>
                 </div>
             </div>
             <div class="row row-cols-lg-auto g-3" style="width: 1357px;">
                 <div class="mb-3">
-                    <label class="form-label" for="inputDate">Ngày đặt bàn</label>
+                    <label class="form-label" for="inputDate"><strong>Ngày đặt bàn</strong></label>
                     <div class="input-group" id="datepicker2">
                         <input type="date" id="ngaydatban" name="ngaydatban" value="{{$db->ngayDat}}" required="" />
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="inputHour">Giờ</label>
+                    <label class="form-label" for="inputHour"><strong>Giờ</strong></label>
                     <select class="form-select " required="" data-parsley-required-message="Thông tin bắt buộc" name="inputHour" id='inputHour' style="min-width: 150px">
                         <option value="{{$db->gioDat}}">{{$db->gioDat}} H</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="inputMinute">Phút</label>
+                    <label class="form-label" for="inputMinute"><strong>Phút</strong></label>
                     <select class="form-select" name="inputMinute" id='inputMinute' required="" data-parsley-required-message="Thông tin bắt buộc">
                         @switch($db->phutDat)
                         @case(0) <option value="{{$db->phutDat}}" style="display:none" selected="selected">{{$db->phutDat}} '</option>
@@ -81,22 +81,22 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label class="form-label" for="inputNumber">Số người</label>
-                        <input class="form-control" type="number" min="1" value="{{$db->soNguoi}}" required="" data-parsley-required-message="Thông tin bắt buộc" placeholder="Điền số người" id="inputNumber" name="inputNumber">
+                        <label class="form-label" for="inputNumber"><strong>Số người</strong></label>
+                        <input class="form-control" type="number" style="width:244px;" min="1" value="{{$db->soNguoi}}" required="" data-parsley-required-message="Thông tin bắt buộc" placeholder="Điền số người" id="inputNumber" name="inputNumber">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label class="form-label" for="tendangnhap">Nhân viên duyệt</label>
+                        <label class="form-label" for="tendangnhap"><strong>Nhân viên duyệt</strong></label>
                         <input data-parsley-required-message="Thông tin bắt buộc" type="text" class="form-control" id="tendangnhap" name="tendangnhap" placeholder="Điền số điện thoại" value="{{App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV')}}" required>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="inputNote" class="form-label">Ghi chú</label>
-                    <textarea class="form-control" rows="3" id="descriptionInput" name="inputNote">{{$db->ghiChu}}</textarea>
+                    <label for="inputNote" class="form-label"><strong>Ghi chú</strong></label>
+                    <textarea class="form-control" rows="3" cols="53" id="descriptionInput" name="inputNote">{{$db->ghiChu}}</textarea>
                 </div>
-                <div class="mb-3 form-check">
-                    <p>Chọn bàn</p>
+                <div class="mb-3 form-check" style="padding-left:50px;">
+                    <strong>Chọn bàn</strong>
                     <ul class="nav">
                         @foreach($bandadat as $bdd)
                         @endforeach
@@ -131,6 +131,10 @@
         </form>
         @endforeach
     </div>
+
+    <!-- Script Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
 
 </html>

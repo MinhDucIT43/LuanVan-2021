@@ -25,7 +25,7 @@
                     <tr style="font-family: Comic Sans MS cursive;">
                         <td>
                         @foreach($thit as $t)
-                            <b>{{$t['tenmon']}}</b>
+                            {{$t['tenmon']}}
                             @if($t['soluong'] == 0)
                                 <p style="display: inline; color: red;">Hết hàng</p>
                             @else

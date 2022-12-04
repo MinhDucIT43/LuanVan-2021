@@ -93,7 +93,7 @@ return [
 
     'from' => [
         'address' => 'nmduc.ctuk43@gmail.com',
-        'name' => 'Nhà hàng Buffet King BBQ',
+        'name' => 'Nhà hàng Buffet Duck BBQ',
     ],
 
     /*

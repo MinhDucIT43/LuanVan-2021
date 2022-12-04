@@ -27,6 +27,7 @@ active
                         <th class="columnName">Số người</th>
                         <th class="columnName">Nhân viên duyệt</th>
                         <th class="columnName">Ghi chú</th>
+                        <th class="columnName">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +47,14 @@ active
                         <td align="center">{{ $dd['soNguoi'] }}</td>
                         <td>{{$dd['tendangnhap']}}</td>
                         <td>{{$dd['ghiChu']}}</td>
+                        <td>
+                            @switch($dd['huy'])
+                                @case (0)
+                                    <strong style="background-color:green;color:white;padding:8px;">Thành công</strong> @break
+                                @case (1) 
+                                    <strong style="background-color:grey;color:white;padding:8px;">Thất bại</strong> @break
+                            @endswitch
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

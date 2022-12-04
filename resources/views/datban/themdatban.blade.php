@@ -9,7 +9,7 @@ active
 @endsection
 
 @section('main')
-<div id="themdatban">
+<div id="themdatban" style="padding-left: 15px;">
     @if(session('datbanthanhcong'))
     <p style="color:#e32b56;"><i class="fas fa-check"></i> {{ session('datbanthanhcong') }}</p>
     @endif

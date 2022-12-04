@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\datban;
-use App\Models\ban;
+use App\Models\huydatban;
 use Illuminate\Support\Facades\Mail;
 
 use Session;
@@ -26,7 +26,7 @@ class DatBanController extends Controller
             $datban = datban::where('maDatBan',$maDatBan)->get();
             foreach($datban as $db){}
             date_default_timezone_set("Asia/Ho_Chi_Minh");
-            $bandadat = datban::where('trangthai',1)->where('ngayDat','>=',date('Y/m/d'))->where('gioDat','>',$db->gioDat-5)->get();
+            $bandadat = datban::where('trangthai',1)->where('ngayDat','>=',date('Y/m/d'))->where('gioDat','>',$db->gioDat-5)->where('huy',0)->get();
             return view('datban.duyetban',compact('datban','bandadat'));
         } else {
             return redirect()->route('dangnhap');
@@ -62,11 +62,9 @@ class DatBanController extends Controller
             $banDat = datban::where('maDatBan',$maDatBan)->get();
             foreach($banDat as $bd){}
             Mail::send('emails.emailxacnhan', compact('banDat'), function($email) use($bd){
-                $email->subject('Nhà hàng Buffet King BBQ - Xác nhận đặt bàn');
+                $email->subject('Nhà hàng Buffet Duck BBQ - Xác nhận đặt bàn');
                 $email->to($bd->email,$bd->hoTen);
             });
-
-            $datban = datban::orderBy('maDatBan', 'DESC')->Paginate(10);
             return redirect()->route('datban');
         } else {
             return redirect()->route('dangnhap');
@@ -92,15 +90,34 @@ class DatBanController extends Controller
 
     public function xacNhan($maDatBan)
     {
-        $banDat = datban::where('maDatBan',$maDatBan)->get();
-        foreach($banDat as $bd){}
-        datban::where('maDatBan', $maDatBan)->update([
-            'accept' => 1,
-        ]);
-        Mail::send('emails.xacnhanthanhcong', compact('banDat'), function($email) use($bd){
-            $email->subject('Nhà hàng Buffet King BBQ - Xác nhận đặt bàn thành công.');
-            $email->to($bd->email,$bd->hoTen);
-        });
-        return redirect()->to('https://gmail.com');
+        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+            $banDat = datban::where('maDatBan',$maDatBan)->get();
+            foreach($banDat as $bd){}
+            datban::where('maDatBan', $maDatBan)->update([
+                'accept' => 1,
+            ]);
+            Mail::send('emails.xacnhanthanhcong', compact('banDat'), function($email) use($bd){
+                $email->subject('Nhà hàng Buffet King BBQ - Xác nhận đặt bàn thành công.');
+                $email->to($bd->email,$bd->hoTen);
+            });
+            return redirect()->to('https://gmail.com');
+        }else {
+            return redirect()->route('dangnhap');
+        } 
+    }
+
+    public function postHuyDatBan(Request $request){
+        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+            $huydatban = new huydatban();
+            $huydatban->lyDo = $request->inputLyDo;
+            $huydatban->maDatBan = $request->maDatBan;
+            $huydatban->save();
+            datban::where('maDatBan',$request->maDatBan)->update([
+                'huy' => 1,
+            ]);
+            return redirect()->route('datban');
+        }else {
+            return redirect()->route('dangnhap');
+        }
     }
 }
