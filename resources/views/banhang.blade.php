@@ -23,30 +23,26 @@
     <div id="wrapper">
         <div class="ban">
             <div id="header">
-                    @if(Session::has('thungan') && Session::has('vaitrothungan'))
-                        <p id="home">Thu ngân: <strong style="color: #00ff00;">
-                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </strong> ||
+                @if(Session::has('thungan') && Session::has('vaitrothungan'))
+                <p id="home">Thu ngân: <strong style="color: #00ff00;">{{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }} </strong> ||
                     @elseif(Session::has('phucvu') && Session::has('vaitrophucvu'))
-                        <p id="home">Phục vụ: <strong style="color: #00ff00;">
-                        {{ App\Models\nhanvien::where('tendangnhap',Session::get('phucvu'))->value('tenNV') }} </strong> ||
+                <p id="home">Phục vụ: <strong style="color: #00ff00;">{{ App\Models\nhanvien::where('tendangnhap',Session::get('phucvu'))->value('tenNV') }} </strong> ||
                     @endif
                 </p>
                 <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
-                <b style="color: white;" id="time">{{date('d/m/Y')}} <strong><p style="display:inline;" id="demo"></p></strong></b>
-                <?php $countDatBan = DB::table('datban')->where('ngayDat','>=',date('Y-m-d'))->where('trangthai',0)->count(); ?>
-                @if(Session::has('thungan') && Session::has('vaitrothungan'))
-                    <a id="banDat" class="btn btn-info" href="{{route('datban')}}">Bàn được đặt</a><strong id="soLuongBanDat">{{$countDatBan}}</strong>
-                @endif
+                <b style="color: white;" id="time">{{date('d/m/Y')}} <strong>
+                        <p style="display:inline;" id="demo"></p>
+                    </strong></b>
             </div>
             <div id="cacban">
                 <!-- Thông báo Paypal -->
                 @if(\Session::has('error'))
-                    <div class="alert alert-danger">{{ \Session::get('error') }}</div>
-                    {{ \Session::forget('error') }}
+                <div class="alert alert-danger">{{ \Session::get('error') }}</div>
+                {{ \Session::forget('error') }}
                 @endif
                 @if(\Session::has('success'))
-                    <div class="alert alert-success">{{ \Session::get('success') }}</div>
-                    {{ \Session::forget('success') }}
+                <div class="alert alert-success">{{ \Session::get('success') }}</div>
+                {{ \Session::forget('success') }}
                 @endif
                 <!-- Thông báo Paypal -->
                 <div class="row">
@@ -59,27 +55,27 @@
                                 <p style="margin-bottom: 0rem;">{{$b['banso']}}</p>
                             </a>
                             <div class="thongtinBan">
-                                    @foreach($datban as $db)
-                                        @foreach(explode(',',$db['maban']) as $vl)
-                                            @if($b['maban'] == $vl)
-                                                <?php $ngayDat = date_create($db['ngayDat']) ?>
-                                                <strong style="font-size: 12px; color:#FF4500;">Được đặt: {{date_format($ngayDat,"d-m-Y")}} ({{$db['gioDat']}}h{{$db['phutDat']}})</strong><br />
-                                            @endif
-                                        @endforeach
-                                    @endforeach
-                                </div>
+                                @foreach($datban as $db)
+                                @foreach(explode(',',$db['maban']) as $vl)
+                                @if($b['maban'] == $vl)
+                                <?php $ngayDat = date_create($db['ngayDat']) ?>
+                                <strong style="font-size: 12px; color:#FF4500;">Được đặt: {{date_format($ngayDat,"d-m-Y")}} ({{$db['gioDat']}}h{{$db['phutDat']}})</strong><br />
+                                @endif
+                                @endforeach
+                                @endforeach
+                            </div>
                             @else
                             <a class="linkBan coKhach" href="{{ route('banhang.chitietbanve',['maban' => $b['maban']]) }}">
                                 <i id="khachhang" class="fas fa-users"></i>
                                 <p style="margin-bottom: 0rem">{{$b['banso']}}</p>
                                 <div class="thongtinBan">
                                     @foreach($datban as $db)
-                                        @foreach(explode(',',$db['maban']) as $vl)
-                                            @if($b['maban'] == $vl)
-                                                <?php $ngayDat = date_create($db['ngayDat']) ?>
-                                                <strong style="font-size: 12px; color:#FF4500;">Được đặt: {{date_format($ngayDat,"d-m-Y")}} ({{$db['gioDat']}}h{{$db['phutDat']}})</strong><br />
-                                            @endif
-                                        @endforeach
+                                    @foreach(explode(',',$db['maban']) as $vl)
+                                    @if($b['maban'] == $vl)
+                                    <?php $ngayDat = date_create($db['ngayDat']) ?>
+                                    <strong style="font-size: 12px; color:#FF4500;">Được đặt: {{date_format($ngayDat,"d-m-Y")}} ({{$db['gioDat']}}h{{$db['phutDat']}})</strong><br />
+                                    @endif
+                                    @endforeach
                                     @endforeach
                                 </div>
                             </a>
@@ -92,6 +88,16 @@
             </div>
         </div>
         <div id="danhsachmonan">
+            @if(Session::has('thungan') && Session::has('vaitrothungan'))
+                <a href="" id="quanLyDanhMuc" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Danh mục quản lý</a>
+                <ul class="dropdown-menu">
+                    <li class="quanLyDanhMuc-Muc">
+                        <?php $countDatBan = DB::table('datban')->where('ngayDat', '>=', date('Y-m-d'))->where('trangthai', 0)->count(); ?>
+                        <a class="btn btn-primary" href="{{route('datban')}}">Bàn được đặt</a><strong id="soLuongBanDat">{{$countDatBan}}</strong>
+                    </li>
+                    <li class="quanLyDanhMuc-Muc"><a class="btn btn-primary" href="{{route('xemnhanvien')}}">Xem thông tin nhân viên</a></li>
+                </ul>
+            @endif
             <h3 id="text-danhsachmonan"><strong>DANH SÁCH MẶT HÀNG</strong></h3>
             <a class="btn btn-danger dangXuat" href="{{ route('dangxuatthungan') }}" id="logout"><i class="fas fa-sign-out-alt">Đăng xuất</i></a>
             <div id="display-danhsachmonan">

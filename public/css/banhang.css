@@ -41,19 +41,23 @@
     left: 265px;
 }
 
-#banDat{
-    float: right;
+#quanLyDanhMuc{
     position: relative;
-    top: 3px;
+    bottom: 11px;
+    margin-bottom: -17px;
+}
+
+.quanLyDanhMuc-Muc{
+    margin-top: 5px;
 }
 
 #soLuongBanDat{
     background-color: #DC143C;
     padding: 4px;
     border-radius: 25px;
-    float: right;
     position: relative;
-    left: 120px;
+    right: 10px;
+    bottom: 11px;
     color: white
 }
 
@@ -94,7 +98,7 @@
     color: #FF8C00;
     display: inline;
     position: relative;
-    left: 250px;
+    left: 120px;
     top: 5px;
     padding: 0px 25px 0px 25px;
 }

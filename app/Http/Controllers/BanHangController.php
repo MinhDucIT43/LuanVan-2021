@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\nhanvien;
-use App\Models\ban;
 use App\Models\chucvu;
-use App\Models\sanpham;
+use App\Models\ban;
 use App\Models\mon;
 use App\Models\nhommon;
 use App\Models\ve;
@@ -17,6 +16,7 @@ use App\Models\order;
 use App\Models\chitietorder;
 use App\Models\thanhtoan;
 use App\Models\datban;
+use App\Models\giamgia;
 
 use Carbon\Carbon;
 use PDF;
@@ -178,6 +178,8 @@ class BanHangController extends Controller
             $chuathanhtoan = order::where('maban', $maban)->where('trangthai', 0)->first();
             $vebuffet = ve::orderBy('mave', 'ASC')->paginate(5);
             $vetreem = mon::where('mamon', 0)->get();
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
+            $giamgia = giamgia::where('ngayBD','<=',date('Y-m-d'))->where('ngayKT','>=',date('Y-m-d'))->orderBy('maGG', 'ASC')->get();
             if ($trangthai) {
                 if ($chuathanhtoan) {
                     $vechon = order::where('maban', $maban)->get('mave');
@@ -185,7 +187,7 @@ class BanHangController extends Controller
                     }
                     $listmon = mon::where('mave', '<=', $v->mave)->where('mamon', '<>', 0)->get();
                     $vebuffet = ve::where('mave', $v->mave)->get();
-                    return view('banhang.chitietban199', compact('banso', 'listmon', 'vebuffet', 'vetreem'))->with('i', (request()->input('page', 1) - 1));
+                    return view('banhang.chitietban199', compact('banso', 'listmon', 'vebuffet', 'vetreem', 'giamgia'))->with('i', (request()->input('page', 1) - 1));
                 }
             } else {
                 return view('banhang.chitietbanve', ['banso' => $banso, 'vebuffet' => $vebuffet])->with('i', (request()->input('page', 1) - 1));
@@ -257,6 +259,43 @@ class BanHangController extends Controller
                 $chitietorder->maorder = $ma->maorder;
                 $chitietorder->save();
             }
+            return redirect()->back();
+        } else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function postApDungGG(Request $request){
+        if(Session::has('thungan') && Session::has('vaitrothungan')){
+            $giamgia = giamgia::where('maGG',$request->maGG)->get();
+            foreach($giamgia as $gg){}
+            $order = order::where('maban',$request->maban)->where('trangthai',0)->get();
+            foreach($order as $o){}
+            if($o->maGG != NULL){
+                return redirect()->back()->with('apdung-GG', 'Đã có 1 mã giảm giá được áp dụng.');
+            }else if($o->soluong <= 3){
+                return redirect()->back()->with('apdung-GG', 'Chưa đủ điều kiện áp dụng.');
+            }
+            else{
+                if($gg->maGG == 1){
+                    order::where('maban',$request->maban)->where('trangthai',0)->update([
+                        'maGG' => $gg->maGG,
+                    ]);
+                }
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function xoaGG($maorder,$maGG){
+        if(Session::has('thungan') && Session::has('vaitrothungan')){
+            $order = order::where('maorder',$maorder)->where('trangthai',0)->where('maGG',$maGG)->get();
+            foreach($order as $o){}
+            order::where('maorder',$maorder)->where('trangthai',0)->where('maGG',$maGG)->update([
+                'maGG' => NULL,
+            ]);
             return redirect()->back();
         } else {
             return redirect()->route('dangnhap');
@@ -358,6 +397,67 @@ class BanHangController extends Controller
             }
             Storage::put('public/storage/hoadon/' . $b->banso . '_' . date('Y') . date('m') . date('d') . '_' . rand() . '.' . 'pdf', $pdf->output());
             return redirect()->route('banhangall');
+        } else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function xemNhanVien(){
+        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+            $nhanvien = nhanvien::orderBy('tendangnhap', 'DESC')->Paginate(3);
+            $chucvu = chucvu::orderBy('maCV', 'DESC')->get();
+            return view('banhang.xemthongtinnhanvien',compact('nhanvien', 'chucvu'))->with('i', (request()->input('page', 1) - 1) * 3);
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function searchNhanVien(Request $request)
+    {
+        if (Session::has('thungan') && Session::has('vaitrothungan')) {
+            if ($request->keyword == '') {
+                if($request->timkiemdanhmuc == ""){
+                    return redirect()->back();
+                }else{
+                    $nhanvien = nhanvien::where('maCV', $request->timkiemdanhmuc)
+                    ->orwhere('gioitinh', 'LIKE', '%' . $request->timkiemdanhmuc . '%')
+                    ->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                }
+            } else if($request->timkiemdanhmuc == "") {
+                $tenCV = chucvu::where('tenCV', $request->keyword)->first();
+                if ($tenCV) {
+                    $tenCV = chucvu::where('tenCV', $request->keyword)->get();
+                    foreach ($tenCV as $t) {
+                    }
+                    $nhanvien = nhanvien::where('maCV', 'LIKE', '%' . $t->maCV . '%')->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                } else {
+                    $nhanvien = nhanvien::where('soDT', 'LIKE', '%' . $request->keyword . '%')
+                        ->orwhere('tenNV', 'LIKE', '%' . $request->keyword . '%')
+                        ->orwhere('gioitinh', 'LIKE', '%' . $request->keyword . '%')
+                        ->orwhere('namsinh', 'LIKE', '%' . $request->keyword . '%')
+                        ->orwhere('diachi', 'LIKE', '%' . $request->keyword . '%')
+                        ->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                }
+            } else{
+                $tenCV = chucvu::where('tenCV', $request->keyword)->first();
+                if ($tenCV) {
+                    $tenCV = chucvu::where('tenCV', $request->keyword)->get();
+                    foreach ($tenCV as $t) {
+                    }
+                    $nhanvien = nhanvien::where('maCV', 'LIKE', '%' . $t->maCV . '%')->where('gioitinh', 'LIKE', '%' . $request->timkiemdanhmuc . '%')->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                } else {
+                    $nhanvien = nhanvien::where('soDT', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                        ->orwhere('tenNV', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                        ->orwhere('gioitinh', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                        ->orwhere('namsinh', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                        ->orwhere('diachi', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                        ->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                }
+            }
+            $nhaptext = $request->keyword;
+            $nhapselect = $request->timkiemdanhmuc;
+            $chucvu = chucvu::orderBy('maCV', 'DESC')->get();
+            return view('banhang.xemthongtinnhanvien', compact('nhanvien', 'nhaptext', 'nhapselect', 'chucvu'))->with('i', (request()->input('page', 1) - 1) * 3);
         } else {
             return redirect()->route('dangnhap');
         }

@@ -31,10 +31,14 @@ class NhanVienController extends Controller
     {
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             if ($request->keyword == '') {
+                if($request->timkiemdanhmuc == ""){
+                    return redirect()->back();
+                }else{
                     $nhanvien = nhanvien::where('maCV', $request->timkiemdanhmuc)
-                        ->orwhere('gioitinh', 'LIKE', '%' . $request->timkiemdanhmuc . '%')
-                        ->orderBy('tendangnhap', 'DESC')->Paginate(3);
-            } else {
+                                        ->orwhere('gioitinh', 'LIKE', '%' . $request->timkiemdanhmuc . '%')
+                                        ->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                }
+            } else if($request->timkiemdanhmuc == "") {
                 $tenCV = chucvu::where('tenCV', $request->keyword)->first();
                 if ($tenCV) {
                     $tenCV = chucvu::where('tenCV', $request->keyword)->get();
@@ -43,18 +47,34 @@ class NhanVienController extends Controller
                     $nhanvien = nhanvien::where('maCV', 'LIKE', '%' . $t->maCV . '%')->orderBy('tendangnhap', 'DESC')->Paginate(3);
                 } else {
                     $nhanvien = nhanvien::where('soDT', 'LIKE', '%' . $request->keyword . '%')
-                        ->orwhere('tenNV', 'LIKE', '%' . $request->keyword . '%')
-                        ->orwhere('gioitinh', 'LIKE', '%' . $request->keyword . '%')
-                        ->orwhere('namsinh', 'LIKE', '%' . $request->keyword . '%')
-                        ->orwhere('diachi', 'LIKE', '%' . $request->keyword . '%')
-                        ->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                                        ->orwhere('tenNV', 'LIKE', '%' . $request->keyword . '%')
+                                        ->orwhere('gioitinh', 'LIKE', '%' . $request->keyword . '%')
+                                        ->orwhere('namsinh', 'LIKE', '%' . $request->keyword . '%')
+                                        ->orwhere('diachi', 'LIKE', '%' . $request->keyword . '%')
+                                        ->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                }
+            }   else{
+                $tenCV = chucvu::where('tenCV', $request->keyword)->first();
+                if ($tenCV) {
+                    $tenCV = chucvu::where('tenCV', $request->keyword)->get();
+                    foreach ($tenCV as $t) {
+                    }
+                    $nhanvien = nhanvien::where('maCV', 'LIKE', '%' . $t->maCV . '%')->where('gioitinh', 'LIKE', '%' . $request->timkiemdanhmuc . '%')->orderBy('tendangnhap', 'DESC')->Paginate(3);
+                } else {
+                    $nhanvien = nhanvien::where('soDT', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                                        ->orwhere('tenNV', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                                        ->orwhere('gioitinh', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                                        ->orwhere('namsinh', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                                        ->orwhere('diachi', 'LIKE', '%' . $request->keyword . '%')->where('maCV', $request->timkiemdanhmuc)
+                                        ->orderBy('tendangnhap', 'DESC')->Paginate(3);
                 }
             }
-            $nhap = $request->keyword;
+            $nhaptext = $request->keyword;
+            $nhapselect = $request->timkiemdanhmuc;
             $chucvu = chucvu::orderBy('maCV', 'DESC')->get();
             $datangay = 0;
             $datathang = 0;
-            return view('nhanvien.admin', compact('nhanvien', 'nhap', 'chucvu', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 3);
+            return view('nhanvien.admin', compact('nhanvien', 'nhaptext', 'nhapselect', 'chucvu', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 3);
         } else {
             return redirect()->route('dangnhap');
         }

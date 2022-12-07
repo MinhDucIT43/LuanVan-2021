@@ -162,6 +162,7 @@
                     <a href="{{route('admin.mon')}}" class="list-group-item @yield('convert_color_menu_ma')"><i class="fas fa-cookie"></i>Quản lý món ăn</a>
                     <a href="{{route('admin.ve')}}" class="list-group-item @yield('convert_color_menu_ve')"><i class="fa fa-ticket" aria-hidden="true"></i>Quản lý vé Buffet</a>
                     <a href="{{route('admin.ban')}}" class="list-group-item @yield('convert_color_menu_b')"><i class="fas fa-table"></i>Quản lý bàn</a>
+                    <a href="{{route('admin.giamgia')}}" class="list-group-item @yield('convert_color_menu_gg')"><i class="fas fa-angle-double-down"></i>Quản lý giảm giá</a>
                     <div class="btn-group dropend">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-chart-line">Quản lý doanh thu</i>

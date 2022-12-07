@@ -17,7 +17,7 @@
         <label for="keyword">Tìm kiếm</label>
         <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Nhập từ khoá..." style="width:250px;display:inline;">
         <select name="timkiemdanhmuc" id="timkiemdanhmuc">
-            <option hidden>Danh mục</option>
+            <option hidden value="">Danh mục</option>
             <optgroup label="Chức vụ">
                 @foreach($chucvu as $cv)
                     <option value="{{$cv->maCV}}">{{$cv['tenCV']}}</option>
@@ -74,9 +74,15 @@
                     @endforeach
                 </tbody>
             </table>
+        @elseif($nhaptext && !$nhapselect)
+            <br /><br />
+            <h2>Rất tiếc, không tìm thấy kết quả nào phù hợp với từ khóa "{{$nhaptext}}".</h2>
+        @elseif($nhapselect && !$nhaptext)
+            <br /><br />
+            <h2>Rất tiếc, không tìm thấy kết quả nào phù hợp với từ khóa "{{$nhapselect}}".</h2>
         @else
-            <br/><br/>
-            <h2>Rất tiếc, không tìm thấy kết quả nào phù hợp với từ khóa "{{$nhap}}".</h2>
+            <br /><br />
+            <h2>Rất tiếc, không tìm thấy kết quả nào phù hợp với từ khóa "{{$nhaptext}} - {{App\Models\chucvu::where('maCV',$nhapselect)->value('tenCV')}}".</h2>
         @endif
     </div>
     {{ $nhanvien->links() }}

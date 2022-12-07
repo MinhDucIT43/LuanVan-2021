@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\datban;
 use App\Models\huydatban;
+use App\Models\nhanvien;
 use Illuminate\Support\Facades\Mail;
 
 use Session;
@@ -27,7 +28,8 @@ class DatBanController extends Controller
             foreach($datban as $db){}
             date_default_timezone_set("Asia/Ho_Chi_Minh");
             $bandadat = datban::where('trangthai',1)->where('ngayDat','>=',date('Y/m/d'))->where('gioDat','>',$db->gioDat-5)->where('huy',0)->get();
-            return view('datban.duyetban',compact('datban','bandadat'));
+            $nhanvien = nhanvien::where('maCV',Session::get('vaitrothungan'))->get();
+            return view('datban.duyetban',compact('datban','bandadat','nhanvien'));
         } else {
             return redirect()->route('dangnhap');
         }

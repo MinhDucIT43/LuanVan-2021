@@ -49,7 +49,7 @@ active
                             @endforeach
                         </td>
                         <td align="center">{{ $db['soNguoi'] }}</td>
-                        <td>{{$db['tendangnhap']}}</td>
+                        <td>{{App\Models\nhanvien::where('tendangnhap',$db['tendangnhap'])->value('tenNV')}}</td>
                         <td>{{ $db['ghiChu'] }}</td>
                         <td>
                             @switch($db['accept'])

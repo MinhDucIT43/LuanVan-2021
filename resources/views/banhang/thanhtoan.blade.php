@@ -14,10 +14,10 @@
             <table border="0" align="center">
                 <tr style="text-align: center;">
                     <td class="companyInfo">
-                        <img src="{{asset('hinhanh/dangnhap.png')}}" alt="Đăng nhập" style="width: 300px; height: 70px;">
+                        <img src="{{asset('hinhanh/logo.png')}}" alt="Đăng nhập" style="width: 300px; height: 70px;">
                         <p>
-                            Địa chỉ: Tầng 2, TTTM Sense City, 1A Đại lộ Hoà Bình, Tân An, Ninh Kiều, Cần Thơ <br/>
-                            - 0292.7305.939 -
+                            Địa chỉ: Khu 2, đường 3/2, phường Xuân Khánh, quận Ninh Kiều, thành phố Cần Thơ <br/>
+                            - 0945.579.649 -
                         </p>
                         <h1 class="tieude">HOÁ ĐƠN THANH TOÁN</h1>
                     </td>
@@ -82,21 +82,25 @@
                 <td></td>
                 <td></td>
                 <td colspan="2">Giảm giá:</td>
-                <td align="right"><b>0%</b></td>
+                @if($sp->maGG == NULL)
+                    <td align="right"><b>0</b></td>
+                @else
+                    <td align="right"><b>- {{number_format($sp->gia)}}</b></td>
+                @endif
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td colspan="2" class="vat">VAT:</td>
-                <td align="right" class="vat"><b>0%</b></td>
+                <td colspan="2" class="vat">VAT (10%):</td>
+                <td align="right" class="vat"><b>{{number_format(($thanhtienmon+$thanhtienve)*0.1)}}</b></td>
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td colspan="2"><b>TỔNG:</b></td>
-                <td align="right"><b>{{number_format($thanhtienmon+$thanhtienve)}}</b></td>
+                <td align="right"><b>{{number_format((($thanhtienmon+$thanhtienve)+(($thanhtienmon+$thanhtienve)*0.1))-$sp->gia)}}</b></td>
             </tr>
             <tr>
                 <td colspan="6" align="center"><h3>Cảm ơn quý khách, hẹn gặp lại!</h3></td>

@@ -213,6 +213,20 @@ Route::post('admin/ban/suaban/{maban}',[
 ]);
 Route::get('admin/ban/xoaban/{maban}','App\Http\Controllers\BanController@XoaBan')->name('admin.ban.xoaban');
 
+//Giảm giá
+Route::get('admin/giamgia','App\Http\Controllers\GiamGiaController@Admin')->name('admin.giamgia');
+Route::get('admin/giamgia/themgiamgia','App\Http\Controllers\GiamGiaController@getThemGiamGia')->name('admin.giamgia.themgiamgia');
+Route::post('admin/giamgia/themgiamgia',[
+    'as'=>'postThemGiamGia',
+    'uses'=>'App\Http\Controllers\GiamGiaController@postThemGiamGia',
+]);
+Route::get('admin/giamgia/suagiamgia/{maGG}','App\Http\Controllers\GiamGiaController@getSuaGiamGia')->name('admin.giamgia.suagiamgia');
+Route::post('admin/giamgia/suagiamgia/{maGG}',[
+    'as'=>'postSuaGiamGia',
+    'uses'=>'App\Http\Controllers\GiamGiaController@postSuaGiamGia',
+]);
+Route::get('admin/giamgia/xoagiamgia/{maGG}','App\Http\Controllers\GiamGiaController@xoaGiamGia')->name('admin.giamgia.xoagiamgia');
+
 //Bán hàng:
 // Route::get('banhang','App\Http\Controllers\BanHangController@BanHang')->name('banhang');
 Route::get('banhang','App\Http\Controllers\BanHangController@BanHangAll')->name('banhangall');
@@ -239,6 +253,17 @@ Route::post('banhang/chitietban/chuyenban',[
     'uses'=>'App\Http\Controllers\BanHangController@postChuyenBan',
 ]);
 Route::get('banhang/chitietban/thanhtoan/{maorder}','App\Http\Controllers\BanHangController@thanhtoan')->name('thanhtoan.pdf');
+
+//Giảm giá
+Route::post('banhang/chitietban/apdungGG',[
+    'as'=>'postApDungGG',
+    'uses'=>'App\Http\Controllers\BanHangController@postApDungGG',
+]);
+Route::get('banhang/chitietban/xoaGG/{maorder}/{maGG}','App\Http\Controllers\BanHangController@xoaGG')->name('banhang.chitietban.xoaGG');
+
+//Xem thông tin nhân viên
+Route::get('thongtinnhanvien','App\Http\Controllers\BanHangController@xemNhanVien')->name('xemnhanvien');
+Route::get('thongtinnhanvien/search','App\Http\Controllers\BanHangController@searchNhanVien')->name('xemnhanvien.searchnhanvien');
 
 //Quản lý thống kê:
 Route::get('admin/thongke/thongkengay','App\Http\Controllers\ThongKeController@ThongKeNgay')->name('admin.thongke.thongkengay');
@@ -267,6 +292,7 @@ Route::post('datban/huybandat',[
     'as'=>'postHuyDatBan',
     'uses'=>'App\Http\Controllers\DatBanController@postHuyDatBan',
 ]);
+
 // Thanh toán PayPal:
 Route::get('create-transaction','App\Http\Controllers\PayPalController@createTransaction')->name('createTransaction');
 Route::get('process-transaction/{maorder}','App\Http\Controllers\PayPalController@processTransaction')->name('processTransaction');
