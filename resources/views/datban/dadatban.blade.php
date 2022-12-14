@@ -44,8 +44,10 @@ active
                         <?php $ngayDat = date_create($db['ngayDat']) ?>
                         <td>{{$db['gioDat'].' giờ '.$db['phutDat'].' phút'}}<br />{{ date_format($ngayDat,"d-m-Y") }}</td>
                         <td>
-                            @foreach(explode(',',$db['maban']) as $vl)
-                                {{App\Models\ban::where('maban',$vl)->value('banso')}}<br/>
+                            @foreach($chitiet_datban as $ctdb)
+                                @if($ctdb->maDatBan == $db['maDatBan'])
+                                    {{App\Models\ban::where('maban',$ctdb->maban)->value('banso')}}<br/>
+                                @endif
                             @endforeach
                         </td>
                         <td align="center">{{ $db['soNguoi'] }}</td>

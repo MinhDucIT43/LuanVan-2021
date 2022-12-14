@@ -227,16 +227,36 @@ Route::post('admin/giamgia/suagiamgia/{maGG}',[
 ]);
 Route::get('admin/giamgia/xoagiamgia/{maGG}','App\Http\Controllers\GiamGiaController@xoaGiamGia')->name('admin.giamgia.xoagiamgia');
 
+//Quản lý thống kê:
+Route::get('admin/thongke/thongkengay','App\Http\Controllers\ThongKeController@ThongKeNgay')->name('admin.thongke.thongkengay');
+Route::get('admin/thongke/thongkethang','App\Http\Controllers\ThongKeController@ThongKeThang')->name('admin.thongke.thongkethang');
+Route::get('admin/thongke/thongkenam','App\Http\Controllers\ThongKeController@ThongKeNam')->name('admin.thongke.thongkenam');
+
+//Quản lý hoá đơn:
+Route::get('admin/hoadon','App\Http\Controllers\HoaDonController@Admin')->name('admin.hoadon');
+Route::get('admin/hoadon/chitiethoadon/{mathanhtoan}','App\Http\Controllers\HoaDonController@ChiTietHoaDon')->name('admin.hoadon.chitiethoadon');
+Route::get('admin/hoadon/timkiemhoadon','App\Http\Controllers\HoaDonController@TimKiemHoaDon')->name('admin.hoadon.timkiemhoadon');
+Route::get('admin/hoadon/timkiemhoadonhomnay','App\Http\Controllers\HoaDonController@TimKiemHoaDonHomNay')->name('admin.hoadon.timkiemhoadonhomnay');
+Route::get('admin/hoadon/timkiemhoadontungaydenngay','App\Http\Controllers\HoaDonController@TimKiemHoaDonTuNgayDenNgay')->name('admin.hoadon.timkiemhoadontungaydenngay');
+
 //Bán hàng:
 // Route::get('banhang','App\Http\Controllers\BanHangController@BanHang')->name('banhang');
 Route::get('banhang','App\Http\Controllers\BanHangController@BanHangAll')->name('banhangall');
+
 Route::get('banhang/vebuffet','App\Http\Controllers\BanHangController@BanHangVeBuffet')->name('banhangvebuffet');
 Route::get('banhang/vebuffet/search','App\Http\Controllers\BanHangController@SearchVeBuffet')->name('banhang.vebuffet.search');
+
 Route::get('banhang/monan','App\Http\Controllers\BanHangController@BanHangMonAn')->name('banhangmonan');
 Route::get('banhang/monan/search','App\Http\Controllers\BanHangController@SearchMonAn')->name('banhang.monan.search');
+
 Route::get('banhang/thucuong','App\Http\Controllers\BanHangController@BanHangThucUong')->name('banhangthucuong');
 Route::get('banhang/thucuong/search','App\Http\Controllers\BanHangController@SearchThucUong')->name('banhang.thucuong.search');
-//Route::get('banhang/chitietban/{maban}','App\Http\Controllers\BanHangController@BanSo')->name('banhang.chitietban');
+
+Route::get('banhang/giamgia','App\Http\Controllers\BanHangController@BanHangGiamGia')->name('banhanggiamgia');
+Route::get('banhang/giamgia/search','App\Http\Controllers\BanHangController@SearchGiamGia')->name('banhang.giamgia.search');
+Route::get('banhang/giamgia/search/homnay','App\Http\Controllers\BanHangController@SearchGiamGiaHomNay')->name('banhang.giamgiahomnay.search');
+Route::get('banhang/giamgia/search/tudenngay','App\Http\Controllers\BanHangController@SearchGiamGiaTuDenNgay')->name('banhang.giamgiatudenngay.search');
+
 Route::get('banhang/chitietbanve/{maban}','App\Http\Controllers\BanHangController@BanSoVe')->name('banhang.chitietbanve');
 Route::post('banhang/chitietbanve/order',[
     'as'=>'postThemVe',
@@ -265,10 +285,6 @@ Route::get('banhang/chitietban/xoaGG/{maorder}/{maGG}','App\Http\Controllers\Ban
 Route::get('thongtinnhanvien','App\Http\Controllers\BanHangController@xemNhanVien')->name('xemnhanvien');
 Route::get('thongtinnhanvien/search','App\Http\Controllers\BanHangController@searchNhanVien')->name('xemnhanvien.searchnhanvien');
 
-//Quản lý thống kê:
-Route::get('admin/thongke/thongkengay','App\Http\Controllers\ThongKeController@ThongKeNgay')->name('admin.thongke.thongkengay');
-Route::get('admin/thongke/thongkethang','App\Http\Controllers\ThongKeController@ThongKeThang')->name('admin.thongke.thongkethang');
-
 //Gọi trang khách hàng:
 Route::get('khachhang','App\Http\Controllers\KhachHangController@KhachHang')->name('khachhang');
 Route::get('khachhang/datban','App\Http\Controllers\KhachHangController@DatBan')->name('khachhang.datban');
@@ -292,6 +308,15 @@ Route::post('datban/huybandat',[
     'as'=>'postHuyDatBan',
     'uses'=>'App\Http\Controllers\DatBanController@postHuyDatBan',
 ]);
+
+//Quản lý hoá đơn Thu ngân:
+Route::get('hoadon','App\Http\Controllers\HoaDonController@ThuNgan')->name('hoadon');
+Route::get('hoadon/timkiemhoadonthungan','App\Http\Controllers\HoaDonController@TimKiemHoaDonThuNgan')->name('hoadon.timkiemhoadonthungan');
+Route::get('hoadon/timkiemhoadonhomnaythungan','App\Http\Controllers\HoaDonController@TimKiemHoaDonHomNayThuNgan')->name('hoadon.timkiemhoadonhomnaythungan');
+Route::get('hoadon/timkiemhoadontungaydenngaythungan','App\Http\Controllers\HoaDonController@TimKiemHoaDonTuNgayDenNgayThuNgan')->name('hoadon.timkiemhoadontungaydenngaythungan');
+
+//Quản lý báo cáo:
+Route::get('baocao','App\Http\Controllers\BaoCaoController@BaoCao')->name('baocao');
 
 // Thanh toán PayPal:
 Route::get('create-transaction','App\Http\Controllers\PayPalController@createTransaction')->name('createTransaction');

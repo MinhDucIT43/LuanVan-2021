@@ -13,7 +13,7 @@
         @foreach ($danhsachorder as $sp)
             <table border="0" align="center">
                 <tr style="text-align: center;">
-                    <td class="companyInfo">
+                    <td class="companyInfo" colspan="4">
                         <img src="{{asset('hinhanh/logo.png')}}" alt="Đăng nhập" style="width: 300px; height: 70px;">
                         <p>
                             Địa chỉ: Khu 2, đường 3/2, phường Xuân Khánh, quận Ninh Kiều, thành phố Cần Thơ <br/>
@@ -23,13 +23,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <p id="sohoadon">Số hoá đơn: <b>HĐ{{$sp->maorder}}</b></p>
-                        Bàn: <b>{{App\Models\ban::where('maban',$sp['maban'])->value('banso')}}</b><br/>
+                    <td style="width: 400px;">Số hoá đơn: <strong>HĐ{{$sp->maorder}}</strong><br/></td>
+                    <td style="width: 300px;">Bàn: <strong>{{App\Models\ban::where('maban',$sp['maban'])->value('banso')}}</strong></td>
+                </tr>
+                <tr>
+                    <td style="width: 400px;">
                         <input type="hidden" {{date_default_timezone_set("Asia/Ho_Chi_Minh")}}>
-                        <p id="giothanhtoan">Giờ thanh toán: <b>{{date('d/m/Y h:i:s a')}}</b></p>
-                        Nhân viên: <b>{{ App\Models\nhanvien::where('tendangnhap',Session::get('tendangnhap'))->value('tenNV') }}</b>
+                        Giờ thanh toán: <strong>{{date('d/m/Y h:i:s a')}}</strong>
                     </td>
+                    <td style="width: 300px;">Thu ngân: <strong>{{ App\Models\nhanvien::where('tendangnhap',Session::get('thungan'))->value('tenNV') }}</strong></td>
                 </tr>
             </table>
         @endforeach
@@ -84,8 +86,10 @@
                 <td colspan="2">Giảm giá:</td>
                 @if($sp->maGG == NULL)
                     <td align="right"><b>0</b></td>
-                @else
+                @elseif($sp->maGG == 1)
                     <td align="right"><b>- {{number_format($sp->gia)}}</b></td>
+                @elseif($sp->maGG == 2)
+                    <td align="right"><b>- {{number_format(40000)}}</b></td>
                 @endif
             </tr>
             <tr>
@@ -100,7 +104,13 @@
                 <td></td>
                 <td></td>
                 <td colspan="2"><b>TỔNG:</b></td>
-                <td align="right"><b>{{number_format((($thanhtienmon+$thanhtienve)+(($thanhtienmon+$thanhtienve)*0.1))-$sp->gia)}}</b></td>
+                @if($sp->maGG == NULL)
+                    <td align="right"><b>{{number_format((($thanhtienmon+$thanhtienve)+(($thanhtienmon+$thanhtienve)*0.1)))}}</b></td>
+                @elseif($sp->maGG == 1)
+                    <td align="right"><b>{{number_format((($thanhtienmon+$thanhtienve)+(($thanhtienmon+$thanhtienve)*0.1))- $sp->gia)}}</b></td>
+                @elseif($sp->maGG == 2)
+                    <td align="right"><b>{{number_format((($thanhtienmon+$thanhtienve)+(($thanhtienmon+$thanhtienve)*0.1))- 40000)}}</b></td>
+                @endif
             </tr>
             <tr>
                 <td colspan="6" align="center"><h3>Cảm ơn quý khách, hẹn gặp lại!</h3></td>

@@ -17,7 +17,8 @@ class ChucVuController extends Controller
             $chucvu = chucvu::orderBy('maCV', 'DESC')->Paginate(8);
             $datangay = 0;
             $datathang = 0;
-            return view('chucvu.admin', compact('chucvu', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('chucvu.admin', compact('chucvu', 'datangay', 'datathang','datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -26,15 +27,16 @@ class ChucVuController extends Controller
     public function Search(Request $request)
     {
         if (Session::has('admin') && Session::has('vaitroadmin')) {
-            if ($request->keyword == '') {
-                $chucvu = chucvu::orderBy('maCV', 'DESC')->Paginate(8);
+            if ($request->keyword == NULL) {
+                return redirect()->back();
             } else {
                 $chucvu = chucvu::where('tenCV', 'LIKE', '%' . $request->keyword . '%')->orderBy('maCV', 'DESC')->Paginate(8);
             }
             $nhap = $request->keyword;
             $datangay = 0;
             $datathang = 0;
-            return view('chucvu.admin', compact('chucvu', 'nhap', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('chucvu.admin', compact('chucvu', 'nhap', 'datangay', 'datathang','datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -45,7 +47,8 @@ class ChucVuController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $datangay = 0;
             $datathang = 0;
-            return view('chucvu.themchucvu.themchucvu', compact('datangay', 'datathang'));
+            $datanam = 0;
+            return view('chucvu.themchucvu.themchucvu', compact('datangay', 'datathang','datanam'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -83,7 +86,8 @@ class ChucVuController extends Controller
             $chucvu = chucvu::where('maCV', $maCV)->get();
             $datangay = 0;
             $datathang = 0;
-            return view('chucvu.suachucvu.suachucvu', ['chucvu' => $chucvu, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('chucvu.suachucvu.suachucvu', ['chucvu' => $chucvu, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }

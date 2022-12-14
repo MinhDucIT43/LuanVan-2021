@@ -102,9 +102,9 @@
                 <div class="mb-3 form-check" style="padding-left:50px;">
                     <strong>Chọn bàn</strong>
                     <ul class="nav">
-                        @foreach($bandadat as $bdd)
+                        @foreach($maDatBan_co_bandadat as $mdb_c_bdd)
                         @endforeach
-                        @if(empty($bdd))
+                        @if(empty($mdb_c_bdd))
                             <?php $allban = DB::table('ban')->get(); ?>
                             @foreach($allban as $ab)
                                 <li style="margin-right: 37px;" class="nav-item"><input type="checkbox" class="form-check-input" id="inputTable" name="inputTable[]" value="{{$ab->maban}}">
@@ -115,9 +115,12 @@
                         @else
                             <?php
                                 $tongBanDaDat = [];
-                                foreach ($bandadat as $bdd) {
-                                    $maban = explode(',', $bdd['maban']);
-                                    $tongBanDaDat = array_merge($tongBanDaDat, $maban);
+                                foreach($maDatBan_co_bandadat as $mdb_c_bdd){
+                                    $cacbandadat = DB::table('chitiet_datban')->where('maDatBan',$mdb_c_bdd)->get();
+                                    foreach($cacbandadat as $cbdd){
+                                        $maban = explode(',', $cbdd->maban);
+                                        $tongBanDaDat = array_merge($tongBanDaDat,$maban);
+                                    }
                                 }
                                 $tongBanDaDat = array_unique($tongBanDaDat);
                                 $ban = DB::table('ban')->whereNotIn('maban', $tongBanDaDat)->get();
@@ -125,7 +128,7 @@
                             @foreach($ban as $b)
                                 <li style="margin-right: 37px;" class="nav-item"><input type="checkbox" class="form-check-input" id="inputTable" name="inputTable[]" value="{{$b->maban}}">
                                     <label class="form-check-label" for="inputTable">{{$b->banso}}</label>
-                                </li><br>
+                                </li><br />
                             @endforeach
                             <button class="btn btn-primary" type="submit" name="submit" id="inputSubmit">Duyệt</button>
                         @endif

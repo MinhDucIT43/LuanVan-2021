@@ -96,6 +96,8 @@
                         <a class="btn btn-primary" href="{{route('datban')}}">Bàn được đặt</a><strong id="soLuongBanDat">{{$countDatBan}}</strong>
                     </li>
                     <li class="quanLyDanhMuc-Muc"><a class="btn btn-primary" href="{{route('xemnhanvien')}}">Xem thông tin nhân viên</a></li>
+                    <li class="quanLyDanhMuc-Muc"><a class="btn btn-primary" href="{{route('hoadon')}}">Quản lý hoá đơn</a></li>
+                    <li class="quanLyDanhMuc-Muc"><a class="btn btn-primary" href="{{route('baocao')}}">Quản lý báo cáo</a></li>
                 </ul>
             @endif
             <h3 id="text-danhsachmonan"><strong>DANH SÁCH MẶT HÀNG</strong></h3>
@@ -107,6 +109,7 @@
                         <li class="nav-item"><a href="{{route('banhangvebuffet')}}" class="nav-link list-group-item @yield('convert_color_ve')">Vé Buffet</a></li>
                         <li class="nav-item"><a href="{{route('banhangmonan')}}" class="nav-link list-group-item @yield('convert_color_monan')">Món ăn</a></li>
                         <li class="nav-item"><a href="{{route('banhangthucuong')}}" class="nav-link list-group-item @yield('convert_color_thucuong')">Thức uống</a></li>
+                        <li class="nav-item"><a href="{{route('banhanggiamgia')}}" class="nav-link list-group-item @yield('convert_color_giamgia')">Khuyến mãi</a></li>
                     </ul>
                 </div>
                 <div id="noidung-mathang">

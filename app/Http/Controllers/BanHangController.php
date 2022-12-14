@@ -58,7 +58,7 @@ class BanHangController extends Controller
             $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
             $vebuffet = ve::orderBy('mave', 'ASC')->paginate(3, '*', 'vp');
             $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
-            return view('banhang.banhangvebuffet', ['ban' => $ban, 'vebuffet' => $vebuffet, 'datban' => $datban]);
+            return view('banhang.banhangvebuffet', ['ban' => $ban, 'vebuffet' => $vebuffet, 'datban' => $datban])->with('i', (request()->input('page', 1) - 1) * 3);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -73,7 +73,7 @@ class BanHangController extends Controller
                 $vebuffet = ve::where('tenve','LIKE','%'.$request->search.'%')->orwhere('gia',$request->search)->paginate(3, '*', 'vp');
                 $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
                 $nhap = $request->search;
-                return view('banhang.banhangvebuffet', ['ban' => $ban, 'vebuffet' => $vebuffet, 'datban' => $datban , 'nhap' => $nhap]);
+                return view('banhang.banhangvebuffet', ['ban' => $ban, 'vebuffet' => $vebuffet, 'datban' => $datban , 'nhap' => $nhap])->with('i', (request()->input('page', 1) - 1) * 3);
             }
         } else {
             return redirect()->route('dangnhap');
@@ -90,9 +90,9 @@ class BanHangController extends Controller
                 ->orwhere('tenNM', 'LIKE', '%' . 'canh' . '%')
                 ->orwhere('tenNM', 'LIKE', '%' . 'truyền thống' . '%')
                 ->pluck('maNM');
-            $thit = mon::whereIn('maNM', $mathit)->paginate(11, '*', 'tp');
+            $thit = mon::whereIn('maNM', $mathit)->paginate(18, '*', 'tp');
             $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
-            return view('banhang.banhangmonan', ['ban' => $ban, 'thit' => $thit, 'datban' => $datban]);
+            return view('banhang.banhangmonan', ['ban' => $ban, 'thit' => $thit, 'datban' => $datban])->with('i', (request()->input('page', 1) - 1) * 18);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -114,13 +114,13 @@ class BanHangController extends Controller
                 if($tenNM){
                     $tenNM = nhommon::whereIn('maNM',$mathit)->where('tenNM','LIKE','%'.$request->search.'%')->get();
                     foreach($tenNM as $tnm){}
-                    $thit = mon::where('maNM',$tnm->maNM)->orwhere('tenmon','LIKE','%' .$request->search. '%')->paginate(11, '*', 'tp');
+                    $thit = mon::where('maNM',$tnm->maNM)->orwhere('tenmon','LIKE','%' .$request->search. '%')->paginate(18, '*', 'tp');
                 }else{
-                    $thit = mon::whereIn('maNM',$mathit)->where('tenmon','LIKE','%'.$request->search.'%')->paginate(11, '*', 'tp');
+                    $thit = mon::whereIn('maNM',$mathit)->where('tenmon','LIKE','%'.$request->search.'%')->paginate(18, '*', 'tp');
                 }
                 $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
                 $nhap = $request->search;
-                return view('banhang.banhangmonan', ['ban' => $ban, 'thit' => $thit, 'datban' => $datban, 'nhap' => $nhap]);
+                return view('banhang.banhangmonan', ['ban' => $ban, 'thit' => $thit, 'datban' => $datban, 'nhap' => $nhap])->with('i', (request()->input('page', 1) - 1) * 18);
             }
         }else {
             return redirect()->route('dangnhap');
@@ -136,9 +136,9 @@ class BanHangController extends Controller
                 ->orwhere('tenNM', 'LIKE', '%' . 'bia' . '%')
                 ->orwhere('tenNM', 'LIKE', '%' . 'cocktail' . '%')
                 ->pluck('maNM');
-            $nuoc = mon::whereIn('maNM', $manuoc)->paginate(11, '*', 'np');
+            $nuoc = mon::whereIn('maNM', $manuoc)->paginate(18, '*', 'np');
             $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
-            return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc, 'datban' => $datban]);
+            return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc, 'datban' => $datban])->with('i', (request()->input('page', 1) - 1) * 18);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -165,8 +165,76 @@ class BanHangController extends Controller
                 }
                 $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
                 $nhap = $request->search;
-                return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc, 'datban' => $datban, 'nhap' => $nhap]);
+                return view('banhang.banhangnuocuong', ['ban' => $ban, 'nuoc' => $nuoc, 'datban' => $datban, 'nhap' => $nhap])->with('i', (request()->input('page', 1) - 1) * 18);
             }
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function BanHangGiamGia(){
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
+            $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+            $giamgia = giamgia::orderBy('maGG', 'ASC')->paginate(5, '*', 'ggp');
+            return view('banhang.banhanggiamgia', ['ban' => $ban, 'giamgia' => $giamgia, 'datban' => $datban])->with('i', (request()->input('page', 1) - 1) * 5);
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function SearchGiamGia(Request $request){
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            if($request->search == ''){
+                return redirect()->back();
+            }else{
+                $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
+                $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+                $nhap = $request->search;
+                if($request->search == "hôm nay"){
+                    $giamgia = giamgia::where('ngayBD','<=',date('Y-m-d'))->where('ngayKT','>=',date('Y-m-d'))->orderBy('maGG', 'ASC')->paginate(5, '*', 'ggp');
+                }else{
+                    $giamgia = giamgia::where('tenGG','LIKE','%'.$request->search.'%')->orderBy('maGG', 'ASC')->paginate(5, '*', 'ggp');
+                }
+                return view('banhang.banhanggiamgia', ['ban' => $ban, 'giamgia' => $giamgia, 'datban' => $datban, 'nhap' => $nhap])->with('i', (request()->input('page', 1) - 1) * 5);
+            }
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function SearchGiamGiaHomNay(){
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
+            $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+            $giamgia = giamgia::where('ngayBD','<=',date('Y-m-d'))->where('ngayKT','>=',date('Y-m-d'))->orderBy('maGG', 'ASC')->paginate(5, '*', 'ggp');
+            return view('banhang.banhanggiamgia', ['ban' => $ban, 'giamgia' => $giamgia, 'datban' => $datban])->with('i', (request()->input('page', 1) - 1) * 5);
+        }else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function SearchGiamGiaTuDenNgay(Request $request){
+        if (Session::has('thungan') && Session::has('vaitrothungan') || Session::has('phucvu') && Session::has('vaitrophucvu')) {
+            $ban = ban::orderBy('maban', 'ASC')->paginate(9, '*', 'bp');
+            $datban = datban::where('ngayDat', '>=', date('Y/m/d'))->where('trangthai', 1)->get();
+            $nhap = $request->search;
+            if($request->tuNgay == NULL){
+                if($request->denNgay != NULL){
+                    $giamgia = giamgia::where('ngayKT','<=',$request->denNgay)->orderBy('maGG', 'ASC')->paginate(5, '*', 'ggp');
+                }else{
+                    return redirect()->back();
+                }
+            }else if($request->tuNgay != NULL){
+                if($request->denNgay != NULL){
+                    $giamgia = giamgia::where('ngayBD','>=',$request->tuNgay)->where('ngayKT','<=',$request->denNgay)->orderBy('maGG', 'ASC')->paginate(5, '*', 'ggp');
+                }else{
+                    $giamgia = giamgia::where('ngayBD','>=',$request->tuNgay)->orderBy('maGG', 'ASC')->paginate(5, '*', 'ggp');
+                }
+            }
+            return view('banhang.banhanggiamgia', ['ban' => $ban, 'giamgia' => $giamgia, 'datban' => $datban, 'nhap' => $nhap])->with('i', (request()->input('page', 1) - 1) * 5);
+        }else {
+            return redirect()->route('dangnhap');
         }
     }
 
@@ -273,16 +341,26 @@ class BanHangController extends Controller
             foreach($order as $o){}
             if($o->maGG != NULL){
                 return redirect()->back()->with('apdung-GG', 'Đã có 1 mã giảm giá được áp dụng.');
-            }else if($o->soluong <= 3){
-                return redirect()->back()->with('apdung-GG', 'Chưa đủ điều kiện áp dụng.');
-            }
-            else{
-                if($gg->maGG == 1){
-                    order::where('maban',$request->maban)->where('trangthai',0)->update([
-                        'maGG' => $gg->maGG,
-                    ]);
+            }else{
+                if($request->maGG == 1){
+                    if($o->soluong <= 3){
+                        return redirect()->back()->with('apdung-GG', 'Chưa đủ điều kiện áp dụng.');
+                    }else{
+                        order::where('maban',$request->maban)->where('trangthai',0)->update([
+                            'maGG' => $gg->maGG,
+                        ]);
+                        return redirect()->back();
+                    }
+                }else if($request->maGG == 2){
+                    if($o->mave == 15){
+                        order::where('maban',$request->maban)->where('trangthai',0)->update([
+                            'maGG' => $gg->maGG,
+                        ]);
+                        return redirect()->back();
+                    }else{
+                        return redirect()->back()->with('apdung-GG', 'Chưa đủ điều kiện áp dụng.');
+                    }
                 }
-                return redirect()->back();
             }
         } else {
             return redirect()->route('dangnhap');
@@ -355,7 +433,7 @@ class BanHangController extends Controller
                 ban::where('maban', $request->mabanmoi)->update([
                     'trangthai' => 1,
                 ]);
-                return view('banhang.chitietban199', compact('banso', 'listmon', 'vebuffet', 'vetreem'))->with('i', (request()->input('page', 1) - 1));
+                return redirect()->back()->with('i', (request()->input('page', 1) - 1));
             }
         }
     }
@@ -369,19 +447,30 @@ class BanHangController extends Controller
                 'danhsachorder' => $order,
                 'danhsachchitietorder'    => $chitietorder,
             ];
-            foreach ($order as $o) {
-            }
+            foreach ($order as $o) {}
             $thanhtienve = $o->soluong * $o->gia;
             $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            $VAT = ($thanhtienve+$thanhtienmon)*0.1;
+            if($o->maGG == 1){
+                $thanhtienve = ($o->soluong-1) * $o->gia;
+                $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            }else if($o->maGG == 2){
+                $thanhtienve = $thanhtienve - 40000;
+                $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            }else{
+                $thanhtienve = $o->soluong * $o->gia;
+                $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            }
             // return view('banhang.thanhtoan')
             //         ->with('danhsachorder', $order)
             //         ->with('danhsachchitietorder', $chitietorder)
             //         ->with('thanhtienve', $thanhtienve)
             //         ->with('thanhtienmon', $thanhtienmon);
+
             $thanhtoan = new thanhtoan();
             $thanhtoan->nhanvien = Session::get('thungan');
             date_default_timezone_set("Asia/Ho_Chi_Minh");
-            $thanhtoan->giothanhtoan = date('Y/m/d h:i:s');
+            $thanhtoan->giothanhtoan = date('Y/m/d H:i:s');
             $thanhtoan->maorder = $maorder;
             ban::where('maban', $o->maban)->update([
                 'trangthai' => 0,
@@ -389,12 +478,11 @@ class BanHangController extends Controller
             order::where('maorder', $maorder)->update([
                 'trangthai' => 1,
             ]);
-            $thanhtoan->thanhtien = ($thanhtienve + $thanhtienmon);
+            $thanhtoan->thanhtien = ($thanhtienve + $thanhtienmon)+$VAT;
             $thanhtoan->save();
             $pdf = PDF::loadView('banhang.thanhtoan', $data);
             $banso = ban::where('maban', $o->maban)->get();
-            foreach ($banso as $b) {
-            }
+            foreach ($banso as $b) {}
             Storage::put('public/storage/hoadon/' . $b->banso . '_' . date('Y') . date('m') . date('d') . '_' . rand() . '.' . 'pdf', $pdf->output());
             return redirect()->route('banhangall');
         } else {

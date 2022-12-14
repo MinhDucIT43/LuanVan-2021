@@ -14,7 +14,7 @@ $('.thanhToan').on('click',function(e){
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire(
-            'Đã thanh toan!',
+            'Đã thanh toán!',
             'Hoá đơn đã được lưu.',
             'success'
             )

@@ -1,7 +1,7 @@
 @extends("./khachhang")
 
 @section('page_title')
-Khách hàng
+Trang chủ
 @endsection
 
 @section('convert_color_trangchu')

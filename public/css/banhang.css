@@ -212,6 +212,18 @@
     height: 215px;
 }
 
+#giamgia-private{
+    width: 799px;
+    height: 532px;
+}
+
+#giamgia-private-pic{
+    float: right;
+    background-color: #FF8C00;
+    height:340px;
+    width:310px;
+}
+
 #show-pic{
     float: right;
     width: 100px;
@@ -226,5 +238,5 @@
     position: relative;
     top: -43px;
     width: 302px;
-    left: 447px;
+    left: 496px;
 }

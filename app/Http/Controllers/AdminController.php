@@ -26,6 +26,7 @@ class AdminController extends Controller
             foreach($resultngay as $valngay){
                 $datangay.="['".$valngay->ngay."',".$valngay->tongtien."],";
             }
+
             $resultthang = DB::select(DB::raw("SELECT MONTH(DATE(giothanhtoan)) thang, SUM(thanhtien) tongtien 
                                         FROM `thanhtoan` 
                                         GROUP BY MONTH(DATE(giothanhtoan));"));
@@ -33,13 +34,22 @@ class AdminController extends Controller
             foreach($resultthang as $valthang){
                 $datathang.="['".$valthang->thang."',".$valthang->tongtien."],";
             }
+
+            $resultnam = DB::select(DB::raw("SELECT YEAR(DATE(giothanhtoan)) nam, SUM(thanhtien) tongtien
+                                        FROM `thanhtoan` 
+                                        GROUP BY YEAR(DATE(giothanhtoan));"));
+            $datanam = "";
+            foreach($resultnam as $valnam){
+                $datanam.="['".$valnam->nam."',".$valnam->tongtien."],";
+            }
+
             $dathanhtoan = DB::select(DB::raw("SELECT COUNT(*) dathanhtoan 
                                             FROM `thanhtoan` 
                                             WHERE DATE(giothanhtoan)=CURRENT_DATE();"));
             foreach($dathanhtoan as $datadathanhtoan){}
             $sothanhtoan = $datadathanhtoan->dathanhtoan;
             $bandangphucvu = order::where('trangthai',0)->count();
-            return view('admin.admin',compact('thang','datangay','datathang','sothanhtoan','bandangphucvu'));
+            return view('admin.admin',compact('thang','datangay','datathang','datanam','sothanhtoan','bandangphucvu'));
         }else{
             return redirect()->route('dangnhap');
         }

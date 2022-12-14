@@ -134,11 +134,28 @@
                                                             <table>
                                                                 <tr>
                                                                     <td><strong>Tổng tiền thanh toán:</strong></td>
-                                                                    <td><input readonly type="text" name="tongCong" id="tongCong" value="{{$thanhtienve+$thanhtienmon}}"></td>
+                                                                    <td>
+                                                                        @switch($mbco->maGG)
+                                                                            @case(NULL)
+                                                                                <input readonly type="text" name="tongCongDisplay" id="tongCongDisplay" value="{{number_format(($thanhtienve+$thanhtienmon)+(($thanhtienve+$thanhtienmon)*0.1))}}">
+                                                                                <input hidden readonly type="text" name="tongCong" id="tongCong" value="{{(($thanhtienve+$thanhtienmon)+(($thanhtienve+$thanhtienmon)*0.1))}}">
+                                                                            @break
+                                                                            @case(1)
+                                                                                <input readonly type="text" name="tongCongDisplay" id="tongCongDisplay" value="{{number_format((($thanhtienve+$thanhtienmon)+(($thanhtienve+$thanhtienmon)*0.1)) - $mbco->gia)}}">
+                                                                                <input hidden readonly type="text" name="tongCong" id="tongCong" value="{{(($thanhtienve+$thanhtienmon)+(($thanhtienve+$thanhtienmon)*0.1)) - $mbco->gia}}">
+                                                                            @break
+                                                                            @case(2)
+                                                                                <input readonly type="text" name="tongCongDisplay" id="tongCongDisplay" value="{{number_format((($thanhtienve+$thanhtienmon)+(($thanhtienve+$thanhtienmon)*0.1)) - 40000)}}">
+                                                                                <input hidden readonly type="text" name="tongCong" id="tongCong" value="{{(($thanhtienve+$thanhtienmon)+(($thanhtienve+$thanhtienmon)*0.1)) - 40000}}">
+                                                                            @break
+                                                                        @endswitch
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><strong>Tiền thừa:</strong></td>
-                                                                    <td><input readonly type="text" name="tienThua" id="tienThua"></td>
+                                                                    <td>
+                                                                        <input readonly type="text" name="tienThua" id="tienThua">
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><strong>Khách đưa:</strong></td>
@@ -159,8 +176,16 @@
                                         <li>
                                             <div class="col-md--12">
                                                 <?php
-                                                $vnd_to_usd = round((($thanhtienmon + $thanhtienve) + (($thanhtienmon + $thanhtienve) * 0.1)) / 24780, 2);
-                                                \Session::put('vnd_to_usd', $vnd_to_usd);
+                                                if($mbco->maGG == NULL){
+                                                    $vnd_to_usd = round((($thanhtienmon + $thanhtienve) + (($thanhtienmon + $thanhtienve) * 0.1)) / 24780, 2);
+                                                    \Session::put('vnd_to_usd', $vnd_to_usd);
+                                                }else if($mbco->maGG == 1){
+                                                    $vnd_to_usd = round(((($thanhtienmon + $thanhtienve) + (($thanhtienmon + $thanhtienve) * 0.1)) - $mbco->gia) / 24780, 2);
+                                                    \Session::put('vnd_to_usd', $vnd_to_usd);
+                                                }else if($mbco->maGG == 2){
+                                                    $vnd_to_usd = round(((($thanhtienmon + $thanhtienve) + (($thanhtienmon + $thanhtienve) * 0.1)) - 40000) / 24780, 2);
+                                                    \Session::put('vnd_to_usd', $vnd_to_usd);
+                                                }
                                                 ?>
                                                 <!-- <div id="paypal-button"></div> -->
                                                 <a class="btn btn-warning m-3" href="{{ route('processTransaction', ['maorder' => $dt->maorder]) }}">Thanh toán <strong style="color:#0000FF;">Pay</strong><strong style="color:#00BFFF;">Pal</strong></a>
@@ -259,8 +284,14 @@
             var khachDua = document.getElementById("khachDua").value;
             tongCong = parseInt(tongCong);
             khachDua = parseInt(khachDua);
-            if (!isNaN(khachDua - tongCong))
-                document.getElementById("tienThua").value = khachDua - tongCong;
+            if (!isNaN(khachDua - tongCong)){
+                var tienThua = khachDua - tongCong;
+                document.getElementById("tienThua").value = format2(tienThua,"");
+            }
+        }
+
+        function format2(n, currency) {
+            return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + currency;
         }
     </script>
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\datban;
 use App\Models\huydatban;
 use App\Models\nhanvien;
+use App\Models\chitiet_datban;
 use Illuminate\Support\Facades\Mail;
 
 use Session;
@@ -16,7 +17,8 @@ class DatBanController extends Controller
     public function Admin(){
         if (Session::has('thungan') && Session::has('vaitrothungan')) {
             $datban = datban::orderBy('maDatBan', 'DESC')->Paginate(4);
-            return view('datban.dadatban',compact('datban'))->with('i', (request()->input('page', 1) - 1) * 4);
+            $chitiet_datban = chitiet_datban::all();
+            return view('datban.dadatban',compact('datban','chitiet_datban'))->with('i', (request()->input('page', 1) - 1) * 4);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -27,9 +29,9 @@ class DatBanController extends Controller
             $datban = datban::where('maDatBan',$maDatBan)->get();
             foreach($datban as $db){}
             date_default_timezone_set("Asia/Ho_Chi_Minh");
-            $bandadat = datban::where('trangthai',1)->where('ngayDat','>=',date('Y/m/d'))->where('gioDat','>',$db->gioDat-5)->where('huy',0)->get();
+            $maDatBan_co_bandadat = datban::where('trangthai',1)->where('ngayDat','>=',date('Y/m/d'))->where('ngayDat',$db->ngayDat)->where('gioDat','>',$db->gioDat-5)->where('huy',0)->pluck('maDatBan');
             $nhanvien = nhanvien::where('maCV',Session::get('vaitrothungan'))->get();
-            return view('datban.duyetban',compact('datban','bandadat','nhanvien'));
+            return view('datban.duyetban',compact('datban','maDatBan_co_bandadat','nhanvien'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -39,11 +41,15 @@ class DatBanController extends Controller
     {
         if (Session::has('thungan') && Session::has('vaitrothungan')) {
             if($request->inputTable == ""){
-                $maban = "";
                 $tendangnhap = "";
                 $trangthai = 0; 
             }else{
-                $maban = implode(',', $request->inputTable);
+                foreach($request->inputTable as $tungban){
+                    $chitiet_datban = new chitiet_datban();
+                    $chitiet_datban->maDatBan = $maDatBan;
+                    $chitiet_datban->maban = $tungban;
+                    $chitiet_datban->save();
+                }
                 $tendangnhap = $request->tendangnhap;
                 $trangthai = 1;
             }
@@ -55,7 +61,6 @@ class DatBanController extends Controller
                 'gioDat' => $request->inputHour,
                 'phutDat' => $request->inputMinute,
                 'soNguoi' => $request->inputNumber,
-                'maban' => $maban,
                 'tendangnhap' => $tendangnhap,
                 'ghiChu' => $request->inputNote,
                 'trangthai' => $trangthai,

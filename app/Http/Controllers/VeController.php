@@ -19,7 +19,8 @@ class VeController extends Controller
             $vebuffet = ve::orderBy('mave', 'DESC')->Paginate(8);
             $datangay = 0;
             $datathang = 0;
-            return view('ve.admin', compact('vebuffet', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('ve.admin', compact('vebuffet', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -36,7 +37,8 @@ class VeController extends Controller
             $nhap = $request->keyword;
             $datangay = 0;
             $datathang = 0;
-            return view('ve.admin', compact('vebuffet', 'nhap', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('ve.admin', compact('vebuffet', 'nhap', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -48,7 +50,8 @@ class VeController extends Controller
             $donvitinh = donvitinh::all();
             $datangay = 0;
             $datathang = 0;
-            return view('ve.themvebuffet.themvebuffet', ['donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('ve.themvebuffet.themvebuffet', ['donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -76,7 +79,8 @@ class VeController extends Controller
             $donvitinh = donvitinh::all();
             $datangay = 0;
             $datathang = 0;
-            return view('ve.suavebuffet.suavebuffet', ['vebuffet' => $vebuffet, 'donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('ve.suavebuffet.suavebuffet', ['vebuffet' => $vebuffet, 'donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }

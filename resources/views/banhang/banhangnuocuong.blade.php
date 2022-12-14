@@ -20,23 +20,27 @@ active
                 </div>
                 <table id="thucuong-private-table">
                     <tr style="text-align: center;">
-                        <td>
+                        <td colspan="4">
                             <h3 class="title-mathang">Thức uống</h3>
                         </td>
                     </tr>
+                    @foreach($nuoc as $n)
                     <tr style="font-family: Comic Sans MS cursive;">
+                        <td>{{++$i}}.</td>
+                        <td>{{$n['tenmon']}}</td>
                         <td>
-                            @foreach($nuoc as $n)
-                            {{$n['tenmon']}}
                             <i class="title-mathang">................{{number_format($n['gia'])}} VNĐ</i>
+                        </td>
+                        <td>
                             @if($n['soluong'] == 0)
-                            <p style="display: inline; color: red;"><b>=> Hết hàng</b></p>
+                                <p style="display: inline; color: red;"><b>=> Hết hàng</b></p>
                             @else
                             @endif
-                            </p>
-                            @endforeach
-                            {{ $nuoc->withQueryString()->links() }}
                         </td>
+                    </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="4">{{ $nuoc->withQueryString()->links() }}</td>
                     </tr>
                 </table>
             @else

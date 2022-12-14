@@ -16,7 +16,8 @@ class GiamGiaController extends Controller
             $giamgia = giamgia::orderBy('maGG', 'DESC')->Paginate(8);
             $datangay = 0;
             $datathang = 0;
-            return view('giamgia.admin', compact('giamgia', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('giamgia.admin', compact('giamgia', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -27,7 +28,8 @@ class GiamGiaController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $datangay = 0;
             $datathang = 0;
-            return view('giamgia.themgiamgia.themgiamgia', compact('datangay', 'datathang'));
+            $datanam = 0;
+            return view('giamgia.themgiamgia.themgiamgia', compact('datangay', 'datathang', 'datanam'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -55,7 +57,8 @@ class GiamGiaController extends Controller
             $giamgia = giamgia::where('maGG', $maGG)->get();
             $datangay = 0;
             $datathang = 0;
-            return view('giamgia.suagiamgia.suagiamgia', ['giamgia' => $giamgia, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('giamgia.suagiamgia.suagiamgia', ['giamgia' => $giamgia, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }

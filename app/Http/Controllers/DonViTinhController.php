@@ -17,7 +17,8 @@ class DonViTinhController extends Controller
             $donvitinh = donvitinh::orderBy('maDVT', 'DESC')->Paginate(8);
             $datangay = 0;
             $datathang = 0;
-            return view('donvitinh.admin', compact('donvitinh', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('donvitinh.admin', compact('donvitinh', 'datangay', 'datathang','datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -34,7 +35,8 @@ class DonViTinhController extends Controller
             $nhap = $request->keyword;
             $datangay = 0;
             $datathang = 0;
-            return view('donvitinh.admin', compact('donvitinh', 'nhap', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('donvitinh.admin', compact('donvitinh', 'nhap', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -45,7 +47,8 @@ class DonViTinhController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $datangay = 0;
             $datathang = 0;
-            return view('donvitinh.themdonvitinh.themdonvitinh', compact('datangay', 'datathang'));
+            $datanam = 0;
+            return view('donvitinh.themdonvitinh.themdonvitinh', compact('datangay', 'datathang', 'datanam'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -82,7 +85,8 @@ class DonViTinhController extends Controller
             $donvitinh = donvitinh::where('maDVT', $maDVT)->get();
             $datangay = 0;
             $datathang = 0;
-            return view('donvitinh.suadonvitinh.suadonvitinh', ['donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('donvitinh.suadonvitinh.suadonvitinh', ['donvitinh' => $donvitinh, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }

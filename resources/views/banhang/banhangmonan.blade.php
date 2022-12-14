@@ -18,22 +18,24 @@
                         </div>
                     </form>
                 </div>
-                <table id="monan-private-table">
+                <table id="monan-private-table" border="0">
                     <tr style="text-align: center;">
-                        <td><h3 class="title-mathang">Món ăn</h3></td>
+                        <td colspan="2"><h3 class="title-mathang">Món ăn</h3></td>
                     </tr>
-                    <tr style="font-family: Comic Sans MS cursive;">
-                        <td>
-                        @foreach($thit as $t)
-                            {{$t['tenmon']}}
-                            @if($t['soluong'] == 0)
-                                <p style="display: inline; color: red;">Hết hàng</p>
-                            @else
-                            @endif
-                            </p>
-                        @endforeach
-                        {{ $thit->withQueryString()->links() }}
-                        </td>
+                    @foreach($thit as $t)
+                        <tr style="font-family: Comic Sans MS cursive;">
+                            <td>{{++$i}}.</td>
+                            <td>
+                                {{$t['tenmon']}}
+                                @if($t['soluong'] == 0)
+                                    <p style="display: inline; color: red;">Hết hàng</p>
+                                @else
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="2">{{ $thit->withQueryString()->links() }}</td>
                     </tr>
                 </table>
             @else

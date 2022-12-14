@@ -17,7 +17,8 @@ class NhomMonController extends Controller
             $nhommon = nhommon::orderBy('maNM', 'DESC')->Paginate(8);
             $datangay = 0;
             $datathang = 0;
-            return view('nhommon.admin', compact('nhommon', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('nhommon.admin', compact('nhommon', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -34,7 +35,8 @@ class NhomMonController extends Controller
             $nhap = $request->keyword;
             $datangay = 0;
             $datathang = 0;
-            return view('nhommon.admin', compact('nhommon', 'nhap', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('nhommon.admin', compact('nhommon', 'nhap', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -45,7 +47,8 @@ class NhomMonController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $datangay = 0;
             $datathang = 0;
-            return view('nhommon.themnhommon.themnhommon', compact('datangay', 'datathang'));
+            $datanam = 0;
+            return view('nhommon.themnhommon.themnhommon', compact('datangay', 'datathang', 'datanam'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -82,7 +85,8 @@ class NhomMonController extends Controller
             $nhommon = nhommon::where('maNM', $maNM)->get();
             $datangay = 0;
             $datathang = 0;
-            return view('nhommon.suanhommon.suanhommon', ['nhommon' => $nhommon, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('nhommon.suanhommon.suanhommon', ['nhommon' => $nhommon, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }

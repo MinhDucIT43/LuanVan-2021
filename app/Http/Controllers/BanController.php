@@ -17,7 +17,8 @@ class BanController extends Controller
             $ban = ban::orderBy('maban', 'DESC')->Paginate(8);
             $datangay = 0;
             $datathang = 0;
-            return view('ban.admin', compact('ban', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('ban.admin', compact('ban', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -38,7 +39,8 @@ class BanController extends Controller
             $nhap = $request->keyword;
             $datangay = 0;
             $datathang = 0;
-            return view('ban.admin', compact('ban', 'nhap', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('ban.admin', compact('ban', 'nhap', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -49,7 +51,8 @@ class BanController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $datangay = 0;
             $datathang = 0;
-            return view('ban.themban.themban', compact('datangay', 'datathang'));
+            $datanam = 0;
+            return view('ban.themban.themban', compact('datangay', 'datathang', 'datanam'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -87,7 +90,8 @@ class BanController extends Controller
             $ban = ban::where('maban', $maban)->get();
             $datangay = 0;
             $datathang = 0;
-            return view('ban.suaban.suaban', ['ban' => $ban, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('ban.suaban.suaban', ['ban' => $ban, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }

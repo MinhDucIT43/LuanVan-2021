@@ -21,7 +21,8 @@ class NhanVienController extends Controller
             $chucvu = chucvu::orderBy('maCV', 'DESC')->get();
             $datangay = 0;
             $datathang = 0;
-            return view('nhanvien.admin', compact('nhanvien', 'chucvu', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 3);
+            $datanam = 0;
+            return view('nhanvien.admin', compact('nhanvien', 'chucvu', 'datangay', 'datathang','datanam'))->with('i', (request()->input('page', 1) - 1) * 3);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -74,7 +75,8 @@ class NhanVienController extends Controller
             $chucvu = chucvu::orderBy('maCV', 'DESC')->get();
             $datangay = 0;
             $datathang = 0;
-            return view('nhanvien.admin', compact('nhanvien', 'nhaptext', 'nhapselect', 'chucvu', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 3);
+            $datanam = 0;
+            return view('nhanvien.admin', compact('nhanvien', 'nhaptext', 'nhapselect', 'chucvu', 'datangay', 'datathang','datanam'))->with('i', (request()->input('page', 1) - 1) * 3);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -86,7 +88,8 @@ class NhanVienController extends Controller
             $chucvu = chucvu::all();
             $datangay = 0;
             $datathang = 0;
-            return view('nhanvien.themnhanvien.themnhanvien', ['chucvu' => $chucvu, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('nhanvien.themnhanvien.themnhanvien', ['chucvu' => $chucvu, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -155,7 +158,8 @@ class NhanVienController extends Controller
             $nhanvien = nhanvien::where('tendangnhap', $tendangnhap)->get();
             $datangay = 0;
             $datathang = 0;
-            return view('nhanvien.suanhanvien.suanhanvien', ['chucvu' => $chucvu, 'nhanvien' => $nhanvien, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('nhanvien.suanhanvien.suanhanvien', ['chucvu' => $chucvu, 'nhanvien' => $nhanvien, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }

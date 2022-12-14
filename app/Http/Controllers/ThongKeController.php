@@ -22,7 +22,8 @@ class ThongKeController extends Controller
                 $datangay .= "['" . $valngay->ngay . "'," . $valngay->tongtien . "],";
             }
             $datathang = 0;
-            return view('thongke.thongkengay', compact('thang', 'datangay', 'datathang'));
+            $datanam = 0;
+            return view('thongke.thongkengay', compact('thang', 'datangay', 'datathang', 'datanam'));
         } else {
             return redirect()->route('dangnhap');
         }
@@ -33,14 +34,34 @@ class ThongKeController extends Controller
         if (Session::has('admin') && Session::has('vaitroadmin')) {
             $thang = date('m');
             $datangay = 0;
+            $datanam = 0;
             $resultthang = DB::select(DB::raw("SELECT MONTH(DATE(giothanhtoan)) thang, SUM(thanhtien) tongtien 
-            FROM `thanhtoan` 
-            GROUP BY MONTH(DATE(giothanhtoan));"));
+                                                FROM `thanhtoan` 
+                                                GROUP BY MONTH(DATE(giothanhtoan));"));
             $datathang = "";
             foreach ($resultthang as $valthang) {
                 $datathang .= "['" . $valthang->thang . "'," . $valthang->tongtien . "],";
             }
-            return view('thongke.thongkethang', compact('thang', 'datangay', 'datathang'));
+            return view('thongke.thongkethang', compact('thang', 'datangay', 'datathang', 'datanam'));
+        } else {
+            return redirect()->route('dangnhap');
+        }
+    }
+
+    public function ThongKeNam()
+    {
+        if (Session::has('admin') && Session::has('vaitroadmin')) {
+            $nam = date('Y');
+            $datangay = 0;
+            $datathang = 0;
+            $resultnam = DB::select(DB::raw("SELECT YEAR(DATE(giothanhtoan)) nam, SUM(thanhtien) tongtien 
+                                                FROM `thanhtoan` 
+                                                GROUP BY YEAR(DATE(giothanhtoan));"));
+            $datanam = "";
+            foreach ($resultnam as $valnam) {
+                $datanam .= "['" . $valnam->nam . "'," . $valnam->tongtien . "],";
+            }
+            return view('thongke.thongkenam', compact('nam', 'datangay', 'datathang', 'datanam'));
         } else {
             return redirect()->route('dangnhap');
         }

@@ -95,7 +95,11 @@
                         </div>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-success" onclick="return kiemtrasoluongmon(soluong)" style="font-size: 11px;">Chọn</button>
+                        @if($m['soluong'] == 0)
+                            <button type="submit" disabled class="btn btn-success" onclick="return kiemtrasoluongmon(soluong)" style="font-size: 11px;">Chọn</button>
+                        @else
+                            <button type="submit" class="btn btn-success" onclick="return kiemtrasoluongmon(soluong)" style="font-size: 11px;">Chọn</button>
+                        @endif
                     </td>
                 </tr>
             </form>

@@ -8,7 +8,7 @@
     <!-- <meta http-equiv="refresh" content="1"> -->
     <title>@yield('page_title')</title>
     <link rel="stylesheet" href="{{asset('css/master.css')}}">
-    <link rel="icon" href="{{asset('hinhanh/icon.png')}}">
+    <link rel="icon" href="{{asset('hinhanh/logo.png')}}">
     <!-- Link Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Link Fontawesome-icon -->
@@ -25,7 +25,7 @@
     <script src="assets/demo/chart-pie-demo.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        // Doanh thu ngay:
+        // Doanh thu ngày:
         google.charts.load('current', {
             'packages': ['corechart']
         });
@@ -35,7 +35,7 @@
             var data = google.visualization.arrayToDataTable([
                 ['Day', 'Sales'],
                 <?php
-                    echo $datangay;
+                echo $datangay;
                 ?>
             ]);
 
@@ -50,7 +50,7 @@
                     },
                     titleTextStyle: {
                         fontSize: 18,
-                        color: '#053061',
+                        color: 'red',
                         bold: true,
                         italic: false
                     }
@@ -66,7 +66,7 @@
                     },
                     titleTextStyle: {
                         fontSize: 18,
-                        color: '#053061',
+                        color: 'black',
                         bold: true,
                         italic: false
                     }
@@ -81,9 +81,9 @@
         google.charts.load('current', {
             packages: ['corechart', 'bar']
         });
-        google.charts.setOnLoadCallback(drawAxisTickColors);
+        google.charts.setOnLoadCallback(drawAxisTickColorsThang);
 
-        function drawAxisTickColors() {
+        function drawAxisTickColorsThang() {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Tháng');
             data.addColumn('number', 'Doanh thu');
@@ -103,7 +103,7 @@
                     },
                     titleTextStyle: {
                         fontSize: 18,
-                        color: '#053061',
+                        color: 'red',
                         bold: true,
                         italic: false
                     }
@@ -118,7 +118,7 @@
                     },
                     titleTextStyle: {
                         fontSize: 18,
-                        color: '#053061',
+                        color: 'black',
                         bold: true,
                         italic: false
                     }
@@ -126,7 +126,60 @@
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_thang'));
-            chart.draw(data,options);
+            chart.draw(data, options);
+        }
+
+
+        //Doanh thu năm:
+        google.charts.load('current', {
+            packages: ['corechart', 'bar']
+        });
+        google.charts.setOnLoadCallback(drawAxisTickColorsNam);
+
+        function drawAxisTickColorsNam() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Năm');
+            data.addColumn('number', 'Doanh thu');
+
+            data.addRows([
+                <?php echo $datanam ?>
+            ]);
+
+            var options = {
+                title: '',
+                hAxis: {
+                    title: 'Năm',
+                    textStyle: {
+                        fontSize: 14,
+                        color: '#053061',
+                        bold: true,
+                    },
+                    titleTextStyle: {
+                        fontSize: 18,
+                        color: 'red',
+                        bold: true,
+                        italic: false
+                    }
+                },
+                vAxis: {
+                    title: 'Doanh thu',
+                    textStyle: {
+                        fontSize: 18,
+                        color: '#67001f',
+                        bold: false,
+                        italic: false
+                    },
+                    titleTextStyle: {
+                        fontSize: 18,
+                        color: 'black',
+                        bold: true,
+                        italic: false
+                    }
+                }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_nam'));
+            chart.draw(data, options);
         }
     </script>
     <script src="{{asset('js/trove.js')}}"></script>
@@ -137,7 +190,9 @@
     <div id="wrapper">
         <div id="header">
             <p class="thongtin">Admin: <i style="color: #00ff00;"> {{ App\Models\nhanvien::where('tendangnhap',Session::get('admin'))->value('tenNV') }} </i> || </p>
-            <b style="margin-right: 10px;" class="thongtin">{{date('d/m/Y')}}</b><strong><p class="thongtin" id="demo"></p></strong>
+            <b style="margin-right: 10px;" class="thongtin">{{date('d/m/Y')}}</b><strong>
+                <p class="thongtin" id="demo"></p>
+            </strong>
             <a href="javascript:goBack()" class="btn btn-secondary" id="back">Trở về</a>
             <a href="{{route('dangxuatadmin')}}" class="btn btn-danger dangXuat" id="logout"><i class="fas fa-sign-out-alt"> Đăng xuất</i></a>
         </div>
@@ -146,7 +201,7 @@
                 <a href="{{route('admin')}}" id="link-admin">
                     <h5 id="h4-QLNH">QUẢN LÝ NHÀ HÀNG</h5>
                     <img src="{{asset('hinhanh/admin.png')}}" alt="Admin" id="iconadmin-menu">
-                    <h4 id="h4-admin">Admin</h4>
+                    <h4 id="h4-admin">Quản lý</h4>
                     <i class="fas fa-circle" id="online-menu">online</i>
                 </a>
             </div>
@@ -156,24 +211,24 @@
                     <a href="{{route('admin.nhanvien')}}" class="list-group-item @yield('convert_color_menu_nv')"><i class="fas fa-address-book"></i>Quản lý nhân viên</a>
                     <a href="{{route('admin.chucvu')}}" class="list-group-item @yield('convert_color_menu_cv')"><i class="fas fa-user-tag"></i>Quản lý chức vụ</a>
                     <a href="{{route('admin.donvitinh')}}" class="list-group-item @yield('convert_color_menu_dvt')"><i class="fab fa-acquisitions-incorporated"></i> Quản lý đơn vị tính</a>
-                    <a href="{{route('admin.loaisanpham')}}" class="list-group-item @yield('convert_color_menu_lsp')"><i class="fas fa-calendar-minus"></i> Quản lý loại sản phẩm</a>
-                    <a href="{{route('admin.sanpham')}}" class="list-group-item @yield('convert_color_menu_sp')"><i class="fas fa-business-time"></i> Quản lý sản phẩm</a>
+                    <!-- <a href="{{route('admin.loaisanpham')}}" class="list-group-item @yield('convert_color_menu_lsp')"><i class="fas fa-calendar-minus"></i> Quản lý loại sản phẩm</a> -->
+                    <!-- <a href="{{route('admin.sanpham')}}" class="list-group-item @yield('convert_color_menu_sp')"><i class="fas fa-business-time"></i> Quản lý sản phẩm</a> -->
                     <a href="{{route('admin.nhommon')}}" class="list-group-item @yield('convert_color_menu_nma')"><i class="fas fa-dolly"></i>Quản lý nhóm món ăn</a>
                     <a href="{{route('admin.mon')}}" class="list-group-item @yield('convert_color_menu_ma')"><i class="fas fa-cookie"></i>Quản lý món ăn</a>
                     <a href="{{route('admin.ve')}}" class="list-group-item @yield('convert_color_menu_ve')"><i class="fa fa-ticket" aria-hidden="true"></i>Quản lý vé Buffet</a>
                     <a href="{{route('admin.ban')}}" class="list-group-item @yield('convert_color_menu_b')"><i class="fas fa-table"></i>Quản lý bàn</a>
                     <a href="{{route('admin.giamgia')}}" class="list-group-item @yield('convert_color_menu_gg')"><i class="fas fa-angle-double-down"></i>Quản lý giảm giá</a>
                     <div class="btn-group dropend">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button" style="@yield('convert_color_menu_tk')" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-chart-line">Quản lý doanh thu</i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{route('admin.thongke.thongkengay')}}">Doanh thu theo ngày</a></li>
-                            <li><a class="dropdown-item" href="{{route('admin.thongke.thongkethang')}}">Doanh thu theo tháng</a></li>
-                            <li><a class="dropdown-item" href="#">Doanh thu theo năm</a></li>
-                            <li><a class="dropdown-item" href="#">Doanh thu theo quý</a></li>
+                            <li><a class="dropdown-item @yield('convert_color_menu_tkn')" href="{{route('admin.thongke.thongkengay')}}">Doanh thu theo ngày</a></li>
+                            <li><a class="dropdown-item @yield('convert_color_menu_tkt')" href="{{route('admin.thongke.thongkethang')}}">Doanh thu theo tháng</a></li>
+                            <li><a class="dropdown-item @yield('convert_color_menu_tknam')" href="{{route('admin.thongke.thongkenam')}}">Doanh thu theo năm</a></li>
                         </ul>
                     </div>
+                    <a href="{{route('admin.hoadon')}}" class="list-group-item @yield('convert_color_menu_hd')"><i class="fas fa-edit"></i>Quản lý hoá đơn</a>
                 </div>
             </div>
         </div>

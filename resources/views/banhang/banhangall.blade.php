@@ -63,21 +63,22 @@
             <tr>
                 <td class="title-mathang"><h3><strong>Vé Buffet:</strong></h3></td>
             </tr>
-            <tr>
-                <td>
-                @foreach($vebuffet as $ve)
-                    <p class="tenmon">
-                    {{$ve['tenve']}}:
-                    <i class="title-mathang"> ................{{number_format($ve['gia'])}} VNĐ</i>
-                    </p>
-                @endforeach
-                <p style="font-size: 13px;" class="tenmon">
-                    <b>Trẻ cao dưới 1m:</b> Miễn phí (số vé trẻ = số vé người lớn, nhiều hơn thì với mỗi vé nhiều hơn thu 75,000).</br>
-                    <b>Trẻ cao từ 1m đến 1m3:</b> 75,000 đồng/trẻ.</br>
-                    <b>Trẻ cao hơn 1m3:</b> Thu giá vé như người lớn.
-                </p>
-                {{ $vebuffet->withQueryString()->links() }}
-                </td>
+            @foreach($vebuffet as $ve)
+                <tr style="font-family: Comic Sans MS cursive;">
+                    <td>
+                        {{$ve['tenve']}}
+                    </td>
+                    <td><i class="title-mathang"> ................{{number_format($ve['gia'])}} VNĐ</i></td>
+                </tr>
+            @endforeach
+            <tr class="title-mathang">
+                <td colspan="2"><b>Trẻ cao dưới 1m:</b> Miễn phí (số vé trẻ = số vé người lớn, </br>nhiều hơn thì với mỗi vé nhiều hơn thu 75,000).</td>
+            </tr>
+            <tr class="title-mathang">
+                <td colspan="2"><b>Trẻ cao từ 1m đến 1m3:</b> 75,000 đồng/trẻ.</td>
+            </tr>
+            <tr class="title-mathang">
+                <td colspan="2"><b>Trẻ cao hơn 1m3:</b> Thu giá vé như người lớn.</td>
             </tr>
         </table>
     </div>

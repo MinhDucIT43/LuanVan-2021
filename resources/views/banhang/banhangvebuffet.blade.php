@@ -17,29 +17,32 @@
                     </div>
                 </form>
             </div>
-            <table id="vebuffet-private-table">
+            <table id="vebuffet-private-table" border="0">
                 <tr style="text-align: center;">
-                    <td><h3 class="title-mathang"><strong>Vé Buffet</strong></h3></td>
+                    <td colspan="3"><h3 class="title-mathang"><strong>Vé Buffet</strong></h3></td>
                 </tr>
-                <tr style="font-family: Comic Sans MS cursive;">
-                    <td>
-                        @foreach($vebuffet as $ve)
-                            <p>
+                @foreach($vebuffet as $ve)
+                    <tr style="font-family: Comic Sans MS cursive;">
+                        <td class="title-mathang">{{++$i}}.</td>
+                        <td>
                             <b class="title-mathang">{{$ve['tenve']}}</b>
+                        </td>
+                        <td>
                             <i class="title-mathang">................{{number_format($ve['gia'])}} VNĐ</i>
-                            </p>
-                        @endforeach
-                        {{ $vebuffet->withQueryString()->links() }}
-                    </td>
+                        </td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <td colspan="3">{{ $vebuffet->withQueryString()->links() }}</td>
                 </tr>
                 <tr class="title-mathang">
-                    <td><b>Trẻ cao dưới 1m:</b> Miễn phí (số vé trẻ = số vé người lớn, </br>nhiều hơn thì với mỗi vé nhiều hơn thu 75,000).</td>
+                    <td colspan="3"><b>Trẻ cao dưới 1m:</b> Miễn phí (số vé trẻ = số vé người lớn, </br>nhiều hơn thì với mỗi vé nhiều hơn thu 75,000).</td>
                 </tr>
                 <tr class="title-mathang">
-                    <td><b>Trẻ cao từ 1m đến 1m3:</b> 75,000 đồng/trẻ.</td>
+                    <td colspan="3"><b>Trẻ cao từ 1m đến 1m3:</b> 75,000 đồng/trẻ.</td>
                 </tr>
                 <tr class="title-mathang">
-                    <td><b>Trẻ cao hơn 1m3:</b> Thu giá vé như người lớn.</td>
+                    <td colspan="3"><b>Trẻ cao hơn 1m3:</b> Thu giá vé như người lớn.</td>
                 </tr>
             </table>
         @else

@@ -94,15 +94,27 @@ class PayPalController extends Controller
                 'danhsachorder' => $order,
                 'danhsachchitietorder'    => $chitietorder,
             ];
-            foreach ($order as $o) {
-            }
+            foreach ($order as $o) {}
             $thanhtienve = $o->soluong * $o->gia;
             $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            $VAT = ($thanhtienve+$thanhtienmon)*0.1;
+            if($o->maGG == 1){
+                $thanhtienve = ($o->soluong-1) * $o->gia;
+                $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            }else if($o->maGG == 2){
+                $thanhtienve = $thanhtienve - 40000;
+                $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            }
+            else{
+                $thanhtienve = $o->soluong * $o->gia;
+                $thanhtienmon = chitietorder::where('maorder', $maorder)->sum('thanhtien');
+            }
             // return view('banhang.thanhtoan')
             //         ->with('danhsachorder', $order)
             //         ->with('danhsachchitietorder', $chitietorder)
             //         ->with('thanhtienve', $thanhtienve)
             //         ->with('thanhtienmon', $thanhtienmon);
+
             $thanhtoan = new thanhtoan();
             $thanhtoan->nhanvien = Session::get('thungan');
             date_default_timezone_set("Asia/Ho_Chi_Minh");
@@ -114,12 +126,11 @@ class PayPalController extends Controller
             order::where('maorder', $maorder)->update([
                 'trangthai' => 1,
             ]);
-            $thanhtoan->thanhtien = ($thanhtienve + $thanhtienmon);
+            $thanhtoan->thanhtien = ($thanhtienve + $thanhtienmon)+$VAT;
             $thanhtoan->save();
             $pdf = PDF::loadView('banhang.thanhtoan', $data);
             $banso = ban::where('maban', $o->maban)->get();
-            foreach ($banso as $b) {
-            }
+            foreach ($banso as $b) {}
             Storage::put('public/storage/hoadon/' . $b->banso . '_' . date('Y') . date('m') . date('d') . '_' . rand() . '.' . 'pdf', $pdf->output());
             return redirect()
                 ->route('banhangall')

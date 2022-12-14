@@ -22,7 +22,7 @@
 <body>
     <div id="wrapper">
         <div id="header">
-            <a href="{{route('banhangall')}}" class="btn btn-success" id="trove">Trở về</a>
+            <a href="{{route('banhangall')}}" class="btn btn-secondary" id="trove">Trở về</a>
             <div id="menu-datban">
                 <ul class="nav">
                     <li class="nav-item"><a href="{{route('datban')}}" class="nav-link list-group-item @yield('convert_color_dadatban')">Đã đặt bàn</a></li>

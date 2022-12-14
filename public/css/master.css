@@ -198,14 +198,21 @@
 }
 
 #thongkengay{
-    width: 690px;
+    width: 670px;
 }
 
 #thongkethang{
     width: 470px;
     position: absolute;
-    left: 695px;
-    bottom: 0px;
+    left: 675px;
+    top: 130px;
+}
+
+#thongkenam{
+    width: 470px;
+    position: absolute;
+    left: 675px;
+    top: 372px;
 }
 
 label{

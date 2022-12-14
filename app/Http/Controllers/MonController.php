@@ -21,7 +21,8 @@ class MonController extends Controller
             $loaive = ve::orderBy('mave', 'DESC')->get();
             $datangay = 0;
             $datathang = 0;
-            return view('mon.admin', compact('mon', 'nhommon', 'loaive', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('mon.admin', compact('mon', 'nhommon', 'loaive', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -61,7 +62,8 @@ class MonController extends Controller
             $loaive = ve::orderBy('mave', 'DESC')->get();
             $datangay = 0;
             $datathang = 0;
-            return view('mon.admin', compact('mon', 'nhap', 'nhommon', 'loaive', 'datangay', 'datathang'))->with('i', (request()->input('page', 1) - 1) * 8);
+            $datanam = 0;
+            return view('mon.admin', compact('mon', 'nhap', 'nhommon', 'loaive', 'datangay', 'datathang', 'datanam'))->with('i', (request()->input('page', 1) - 1) * 8);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -75,7 +77,8 @@ class MonController extends Controller
             $donvitinh = donvitinh::all();
             $datangay = 0;
             $datathang = 0;
-            return view('mon.themmon.themmon', ['nhommon' => $nhommon, 'donvitinh' => $donvitinh, 've' => $ve, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('mon.themmon.themmon', ['nhommon' => $nhommon, 'donvitinh' => $donvitinh, 've' => $ve, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }
@@ -110,7 +113,8 @@ class MonController extends Controller
             $ve = ve::all();
             $datangay = 0;
             $datathang = 0;
-            return view('mon.suamon.suamon', ['mon' => $mon, 'nhommon' => $nhommon, 'donvitinh' => $donvitinh, 've' => $ve, 'datangay' => $datangay, 'datathang' => $datathang]);
+            $datanam = 0;
+            return view('mon.suamon.suamon', ['mon' => $mon, 'nhommon' => $nhommon, 'donvitinh' => $donvitinh, 've' => $ve, 'datangay' => $datangay, 'datathang' => $datathang, 'datanam' => $datanam]);
         } else {
             return redirect()->route('dangnhap');
         }
